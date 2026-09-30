@@ -386,7 +386,7 @@ html_content = """<!DOCTYPE html>
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DE FIREBASE (ACTUALIZADA) ---
+        // --- CONFIGURACIÓN DE FIREBASE ---
         const firebaseConfig = {
             databaseURL: "https://rifasja-7606f-default-rtdb.firebaseio.com"
         };
@@ -403,6 +403,7 @@ html_content = """<!DOCTYPE html>
         const precioPorBoleto = 4000; 
         
         let seleccionados = [];
+        let numerosParaComprar = []; // Cajita de seguridad para que no se borren al abrir el modal
         let vendidosGlobales = {};
         const numeroWhatsAppContacto = "584246737022"; 
 
@@ -466,7 +467,6 @@ html_content = """<!DOCTYPE html>
                 
                 document.getElementById('seleccionText').innerText = `${seleccionados.length} boleto(s) seleccionado(s)`;
                 document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
-                document.getElementById('totalModal').innerText = `${totalFormateado} Bs`;
             } else {
                 actionBar.style.display = 'none';
             }
@@ -490,6 +490,15 @@ html_content = """<!DOCTYPE html>
         }
 
         function openModal() {
+            if (seleccionados.length === 0) {
+                alert('Por favor selecciona al menos un número primero.');
+                return;
+            }
+            // Guardamos copia exacta en la cajita segura
+            numerosParaComprar = [...seleccionados]; 
+            
+            let total = (numerosParaComprar.length * precioPorBoleto).toLocaleString('es-VE');
+            document.getElementById('totalModal').innerText = `${total} Bs`;
             modal.style.display = 'flex';
         }
 
@@ -512,7 +521,7 @@ html_content = """<!DOCTYPE html>
                 return;
             }
 
-            let colision = seleccionados.some(n => vendidosGlobales[n]);
+            let colision = numerosParaComprar.some(n => vendidosGlobales[n]);
             if (colision) {
                 alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona. La página se actualizará.');
                 closeModal();
@@ -522,7 +531,7 @@ html_content = """<!DOCTYPE html>
             }
 
             let updates = {};
-            seleccionados.forEach(num => {
+            numerosParaComprar.forEach(num => {
                 updates[num] = {
                     nombre: name,
                     telefono: phone,
@@ -531,16 +540,14 @@ html_content = """<!DOCTYPE html>
             });
 
             database.ref('vendidos').update(updates).then(() => {
-                let total = (seleccionados.length * precioPorBoleto).toLocaleString('es-VE');
-                let numerosLista = seleccionados.join(', ');
+                let total = (numerosParaComprar.length * precioPorBoleto).toLocaleString('es-VE');
+                let numerosLista = numerosParaComprar.join(', ');
 
-                const mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                const mensaje = `Hola! 👋 Quiero apartar ${numerosParaComprar.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 const urlWhatsApp = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
 
                 alert("¡Listo! Tus números han sido marcados. Abriendo WhatsApp...");
-                
-                // Redirección directa para evitar bloqueadores
                 window.location.href = urlWhatsApp;
                 
             }).catch(error => {
