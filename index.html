@@ -388,7 +388,7 @@ html_content = """<!DOCTYPE html>
     <script>
         // --- CONFIGURACIÓN DE FIREBASE ---
         const firebaseConfig = {
-            databaseURL: "https://rifas-ja-default-rtdb.firebaseio.com/"
+            databaseURL: "https://rifas-ja-default-rtdb.firebaseio.com"
         };
 
         if (!firebase.apps.length) {
@@ -538,15 +538,14 @@ html_content = """<!DOCTYPE html>
                 
                 const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsAppContacto}&text=${encodeURIComponent(mensaje)}`;
 
-                alert("¡Listo! Tus números han sido marcados como vendidos en tiempo real. Se abrirá WhatsApp.");
+                alert("¡Listo! Tus números han sido marcados. Abriendo WhatsApp...");
                 
-                window.open(urlWhatsApp, '_blank');
-                closeModal();
+                // Redirección directa para evitar bloqueadores de ventanas emergentes
+                window.location.href = urlWhatsApp;
                 
-                seleccionados = [];
-                actualizarBarra();
             }).catch(error => {
-                alert("Hubo un error al registrar en la base de datos. Inténtalo de nuevo.");
+                alert("Hubo un error al registrar en la base de datos. Verifica tu conexión.");
+                console.error(error);
             });
         }
 
