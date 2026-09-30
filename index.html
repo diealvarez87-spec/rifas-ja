@@ -386,9 +386,9 @@ html_content = """<!DOCTYPE html>
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DE FIREBASE ---
+        // --- CONFIGURACIÓN DE FIREBASE (ACTUALIZADA) ---
         const firebaseConfig = {
-            databaseURL: "https://rifas-ja-default-rtdb.firebaseio.com"
+            databaseURL: "https://rifasja-7606f-default-rtdb.firebaseio.com"
         };
 
         if (!firebase.apps.length) {
@@ -534,13 +534,13 @@ html_content = """<!DOCTYPE html>
                 let total = (seleccionados.length * precioPorBoleto).toLocaleString('es-VE');
                 let numerosLista = seleccionados.join(', ');
 
-                const mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\\n\\n🎟️ *Números elegidos:* ${numerosLista}\\n💰 *Total pagado:* ${total} Bs.\\n\\n👤 *Nombre:* ${name}\\n📱 *Teléfono:* ${phone}\\n\\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                const mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
-                const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsAppContacto}&text=${encodeURIComponent(mensaje)}`;
+                const urlWhatsApp = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
 
                 alert("¡Listo! Tus números han sido marcados. Abriendo WhatsApp...");
                 
-                // Redirección directa para evitar bloqueadores de ventanas emergentes
+                // Redirección directa para evitar bloqueadores
                 window.location.href = urlWhatsApp;
                 
             }).catch(error => {
