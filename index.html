@@ -1,0 +1,576 @@
+html_content = """<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Importar Firebase desde la nube de Google -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.2) 0%, transparent 40%),
+                linear-gradient(135deg, #2b0000 0%, #120000 50%, #050000 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            margin: 20px 0 25px 0;
+        }
+        .badge-gift {
+            background: linear-gradient(135deg, #ffd700, #d4af37, #aa771c);
+            color: #1a0000;
+            font-size: 0.85rem;
+            font-weight: 800;
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
+            margin-bottom: 12px;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
+            100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+        }
+        header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #ffffff 20%, #ffd700 50%, #ffffff 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+            letter-spacing: 2px;
+        }
+        header p {
+            color: #ffd9d9;
+            font-size: 1.1rem;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+        .precio-ticket {
+            font-size: 1.3rem;
+            color: #ffd700;
+            font-weight: 700;
+            margin-top: 10px;
+            background: rgba(0,0,0,0.5);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 1px solid #ffd700;
+            display: inline-block;
+        }
+        .container {
+            width: 100%;
+            max-width: 780px;
+            background: rgba(30, 5, 5, 0.75);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+        }
+        .search-box { margin-bottom: 20px; }
+        .search-box input {
+            width: 100%;
+            padding: 15px 22px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            font-size: 1.05rem;
+            outline: none;
+        }
+        .search-box input:focus {
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        .legend-box {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.9rem;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .legend-color { width: 18px; height: 18px; border-radius: 5px; }
+        .legend-color.disponible { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .legend-color.seleccionado { background: linear-gradient(135deg, #ffd700, #ffa500); border: 1px solid #fff; }
+        .legend-color.vendido { background: linear-gradient(135deg, #cc0000, #800000); border: 1px solid #ff4d4d; }
+
+        .grid-info { display: flex; justify-content: space-between; font-size: 0.9rem; color: #ffcccc; margin-bottom: 12px; font-weight: 500; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+            gap: 10px;
+            max-height: 420px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        .grid::-webkit-scrollbar { width: 8px; }
+        .grid::-webkit-scrollbar-thumb { background: linear-gradient(#ffd700, #aa771c); border-radius: 4px; }
+        
+        .number-btn {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 14px 0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        .number-btn:hover { background: rgba(255, 215, 0, 0.25); border-color: #ffd700; transform: translateY(-3px); }
+        
+        .number-btn.vendido {
+            background: linear-gradient(135deg, #cc0000, #700000) !important;
+            border-color: #ff4d4d !important;
+            color: #ffdede !important;
+            cursor: not-allowed;
+            opacity: 0.85;
+        }
+        .number-btn.selected {
+            background: linear-gradient(135deg, #ffd700, #ffa500) !important;
+            color: #1a0000 !important;
+            border-color: #ffffff !important;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        .action-bar {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(20, 2, 2, 0.95);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid #ffd700;
+            padding: 15px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+        }
+        .action-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .action-info span { font-size: 0.9rem; color: #ccc; }
+        .action-info strong { font-size: 1.4rem; color: #ffd700; }
+        .btn-apartar {
+            background: linear-gradient(135deg, #ffd700, #aa771c);
+            color: #1a0000;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            transition: 0.2s;
+        }
+        .btn-apartar:hover { transform: scale(1.05); }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background: linear-gradient(145deg, #2b0505, #120101);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            padding: 30px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            margin: auto;
+        }
+        .modal-content h3 { color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 1.5rem; }
+        
+        .pago-box {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .pago-title {
+            color: #ffd700;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,215,0,0.2);
+            padding-bottom: 5px;
+        }
+        .pago-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: #ddd;
+        }
+        .btn-copy {
+            background: rgba(255, 215, 0, 0.2);
+            color: #ffd700;
+            border: 1px solid #ffd700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .btn-copy:hover { background: #ffd700; color: #000; }
+        .toast-msg {
+            color: #25d366; font-size: 0.8rem; display: none; text-align: right; margin-top: -5px; margin-bottom: 5px;
+        }
+
+        .modal-content input {
+            width: 100%; padding: 12px 15px; margin-bottom: 12px; border-radius: 10px;
+            border: 1px solid rgba(255, 215, 0, 0.3); background: rgba(0, 0, 0, 0.7);
+            color: white; font-size: 1rem; outline: none;
+        }
+        .modal-content input:focus { border-color: #ffd700; }
+        
+        .upload-box {
+            border: 2px dashed rgba(255, 215, 0, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .upload-box:hover {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+        .upload-box span {
+            display: block;
+            font-size: 0.85rem;
+            color: #ffd700;
+            font-weight: 600;
+        }
+        .upload-box input[type="file"] {
+            display: none;
+        }
+        .file-name {
+            font-size: 0.8rem;
+            color: #25d366;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .modal-buttons { display: flex; gap: 12px; margin-top: 10px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1rem; }
+        .btn-whatsapp { background: #25d366; color: #fff; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge-gift">🎁 Gran Sorteo Exclusivo 🎁</div>
+        <h1>Rifas J.A.</h1>
+        <p>¡Selecciona tus números de la suerte!</p>
+        <div class="precio-ticket">Valor del boleto: 4.000 Bs</div>
+    </header>
+
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filterNumbers()">
+        </div>
+
+        <div class="legend-box">
+            <div class="legend-item"><div class="legend-color disponible"></div><span>Disponible</span></div>
+            <div class="legend-item"><div class="legend-color seleccionado"></div><span>Seleccionado</span></div>
+            <div class="legend-item"><div class="legend-color vendido"></div><span>Vendido</span></div>
+        </div>
+
+        <div class="grid-info">
+            <span>Rango: 0001 al 1500</span>
+            <span>1500 boletos activos</span>
+        </div>
+        <div class="grid" id="numberGrid"></div>
+    </div>
+
+    <!-- Barra Flotante inferior -->
+    <div class="action-bar" id="actionBar">
+        <div class="action-info">
+            <span id="seleccionText">0 boletos seleccionados</span>
+            <strong id="totalBsText">Total: 0 Bs</strong>
+        </div>
+        <button class="btn-apartar" onclick="openModal()">Apartar</button>
+    </div>
+
+    <!-- Modal de Pago y Registro -->
+    <div class="modal" id="dataModal">
+        <div class="modal-content">
+            <h3>Finalizar Reserva</h3>
+            
+            <div class="pago-box">
+                <div class="pago-title">Datos para el Pago Móvil</div>
+                
+                <div class="pago-item">
+                    <span><strong>Banco:</strong> <span id="bancoPapá">Banco de Venezuela</span></span>
+                    <button class="btn-copy" onclick="copyText('bancoPapá', 'toastBanco')">Copiar</button>
+                </div>
+                <div id="toastBanco" class="toast-msg">¡Copiado!</div>
+
+                <div class="pago-item">
+                    <span><strong>Teléfono:</strong> <span id="tlfPapá">04246737022</span></span>
+                    <button class="btn-copy" onclick="copyText('tlfPapá', 'toastTlf')">Copiar</button>
+                </div>
+                <div id="toastTlf" class="toast-msg">¡Copiado!</div>
+
+                <div class="pago-item">
+                    <span><strong>Cédula:</strong> <span id="ciPapá">18.483.754</span></span>
+                    <button class="btn-copy" onclick="copyText('ciPapá', 'toastCi')">Copiar</button>
+                </div>
+                <div id="toastCi" class="toast-msg">¡Copiado!</div>
+            </div>
+
+            <p style="color: #ffd9d9; font-size: 0.85rem; margin-bottom: 12px;">
+                💳 Realiza el pago de <strong style="color:#ffd700;" id="totalModal"></strong> y adjunta tu comprobante:
+            </p>
+
+            <input type="text" id="userName" placeholder="Tu Nombre y Apellido">
+            <input type="tel" id="userPhone" placeholder="Tu Número de Teléfono">
+            
+            <div class="upload-box" onclick="document.getElementById('fileCapture').click()">
+                <span>📎 Adjuntar Capture de Pago</span>
+                <input type="file" id="fileCapture" accept="image/*" onchange="showFileName()">
+                <div class="file-name" id="fileNameDisplay"></div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">💬 Enviar a WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURACIÓN DE FIREBASE ---
+        const firebaseConfig = {
+            databaseURL: "https://rifas-ja-default-rtdb.firebaseio.com/"
+        };
+
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        const grid = document.getElementById('numberGrid');
+        const modal = document.getElementById('dataModal');
+        const actionBar = document.getElementById('actionBar');
+        const totalNumbers = 1500;
+        const precioPorBoleto = 4000; 
+        
+        let seleccionados = [];
+        let vendidosGlobales = {};
+        const numeroWhatsAppContacto = "584246737022"; 
+
+        function generarGrid() {
+            grid.innerHTML = '';
+            for (let i = 1; i <= totalNumbers; i++) {
+                const numStr = String(i).padStart(4, '0'); 
+                const btn = document.createElement('button');
+                btn.className = 'number-btn';
+                btn.innerText = numStr;
+                btn.id = `btn-${numStr}`;
+                btn.onclick = () => toggleNumber(numStr);
+                grid.appendChild(btn);
+            }
+        }
+
+        function escucharBaseDeDatos() {
+            database.ref('vendidos').on('value', (snapshot) => {
+                vendidosGlobales = snapshot.val() || {};
+                
+                for (let i = 1; i <= totalNumbers; i++) {
+                    const numStr = String(i).padStart(4, '0');
+                    const btn = document.getElementById(`btn-${numStr}`);
+                    if (!btn) continue;
+
+                    if (vendidosGlobales[numStr]) {
+                        btn.classList.add('vendido');
+                        if (seleccionados.includes(numStr)) {
+                            seleccionados = seleccionados.filter(n => n !== numStr);
+                            btn.classList.remove('selected');
+                        }
+                    } else {
+                        btn.classList.remove('vendido');
+                    }
+                }
+                actualizarBarra();
+            }, (error) => {
+                console.error("Error de Firebase:", error);
+            });
+        }
+
+        function toggleNumber(num) {
+            const btn = document.getElementById(`btn-${num}`);
+            if (btn.classList.contains('vendido')) return;
+
+            if (seleccionados.includes(num)) {
+                seleccionados = seleccionados.filter(n => n !== num);
+                btn.classList.remove('selected');
+            } else {
+                seleccionados.push(num);
+                btn.classList.add('selected');
+            }
+            actualizarBarra();
+        }
+
+        function actualizarBarra() {
+            if (seleccionados.length > 0) {
+                actionBar.style.display = 'flex';
+                let total = seleccionados.length * precioPorBoleto;
+                let totalFormateado = total.toLocaleString('es-VE'); 
+                
+                document.getElementById('seleccionText').innerText = `${seleccionados.length} boleto(s) seleccionado(s)`;
+                document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
+                document.getElementById('totalModal').innerText = `${totalFormateado} Bs`;
+            } else {
+                actionBar.style.display = 'none';
+            }
+        }
+
+        function copyText(elementId, toastId) {
+            const texto = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(texto).then(() => {
+                const toast = document.getElementById(toastId);
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+
+        function showFileName() {
+            const fileInput = document.getElementById('fileCapture');
+            const display = document.getElementById('fileNameDisplay');
+            if (fileInput.files.length > 0) {
+                display.innerText = "✓ Capture seleccionado: " + fileInput.files[0].name;
+            }
+        }
+
+        function openModal() {
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('userName').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const capture = document.getElementById('fileCapture').files[0];
+            
+            if(!name || !phone) {
+                alert('Por favor completa tu nombre y teléfono.');
+                return;
+            }
+
+            if(!capture) {
+                alert('Por favor adjunta la imagen o capture de tu pago.');
+                return;
+            }
+
+            let colision = seleccionados.some(n => vendidosGlobales[n]);
+            if (colision) {
+                alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona. La página se actualizará.');
+                closeModal();
+                seleccionados = [];
+                actualizarBarra();
+                return;
+            }
+
+            let updates = {};
+            seleccionados.forEach(num => {
+                updates[num] = {
+                    nombre: name,
+                    telefono: phone,
+                    fecha: new Date().toISOString()
+                };
+            });
+
+            database.ref('vendidos').update(updates).then(() => {
+                let total = (seleccionados.length * precioPorBoleto).toLocaleString('es-VE');
+                let numerosLista = seleccionados.join(', ');
+
+                const mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\\n\\n🎟️ *Números elegidos:* ${numerosLista}\\n💰 *Total pagado:* ${total} Bs.\\n\\n👤 *Nombre:* ${name}\\n📱 *Teléfono:* ${phone}\\n\\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                
+                const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsAppContacto}&text=${encodeURIComponent(mensaje)}`;
+
+                alert("¡Listo! Tus números han sido marcados como vendidos en tiempo real. Se abrirá WhatsApp.");
+                
+                window.open(urlWhatsApp, '_blank');
+                closeModal();
+                
+                seleccionados = [];
+                actualizarBarra();
+            }).catch(error => {
+                alert("Hubo un error al registrar en la base de datos. Inténtalo de nuevo.");
+            });
+        }
+
+        function filterNumbers() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const buttons = grid.getElementsByClassName('number-btn');
+            for (let btn of buttons) {
+                const text = btn.innerText;
+                if (text.includes(input)) {
+                    btn.style.display = 'block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            }
+        }
+
+        window.onload = function() {
+            generarGrid();         
+            escucharBaseDeDatos(); 
+        };
+    </script>
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
