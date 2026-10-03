@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
-    <!-- Importar Firebase desde la nube de Google -->
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
@@ -18,222 +18,220 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.2) 0%, transparent 40%),
-                linear-gradient(135deg, #2b0000 0%, #120000 50%, #050000 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
             color: #ffffff;
             min-height: 100vh;
-            padding: 20px;
-            padding-bottom: 100px;
+            padding: 15px;
+            padding-bottom: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
         }
         header {
             text-align: center;
-            margin: 20px 0 25px 0;
+            margin: 15px 0 20px 0;
+            width: 100%;
+            max-width: 600px;
         }
         .badge-gift {
-            background: linear-gradient(135deg, #ffd700, #d4af37, #aa771c);
-            color: #1a0000;
-            font-size: 0.85rem;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            font-size: 0.8rem;
             font-weight: 800;
-            padding: 8px 20px;
+            padding: 6px 18px;
             border-radius: 30px;
             display: inline-block;
-            margin-bottom: 12px;
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulseGlow 2s infinite alternate;
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
-            100% { transform: scale(1.05); box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+            letter-spacing: 1.5px;
         }
         header h1 {
-            font-size: 3.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            background: linear-gradient(to right, #ffffff 20%, #ffd700 50%, #ffffff 80%);
+            background: linear-gradient(to right, #ffffff, #fbbf24);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-            letter-spacing: 2px;
+            filter: drop-shadow(0 2px 10px rgba(251, 191, 36, 0.3));
         }
         header p {
-            color: #ffd9d9;
-            font-size: 1.1rem;
-            margin-top: 8px;
-            font-weight: 400;
+            color: #c7d2fe;
+            font-size: 1rem;
+            margin-top: 5px;
+            font-weight: 500;
         }
         .precio-ticket {
-            font-size: 1.3rem;
-            color: #ffd700;
+            font-size: 1.2rem;
+            color: #fbbf24;
             font-weight: 700;
-            margin-top: 10px;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
-            border-radius: 10px;
-            border: 1px solid #ffd700;
+            margin-top: 12px;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(251, 191, 36, 0.4);
             display: inline-block;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         .container {
             width: 100%;
-            max-width: 780px;
-            background: rgba(30, 5, 5, 0.75);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(255, 215, 0, 0.4);
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        .search-box { margin-bottom: 20px; }
+        .search-box { margin-bottom: 15px; }
         .search-box input {
             width: 100%;
-            padding: 15px 22px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            background: rgba(0, 0, 0, 0.6);
+            padding: 14px 20px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(15, 23, 42, 0.6);
             color: white;
-            font-size: 1.05rem;
+            font-size: 1rem;
             outline: none;
+            transition: all 0.3s;
         }
         .search-box input:focus {
-            border-color: #ffd700;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+            border-color: #fbbf24;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
         }
         .legend-box {
             display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 12px;
+            justify-content: space-around;
+            margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 10px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85srem;
         }
-        .legend-item { display: flex; align-items: center; gap: 8px; font-weight: 600; }
-        .legend-color { width: 18px; height: 18px; border-radius: 5px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-weight: 600; color: #e2e8f0; }
+        .legend-color { width: 16px; height: 16px; border-radius: 4px; }
         .legend-color.disponible { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); }
-        .legend-color.seleccionado { background: linear-gradient(135deg, #ffd700, #ffa500); border: 1px solid #fff; }
-        .legend-color.vendido { background: linear-gradient(135deg, #cc0000, #800000); border: 1px solid #ff4d4d; }
+        .legend-color.seleccionado { background: #fbbf24; border: 1px solid #fff; }
+        .legend-color.vendido { background: #ef4444; border: 1px solid #f87171; }
 
-        .grid-info { display: flex; justify-content: space-between; font-size: 0.9rem; color: #ffcccc; margin-bottom: 12px; font-weight: 500; }
+        .grid-info { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.85rem; 
+            color: #cbd5e1; 
+            margin-bottom: 12px; 
+            font-weight: 600; 
+            padding: 0 5px;
+        }
         
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
-            gap: 10px;
-            max-height: 420px;
+            grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            gap: 8px;
+            max-height: 380px;
             overflow-y: auto;
-            padding-right: 8px;
+            padding-right: 5px;
         }
-        .grid::-webkit-scrollbar { width: 8px; }
-        .grid::-webkit-scrollbar-thumb { background: linear-gradient(#ffd700, #aa771c); border-radius: 4px; }
+        .grid::-webkit-scrollbar { width: 6px; }
+        .grid::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 3px; }
         
         .number-btn {
             background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff;
-            padding: 14px 0;
+            padding: 12px 0;
             border-radius: 10px;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
             text-align: center;
         }
-        .number-btn:hover { background: rgba(255, 215, 0, 0.25); border-color: #ffd700; transform: translateY(-3px); }
+        .number-btn:hover { background: rgba(251, 191, 36, 0.2); border-color: #fbbf24; transform: translateY(-2px); }
         
         .number-btn.vendido {
-            background: linear-gradient(135deg, #cc0000, #700000) !important;
-            border-color: #ff4d4d !important;
-            color: #ffdede !important;
+            background: #991b1b !important;
+            border-color: #ef4444 !important;
+            color: #fca5a5 !important;
             cursor: not-allowed;
-            opacity: 0.85;
+            opacity: 0.8;
         }
         .number-btn.selected {
-            background: linear-gradient(135deg, #ffd700, #ffa500) !important;
-            color: #1a0000 !important;
+            background: #fbbf24 !important;
+            color: #0f172a !important;
             border-color: #ffffff !important;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.8);
             transform: scale(1.05);
         }
 
         .action-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
-            background: rgba(20, 2, 2, 0.95);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(15px);
-            border-top: 2px solid #ffd700;
+            border-top: 2px solid #fbbf24;
             padding: 15px 20px;
             display: none;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
-        .action-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .action-info span { font-size: 0.9rem; color: #ccc; }
-        .action-info strong { font-size: 1.4rem; color: #ffd700; }
+        .action-info span { font-size: 0.85rem; color: #cbd5e1; display: block; }
+        .action-info strong { font-size: 1.3rem; color: #fbbf24; }
         .btn-apartar {
-            background: linear-gradient(135deg, #ffd700, #aa771c);
-            color: #1a0000;
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #0f172a;
             border: none;
             padding: 12px 25px;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
             transition: 0.2s;
         }
         .btn-apartar:hover { transform: scale(1.05); }
 
+        /* Modal Pro Rediseñado */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px;
             overflow-y: auto;
         }
         .modal-content {
-            background: linear-gradient(145deg, #2b0505, #120101);
-            border: 2px solid rgba(255, 215, 0, 0.5);
-            padding: 30px;
+            background: linear-gradient(135deg, #1e1b4b, #0f172a);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            padding: 25px;
             border-radius: 24px;
             width: 100%;
-            max-width: 440px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
             margin: auto;
         }
-        .modal-content h3 { color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 1.5rem; }
+        .modal-content h3 { color: #fbbf24; text-align: center; margin-bottom: 15px; font-size: 1.4rem; font-weight: 800; }
         
         .pago-box {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 16px;
             padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .pago-title {
-            color: #ffd700;
-            font-size: 1rem;
+            color: #fbbf24;
+            font-size: 0.95rem;
             font-weight: 700;
             margin-bottom: 10px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,215,0,0.2);
+            border-bottom: 1px solid rgba(251,191,36,0.2);
             padding-bottom: 5px;
         }
         .pago-item {
@@ -241,65 +239,67 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: #ddd;
+            font-size: 0.9rem;
+            color: #e2e8f0;
         }
         .btn-copy {
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            border: 1px solid #ffd700;
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            border: 1px solid #fbbf24;
             padding: 4px 10px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: bold;
+            transition: 0.2s;
         }
-        .btn-copy:hover { background: #ffd700; color: #000; }
+        .btn-copy:hover { background: #fbbf24; color: #0f172a; }
         .toast-msg {
-            color: #25d366; font-size: 0.8rem; display: none; text-align: right; margin-top: -5px; margin-bottom: 5px;
+            color: #4ade80; font-size: 0.75rem; display: none; text-align: right; margin-top: -4px; margin-bottom: 4px;
         }
 
-        .modal-content input {
-            width: 100%; padding: 12px 15px; margin-bottom: 12px; border-radius: 10px;
-            border: 1px solid rgba(255, 215, 0, 0.3); background: rgba(0, 0, 0, 0.7);
-            color: white; font-size: 1rem; outline: none;
+        .modal-content input[type="text"], 
+        .modal-content input[type="tel"] {
+            width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(15, 23, 42, 0.8);
+            color: white; font-size: 0.95rem; outline: none;
         }
-        .modal-content input:focus { border-color: #ffd700; }
+        .modal-content input:focus { border-color: #fbbf24; }
         
         .upload-box {
-            border: 2px dashed rgba(255, 215, 0, 0.5);
-            background: rgba(0, 0, 0, 0.4);
+            border: 2px dashed rgba(251, 191, 36, 0.5);
+            background: rgba(15, 23, 42, 0.5);
             border-radius: 12px;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             margin-bottom: 15px;
             cursor: pointer;
             transition: 0.2s;
         }
         .upload-box:hover {
-            border-color: #ffd700;
-            background: rgba(255, 215, 0, 0.1);
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
         }
         .upload-box span {
             display: block;
             font-size: 0.85rem;
-            color: #ffd700;
+            color: #fbbf24;
             font-weight: 600;
         }
-        .upload-box input[type="file"] {
-            display: none;
-        }
+        .upload-box input[type="file"] { display: none; }
         .file-name {
-            font-size: 0.8rem;
-            color: #25d366;
-            margin-top: 5px;
+            font-size: 0.75rem;
+            color: #4ade80;
+            margin-top: 4px;
             font-weight: bold;
         }
 
-        .modal-buttons { display: flex; gap: 12px; margin-top: 10px; }
-        .btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 1rem; }
-        .btn-whatsapp { background: #25d366; color: #fff; }
+        .modal-buttons { display: flex; gap: 10px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
+        .btn-whatsapp { background: #22c55e; color: #fff; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
+        .btn-whatsapp:hover { background: #16a34a; }
         .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
 </head>
 <body>
@@ -338,13 +338,13 @@
         <button class="btn-apartar" onclick="openModal()">Apartar</button>
     </div>
 
-    <!-- Modal de Pago y Registro -->
+    <!-- Modal de Pago y Registro Pro -->
     <div class="modal" id="dataModal">
         <div class="modal-content">
             <h3>Finalizar Reserva</h3>
             
             <div class="pago-box">
-                <div class="pago-title">Datos para el Pago Móvil</div>
+                <div class="pago-title">📱 Datos para el Pago Móvil</div>
                 
                 <div class="pago-item">
                     <span><strong>Banco:</strong> <span id="bancoPapá">Banco de Venezuela</span></span>
@@ -365,8 +365,8 @@
                 <div id="toastCi" class="toast-msg">¡Copiado!</div>
             </div>
 
-            <p style="color: #ffd9d9; font-size: 0.85rem; margin-bottom: 12px;">
-                💳 Realiza el pago de <strong style="color:#ffd700;" id="totalModal"></strong> y adjunta tu comprobante:
+            <p style="color: #c7d2fe; font-size: 0.85rem; margin-bottom: 12px; text-align: center;">
+                💳 Realiza el pago de <strong style="color:#fbbf24;" id="totalModal"></strong> y adjunta tu comprobante:
             </p>
 
             <input type="text" id="userName" placeholder="Tu Nombre y Apellido">
@@ -380,13 +380,12 @@
 
             <div class="modal-buttons">
                 <button class="btn btn-secondary" onclick="closeModal()">Cancelar</button>
-                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">💬 Enviar a WhatsApp</button>
+                <button class="btn btn-whatsapp" onclick="sendToWhatsApp()">💬 Enviar</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- CONFIGURACIÓN DE FIREBASE ---
         const firebaseConfig = {
             databaseURL: "https://rifasja-7606f-default-rtdb.firebaseio.com"
         };
@@ -402,7 +401,7 @@
         const totalNumbers = 1500;
         const precioPorBoleto = 4000; 
         
-        let seleccionados = [];
+        let seleccionadosSeguros = []; // Cajita blindada para que NUNCA falle
         let vendidosGlobales = {};
         const numeroWhatsAppContacto = "584246737022"; 
 
@@ -430,8 +429,9 @@
 
                     if (vendidosGlobales[numStr]) {
                         btn.classList.add('vendido');
-                        if (seleccionados.includes(numStr)) {
-                            seleccionados = seleccionados.filter(n => n !== numStr);
+                        // Si estaba seleccionado pero alguien más lo compró, lo quitamos
+                        if (seleccionadosSeguros.includes(numStr)) {
+                            seleccionadosSeguros = seleccionadosSeguros.filter(n => n !== numStr);
                             btn.classList.remove('selected');
                         }
                     } else {
@@ -448,23 +448,32 @@
             const btn = document.getElementById(`btn-${num}`);
             if (btn.classList.contains('vendido')) return;
 
-            if (seleccionados.includes(num)) {
-                seleccionados = seleccionados.filter(n => n !== num);
+            if (seleccionadosSeguros.includes(num)) {
+                seleccionadosSeguros = seleccionadosSeguros.filter(n => n !== num);
                 btn.classList.remove('selected');
             } else {
-                seleccionados.push(num);
+                seleccionadosSeguros.push(num);
                 btn.classList.add('selected');
             }
             actualizarBarra();
         }
 
         function actualizarBarra() {
-            if (seleccionados.length > 0) {
+            // Sincronización extra por seguridad con las clases visuales
+            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
+            let listaVisual = [];
+            botonesIluminados.forEach(b => listaVisual.push(b.innerText));
+            
+            // Combinamos ambas fuentes para evitar pérdida de datos
+            let totalItems = [...new Set([...seleccionadosSeguros, ...listaVisual])];
+            seleccionadosSeguros = totalItems;
+
+            if (seleccionadosSeguros.length > 0) {
                 actionBar.style.display = 'flex';
-                let total = seleccionados.length * precioPorBoleto;
+                let total = seleccionadosSeguros.length * precioPorBoleto;
                 let totalFormateado = total.toLocaleString('es-VE'); 
                 
-                document.getElementById('seleccionText').innerText = `${seleccionados.length} boleto(s) seleccionado(s)`;
+                document.getElementById('seleccionText').innerText = `${seleccionadosSeguros.length} boleto(s) seleccionado(s)`;
                 document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
             } else {
                 actionBar.style.display = 'none';
@@ -484,24 +493,22 @@
             const fileInput = document.getElementById('fileCapture');
             const display = document.getElementById('fileNameDisplay');
             if (fileInput.files.length > 0) {
-                display.innerText = "✓ Capture seleccionado: " + fileInput.files[0].name;
+                display.innerText = "✓ Capture: " + fileInput.files[0].name;
             }
         }
 
         function openModal() {
-            // RECOLECCIÓN DIRECTA DE SEGURIDAD: Buscamos en todo el DOM los botones que tengan la clase 'selected'
-            seleccionados = [];
-            const botonesSeleccionados = document.querySelectorAll('.number-btn.selected');
-            botonesSeleccionados.forEach(b => {
-                seleccionados.push(b.innerText);
-            });
+            // Refresco obligatorio antes de abrir el modal
+            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
+            seleccionadosSeguros = [];
+            botonesIluminados.forEach(b => seleccionadosSeguros.push(b.innerText));
 
-            if (seleccionados.length === 0) {
+            if (seleccionadosSeguros.length === 0) {
                 alert('Por favor selecciona al menos un número primero.');
                 return;
             }
             
-            let total = (seleccionados.length * precioPorBoleto).toLocaleString('es-VE');
+            let total = (seleccionadosSeguros.length * precioPorBoleto).toLocaleString('es-VE');
             document.getElementById('totalModal').innerText = `${total} Bs`;
             modal.style.display = 'flex';
         }
@@ -511,12 +518,14 @@
         }
 
         function sendToWhatsApp() {
-            // Aseguramos capturar los seleccionados directamente de los botones iluminados por si acaso
-            seleccionados = [];
-            const botonesSeleccionados = document.querySelectorAll('.number-btn.selected');
-            botonesSeleccionados.forEach(b => {
-                seleccionados.push(b.innerText);
-            });
+            // Último rastreo defensivo de botones iluminados para garantizar que el mensaje nunca vaya vacío
+            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
+            let listaFinal = [];
+            botonesIluminados.forEach(b => listaFinal.push(b.innerText));
+            
+            if (listaFinal.length > 0) {
+                seleccionadosSeguros = listaFinal;
+            }
 
             const name = document.getElementById('userName').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
@@ -532,22 +541,22 @@
                 return;
             }
 
-            if (seleccionados.length === 0) {
-                alert('No hay ningún número seleccionado.');
+            if (seleccionadosSeguros.length === 0) {
+                alert('No hay ningún número seleccionado. Por favor cierra el modal y elige tus números.');
                 return;
             }
 
-            let colision = seleccionados.some(n => vendidosGlobales[n]);
+            let colision = seleccionadosSeguros.some(n => vendidosGlobales[n]);
             if (colision) {
-                alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona. La página se actualizará.');
+                alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona.');
                 closeModal();
-                seleccionados = [];
+                seleccionadosSeguros = [];
                 actualizarBarra();
                 return;
             }
 
             let updates = {};
-            seleccionados.forEach(num => {
+            seleccionadosSeguros.forEach(num => {
                 updates[num] = {
                     nombre: name,
                     telefono: phone,
@@ -556,10 +565,10 @@
             });
 
             database.ref('vendidos').update(updates).then(() => {
-                let total = (seleccionados.length * precioPorBoleto).toLocaleString('es-VE');
-                let numerosLista = seleccionados.join(', ');
+                let total = (seleccionadosSeguros.length * precioPorBoleto).toLocaleString('es-VE');
+                let numerosLista = seleccionadosSeguros.join(', ');
 
-                const mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                const mensaje = `Hola! 👋 Quiero apartar ${seleccionadosSeguros.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 const urlWhatsApp = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
 
