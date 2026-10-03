@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -15,113 +15,120 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            background: 
+                radial-gradient(circle at 10% 10%, rgba(212, 175, 55, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(30, 58, 138, 0.4) 0%, transparent 50%),
+                linear-gradient(135deg, #090d16 0%, #111827 50%, #030712 100%);
             color: #ffffff;
             min-height: 100vh;
             padding: 15px;
-            padding-bottom: 120px;
+            padding-bottom: 130px;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
         header {
             text-align: center;
-            margin: 15px 0 20px 0;
+            margin: 20px 0 25px 0;
             width: 100%;
             max-width: 600px;
         }
         .badge-gift {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: #ffffff;
-            font-size: 0.8rem;
-            font-weight: 800;
-            padding: 6px 18px;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            color: #030712;
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 6px 20px;
             border-radius: 30px;
             display: inline-block;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            margin-bottom: 12px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
         header h1 {
-            font-size: 2.8rem;
+            font-size: 3rem;
             font-weight: 900;
-            background: linear-gradient(to right, #ffffff, #fbbf24);
+            background: linear-gradient(to right, #fff 20%, #ffd700 60%, #fff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 2px 10px rgba(251, 191, 36, 0.3));
+            filter: drop-shadow(0 2px 15px rgba(212, 175, 55, 0.4));
+            letter-spacing: 1px;
         }
         header p {
-            color: #c7d2fe;
-            font-size: 1rem;
+            color: #94a3b8;
+            font-size: 0.95rem;
             margin-top: 5px;
             font-weight: 500;
         }
         .precio-ticket {
-            font-size: 1.2rem;
-            color: #fbbf24;
-            font-weight: 700;
-            margin-top: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            padding: 8px 20px;
-            border-radius: 12px;
-            border: 1px solid rgba(251, 191, 36, 0.4);
+            font-size: 1.25rem;
+            color: #ffd700;
+            font-weight: 800;
+            margin-top: 15px;
+            background: rgba(17, 24, 39, 0.8);
+            padding: 10px 24px;
+            border-radius: 14px;
+            border: 2px solid #ffd700;
             display: inline-block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
         }
         .container {
             width: 100%;
             max-width: 650px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(17, 24, 39, 0.75);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(212, 175, 55, 0.35);
             border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 22px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
         }
         .search-box { margin-bottom: 15px; }
         .search-box input {
             width: 100%;
             padding: 14px 20px;
             border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(3, 7, 18, 0.8);
             color: white;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
             transition: all 0.3s;
         }
         .search-box input:focus {
-            border-color: #fbbf24;
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
         .legend-box {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 15px;
-            background: rgba(15, 23, 42, 0.5);
+            margin-bottom: 18px;
+            background: rgba(3, 7, 18, 0.6);
             padding: 10px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.85srem;
+            font-size: 0.8rem;
         }
-        .legend-item { display: flex; align-items: center; gap: 6px; font-weight: 600; color: #e2e8f0; }
-        .legend-color { width: 16px; height: 16px; border-radius: 4px; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-weight: 600; color: #cbd5e1; }
+        .legend-color { width: 14px; height: 14px; border-radius: 4px; }
         .legend-color.disponible { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); }
-        .legend-color.seleccionado { background: #fbbf24; border: 1px solid #fff; }
-        .legend-color.vendido { background: #ef4444; border: 1px solid #f87171; }
+        .legend-color.seleccionado { background: #ffd700; border: 1px solid #fff; }
+        .legend-color.vendido { background: #dc2626; border: 1px solid #ef4444; }
 
         .grid-info { 
             display: flex; 
             justify-content: space-between; 
-            font-size: 0.85rem; 
-            color: #cbd5e1; 
+            font-size: 0.82rem; 
+            color: #ffd700; 
             margin-bottom: 12px; 
-            font-weight: 600; 
+            font-weight: 700; 
             padding: 0 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .grid {
@@ -133,10 +140,10 @@
             padding-right: 5px;
         }
         .grid::-webkit-scrollbar { width: 6px; }
-        .grid::-webkit-scrollbar-thumb { background: #fbbf24; border-radius: 3px; }
+        .grid::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
         
         .number-btn {
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #fff;
             padding: 12px 0;
@@ -147,59 +154,60 @@
             transition: all 0.2s ease;
             text-align: center;
         }
-        .number-btn:hover { background: rgba(251, 191, 36, 0.2); border-color: #fbbf24; transform: translateY(-2px); }
+        .number-btn:hover { background: rgba(255, 215, 0, 0.2); border-color: #ffd700; transform: translateY(-2px); }
         
         .number-btn.vendido {
-            background: #991b1b !important;
-            border-color: #ef4444 !important;
+            background: rgba(153, 27, 27, 0.7) !important;
+            border-color: #dc2626 !important;
             color: #fca5a5 !important;
             cursor: not-allowed;
-            opacity: 0.8;
+            opacity: 0.75;
         }
         .number-btn.selected {
-            background: #fbbf24 !important;
-            color: #0f172a !important;
+            background: linear-gradient(135deg, #ffd700, #b8860b) !important;
+            color: #030712 !important;
             border-color: #ffffff !important;
-            box-shadow: 0 0 12px rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
             transform: scale(1.05);
+            font-weight: 900;
         }
 
         .action-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.95);
+            background: rgba(3, 7, 18, 0.95);
             backdrop-filter: blur(15px);
-            border-top: 2px solid #fbbf24;
+            border-top: 2px solid #ffd700;
             padding: 15px 20px;
             display: none;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
         }
-        .action-info span { font-size: 0.85rem; color: #cbd5e1; display: block; }
-        .action-info strong { font-size: 1.3rem; color: #fbbf24; }
+        .action-info span { font-size: 0.85rem; color: #94a3b8; display: block; }
+        .action-info strong { font-size: 1.35rem; color: #ffd700; font-weight: 800; }
         .btn-apartar {
-            background: linear-gradient(135deg, #fbbf24, #d97706);
-            color: #0f172a;
+            background: linear-gradient(135deg, #ffd700, #b8860b);
+            color: #030712;
             border: none;
-            padding: 12px 25px;
+            padding: 12px 28px;
             font-size: 1.05rem;
-            font-weight: 800;
+            font-weight: 900;
             border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
             transition: 0.2s;
         }
         .btn-apartar:hover { transform: scale(1.05); }
 
-        /* Modal Pro Rediseñado */
+        /* Modal Ultra Pro Dorado */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
             justify-content: center;
             align-items: center;
             z-index: 1000;
@@ -207,32 +215,33 @@
             overflow-y: auto;
         }
         .modal-content {
-            background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            border: 2px solid rgba(251, 191, 36, 0.4);
+            background: linear-gradient(145deg, #111827, #030712);
+            border: 2px solid #ffd700;
             padding: 25px;
             border-radius: 24px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
             margin: auto;
         }
-        .modal-content h3 { color: #fbbf24; text-align: center; margin-bottom: 15px; font-size: 1.4rem; font-weight: 800; }
+        .modal-content h3 { color: #ffd700; text-align: center; margin-bottom: 15px; font-size: 1.4rem; font-weight: 900; letter-spacing: 0.5px; }
         
         .pago-box {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(251, 191, 36, 0.3);
+            background: rgba(17, 24, 39, 0.9);
+            border: 1px solid rgba(212, 175, 55, 0.4);
             border-radius: 16px;
             padding: 15px;
             margin-bottom: 15px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
         .pago-title {
-            color: #fbbf24;
+            color: #ffd700;
             font-size: 0.95rem;
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 10px;
             text-align: center;
-            border-bottom: 1px solid rgba(251,191,36,0.2);
-            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(212,175,55,0.3);
+            padding-bottom: 6px;
         }
         .pago-item {
             display: flex;
@@ -243,9 +252,9 @@
             color: #e2e8f0;
         }
         .btn-copy {
-            background: rgba(251, 191, 36, 0.15);
-            color: #fbbf24;
-            border: 1px solid #fbbf24;
+            background: rgba(255, 215, 0, 0.15);
+            color: #ffd700;
+            border: 1px solid #ffd700;
             padding: 4px 10px;
             border-radius: 8px;
             cursor: pointer;
@@ -253,22 +262,22 @@
             font-weight: bold;
             transition: 0.2s;
         }
-        .btn-copy:hover { background: #fbbf24; color: #0f172a; }
+        .btn-copy:hover { background: #ffd700; color: #030712; }
         .toast-msg {
-            color: #4ade80; font-size: 0.75rem; display: none; text-align: right; margin-top: -4px; margin-bottom: 4px;
+            color: #4ade80; font-size: 0.75rem; display: none; text-align: right; margin-top: -4px; margin-bottom: 4px; font-weight: 700;
         }
 
         .modal-content input[type="text"], 
         .modal-content input[type="tel"] {
             width: 100%; padding: 12px 15px; margin-bottom: 10px; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3); background: rgba(3, 7, 18, 0.9);
             color: white; font-size: 0.95rem; outline: none;
         }
-        .modal-content input:focus { border-color: #fbbf24; }
+        .modal-content input:focus { border-color: #ffd700; box-shadow: 0 0 10px rgba(255,215,0,0.3); }
         
         .upload-box {
-            border: 2px dashed rgba(251, 191, 36, 0.5);
-            background: rgba(15, 23, 42, 0.5);
+            border: 2px dashed rgba(212, 175, 55, 0.5);
+            background: rgba(3, 7, 18, 0.6);
             border-radius: 12px;
             padding: 12px;
             text-align: center;
@@ -277,14 +286,14 @@
             transition: 0.2s;
         }
         .upload-box:hover {
-            border-color: #fbbf24;
-            background: rgba(251, 191, 36, 0.1);
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
         }
         .upload-box span {
             display: block;
             font-size: 0.85rem;
-            color: #fbbf24;
-            font-weight: 600;
+            color: #ffd700;
+            font-weight: 700;
         }
         .upload-box input[type="file"] { display: none; }
         .file-name {
@@ -295,9 +304,9 @@
         }
 
         .modal-buttons { display: flex; gap: 10px; }
-        .btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
-        .btn-whatsapp { background: #22c55e; color: #fff; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4); }
-        .btn-whatsapp:hover { background: #16a34a; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.95rem; }
+        .btn-whatsapp { background: #16a34a; color: #fff; box-shadow: 0 4px 15px rgba(22, 163, 74, 0.4); }
+        .btn-whatsapp:hover { background: #15803d; }
         .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
         .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
     </style>
@@ -305,7 +314,7 @@
 <body>
 
     <header>
-        <div class="badge-gift">🎁 Gran Sorteo Exclusivo 🎁</div>
+        <div class="badge-gift">✨ Gran Sorteo Exclusivo ✨</div>
         <h1>Rifas J.A.</h1>
         <p>¡Selecciona tus números de la suerte!</p>
         <div class="precio-ticket">Valor del boleto: 4.000 Bs</div>
@@ -338,13 +347,13 @@
         <button class="btn-apartar" onclick="openModal()">Apartar</button>
     </div>
 
-    <!-- Modal de Pago y Registro Pro -->
+    <!-- Modal de Pago y Registro Dorado -->
     <div class="modal" id="dataModal">
         <div class="modal-content">
             <h3>Finalizar Reserva</h3>
             
             <div class="pago-box">
-                <div class="pago-title">📱 Datos para el Pago Móvil</div>
+                <div class="pago-title">💳 Datos para el Pago Móvil</div>
                 
                 <div class="pago-item">
                     <span><strong>Banco:</strong> <span id="bancoPapá">Banco de Venezuela</span></span>
@@ -365,8 +374,8 @@
                 <div id="toastCi" class="toast-msg">¡Copiado!</div>
             </div>
 
-            <p style="color: #c7d2fe; font-size: 0.85rem; margin-bottom: 12px; text-align: center;">
-                💳 Realiza el pago de <strong style="color:#fbbf24;" id="totalModal"></strong> y adjunta tu comprobante:
+            <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 12px; text-align: center;">
+                ⚡ Realiza el pago de <strong style="color:#ffd700;" id="totalModal"></strong> y adjunta tu comprobante:
             </p>
 
             <input type="text" id="userName" placeholder="Tu Nombre y Apellido">
@@ -401,7 +410,7 @@
         const totalNumbers = 1500;
         const precioPorBoleto = 4000; 
         
-        let seleccionadosSeguros = []; // Cajita blindada para que NUNCA falle
+        let seleccionadosSeguros = [];
         let vendidosGlobales = {};
         const numeroWhatsAppContacto = "584246737022"; 
 
@@ -429,7 +438,6 @@
 
                     if (vendidosGlobales[numStr]) {
                         btn.classList.add('vendido');
-                        // Si estaba seleccionado pero alguien más lo compró, lo quitamos
                         if (seleccionadosSeguros.includes(numStr)) {
                             seleccionadosSeguros = seleccionadosSeguros.filter(n => n !== numStr);
                             btn.classList.remove('selected');
@@ -459,12 +467,10 @@
         }
 
         function actualizarBarra() {
-            // Sincronización extra por seguridad con las clases visuales
             const botonesIluminados = document.querySelectorAll('.number-btn.selected');
             let listaVisual = [];
             botonesIluminados.forEach(b => listaVisual.push(b.innerText));
             
-            // Combinamos ambas fuentes para evitar pérdida de datos
             let totalItems = [...new Set([...seleccionadosSeguros, ...listaVisual])];
             seleccionadosSeguros = totalItems;
 
@@ -498,7 +504,6 @@
         }
 
         function openModal() {
-            // Refresco obligatorio antes de abrir el modal
             const botonesIluminados = document.querySelectorAll('.number-btn.selected');
             seleccionadosSeguros = [];
             botonesIluminados.forEach(b => seleccionadosSeguros.push(b.innerText));
@@ -518,7 +523,6 @@
         }
 
         function sendToWhatsApp() {
-            // Último rastreo defensivo de botones iluminados para garantizar que el mensaje nunca vaya vacío
             const botonesIluminados = document.querySelectorAll('.number-btn.selected');
             let listaFinal = [];
             botonesIluminados.forEach(b => listaFinal.push(b.innerText));
@@ -542,7 +546,7 @@
             }
 
             if (seleccionadosSeguros.length === 0) {
-                alert('No hay ningún número seleccionado. Por favor cierra el modal y elige tus números.');
+                alert('No hay ningún número seleccionado.');
                 return;
             }
 
@@ -576,7 +580,7 @@
                 window.location.href = urlWhatsApp;
                 
             }).catch(error => {
-                alert("Hubo un error al registrar en la base de datos. Verifica tu conexión.");
+                alert("Hubo un error al registrar en la base de datos.");
                 console.error(error);
             });
         }
