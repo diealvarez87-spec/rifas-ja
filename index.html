@@ -18,7 +18,8 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            /* Fondo Pro con degradado y brillos difuminados */
+            background: linear-gradient(135deg, #090d16 0%, #171033 40%, #1e1b4b 100%);
             color: #ffffff;
             min-height: 100vh;
             padding: 15px;
@@ -26,7 +27,38 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
+
+        /* Elementos difuminados decorativos de fondo (Regalos y Estrellas) */
+        body::before, body::after {
+            content: "🎁";
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.03;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::before { top: 5%; left: -5%; transform: rotate(-15deg); }
+        body::after { bottom: 10%; right: -5%
+        ; transform: rotate(25deg); }
+
+        .bg-glow-star {
+            position: absolute;
+            top: 40%;
+            right: 10%;
+            font-size: 10rem;
+            opacity: 0.02;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        header, .container, .action-bar {
+            position: relative;
+            z-index: 2;
+        }
+
         header {
             text-align: center;
             margin: 15px 0 20px 0;
@@ -65,22 +97,23 @@
             color: #fbbf24;
             font-weight: 700;
             margin-top: 12px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
             padding: 8px 20px;
             border-radius: 12px;
             border: 1px solid rgba(251, 191, 36, 0.4);
             display: inline-block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .container {
             width: 100%;
             max-width: 650px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
             padding: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
         .search-box { margin-bottom: 15px; }
         .search-box input {
@@ -88,7 +121,7 @@
             padding: 14px 20px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.8);
             color: white;
             font-size: 1rem;
             outline: none;
@@ -98,18 +131,45 @@
             border-color: #fbbf24;
             box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
         }
+
+        /* Pestañas de Bloques (Adiós al lag de bajar 1500 números) */
+        .block-tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #cbd5e1;
+            padding: 10px 5px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #0f172a;
+            border-color: #fff;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.4);
+        }
+
         .legend-box {
             display: flex;
             justify-content: space-around;
             margin-bottom: 15px;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(15, 23, 42, 0.6);
             padding: 10px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
         .legend-item { display: flex; align-items: center; gap: 6px; font-weight: 600; color: #e2e8f0; }
-        .legend-color { width: 14px; height: 14px; border-radius: 50%; }
+        .legend-color { width: 12px; height: 12px; border-radius: 50%; }
         .legend-color.disponible { background: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); }
         .legend-color.seleccionado { background: #fbbf24; border: 1px solid #fff; }
         .legend-color.vendido { background: #ef4444; border: 1px solid #f87171; }
@@ -117,19 +177,19 @@
         .grid-info { 
             display: flex; 
             justify-content: space-between; 
-            font-size: 0.85rem; 
+            font-size: 0.8rem; 
             color: #cbd5e1; 
             margin-bottom: 12px; 
             font-weight: 600; 
             padding: 0 5px;
         }
         
-        /* Estilo Píldoras Modernas */
+        /* Grid de Píldoras por Bloque Ligero */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
             gap: 10px;
-            max-height: 400px;
+            max-height: 380px;
             overflow-y: auto;
             padding-right: 5px;
         }
@@ -141,7 +201,7 @@
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
             padding: 10px 0;
-            border-radius: 20px; /* Estilo píldora */
+            border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
@@ -206,7 +266,7 @@
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(8px);
             justify-content: center;
             align-items: center;
@@ -312,6 +372,8 @@
 </head>
 <body>
 
+    <div class="bg-glow-star">✨</div>
+
     <header>
         <div class="badge-gift">🎁 Gran Sorteo Exclusivo 🎁</div>
         <h1>Rifas J.A.</h1>
@@ -324,6 +386,13 @@
             <input type="text" id="searchInput" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filterNumbers()">
         </div>
 
+        <!-- Pestañas para cambiar de bloque rápido sin hacer scroll infinito -->
+        <div class="block-tabs" id="blockTabs">
+            <button class="tab-btn active" onclick="cambiarBloque(1, 500, this)">0001 - 0500</button>
+            <button class="tab-btn" onclick="cambiarBloque(501, 1000, this)">0501 - 1000</button>
+            <button class="tab-btn" onclick="cambiarBloque(1001, 1500, this)">1001 - 1500</button>
+        </div>
+
         <div class="legend-box">
             <div class="legend-item"><div class="legend-color disponible"></div><span>Disponible</span></div>
             <div class="legend-item"><div class="legend-color seleccionado"></div><span>Seleccionado</span></div>
@@ -331,7 +400,7 @@
         </div>
 
         <div class="grid-info">
-            <span>Rango: 0001 al 1500</span>
+            <span id="rangoActualLabel">Mostrando: 0001 al 0500</span>
             <span>1500 boletos activos</span>
         </div>
         <div class="grid" id="numberGrid"></div>
@@ -409,18 +478,41 @@
         const totalNumbers = 1500;
         const precioPorBoleto = 4000; 
         
-        let seleccionadosSeguros = []; 
+        let seleccionadosMap = new Set(); // Guarda todos los seleccionados sin perderse al cambiar de pestaña
         let vendidosGlobales = {};
         const numeroWhatsAppContacto = "584246737022"; 
 
-        function generarGrid() {
+        let inicioBloqueActual = 1;
+        let finBloqueActual = 500;
+
+        function cambiarBloque(inicio, fin, elementoBtn) {
+            inicioBloqueActual = inicio;
+            finBloqueActual = fin;
+
+            // Cambiar clase activa en pestañas
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            elementoBtn.classList.add('active');
+
+            document.getElementById('rangoActualLabel').innerText = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
+            renderizarBloqueParcial();
+        }
+
+        function renderizarBloqueParcial() {
             grid.innerHTML = '';
-            for (let i = 1; i <= totalNumbers; i++) {
+            for (let i = inicioBloqueActual; i <= finBloqueActual; i++) {
                 const numStr = String(i).padStart(4, '0'); 
                 const btn = document.createElement('button');
                 btn.className = 'number-btn';
                 btn.innerText = numStr;
                 btn.id = `btn-${numStr}`;
+                
+                // Marcar estado visual si ya estaba seleccionado o vendido
+                if (vendidosGlobales[numStr]) {
+                    btn.classList.add('vendido');
+                } else if (seleccionadosMap.has(numStr)) {
+                    btn.classList.add('selected');
+                }
+
                 btn.onclick = () => toggleNumber(numStr);
                 grid.appendChild(btn);
             }
@@ -430,15 +522,16 @@
             database.ref('vendidos').on('value', (snapshot) => {
                 vendidosGlobales = snapshot.val() || {};
                 
-                for (let i = 1; i <= totalNumbers; i++) {
+                // Actualizar visualmente el bloque actual
+                for (let i = inicioBloqueActual; i <= finBloqueActual; i++) {
                     const numStr = String(i).padStart(4, '0');
                     const btn = document.getElementById(`btn-${numStr}`);
                     if (!btn) continue;
 
                     if (vendidosGlobales[numStr]) {
                         btn.classList.add('vendido');
-                        if (seleccionadosSeguros.includes(numStr)) {
-                            seleccionadosSeguros = seleccionadosSeguros.filter(n => n !== numStr);
+                        if (seleccionadosMap.has(numStr)) {
+                            seleccionadosMap.delete(numStr);
                             btn.classList.remove('selected');
                         }
                     } else {
@@ -453,32 +546,25 @@
 
         function toggleNumber(num) {
             const btn = document.getElementById(`btn-${num}`);
-            if (btn.classList.contains('vendido')) return;
+            if (btn && btn.classList.contains('vendido')) return;
 
-            if (seleccionadosSeguros.includes(num)) {
-                seleccionadosSeguros = seleccionadosSeguros.filter(n => n !== num);
-                btn.classList.remove('selected');
+            if (seleccionadosMap.has(num)) {
+                seleccionadosMap.delete(num);
+                if(btn) btn.classList.remove('selected');
             } else {
-                seleccionadosSeguros.push(num);
-                btn.classList.add('selected');
+                seleccionadosMap.add(num);
+                if(btn) btn.classList.add('selected');
             }
             actualizarBarra();
         }
 
         function actualizarBarra() {
-            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
-            let listaVisual = [];
-            botonesIluminados.forEach(b => listaVisual.push(b.innerText));
-            
-            let totalItems = [...new Set([...seleccionadosSeguros, ...listaVisual])];
-            seleccionadosSeguros = totalItems;
-
-            if (seleccionadosSeguros.length > 0) {
+            if (seleccionadosMap.size > 0) {
                 actionBar.style.display = 'flex';
-                let total = seleccionadosSeguros.length * precioPorBoleto;
+                let total = seleccionadosMap.size * precioPorBoleto;
                 let totalFormateado = total.toLocaleString('es-VE'); 
                 
-                document.getElementById('seleccionText').innerText = `${seleccionadosSeguros.length} boleto(s) seleccionado(s)`;
+                document.getElementById('seleccionText').innerText = `${seleccionadosMap.size} boleto(s) seleccionado(s)`;
                 document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
             } else {
                 actionBar.style.display = 'none';
@@ -503,16 +589,12 @@
         }
 
         function openModal() {
-            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
-            seleccionadosSeguros = [];
-            botonesIluminados.forEach(b => seleccionadosSeguros.push(b.innerText));
-
-            if (seleccionadosSeguros.length === 0) {
+            if (seleccionadosMap.size === 0) {
                 alert('Por favor selecciona al menos un número primero.');
                 return;
             }
             
-            let total = (seleccionadosSeguros.length * precioPorBoleto).toLocaleString('es-VE');
+            let total = (seleccionadosMap.size * precioPorBoleto).toLocaleString('es-VE');
             document.getElementById('totalModal').innerText = `${total} Bs`;
             modal.style.display = 'flex';
         }
@@ -522,14 +604,6 @@
         }
 
         function sendToWhatsApp() {
-            const botonesIluminados = document.querySelectorAll('.number-btn.selected');
-            let listaFinal = [];
-            botonesIluminados.forEach(b => listaFinal.push(b.innerText));
-            
-            if (listaFinal.length > 0) {
-                seleccionadosSeguros = listaFinal;
-            }
-
             const name = document.getElementById('userName').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
             const capture = document.getElementById('fileCapture').files[0];
@@ -544,22 +618,24 @@
                 return;
             }
 
-            if (seleccionadosSeguros.length === 0) {
-                alert('No hay ningún número seleccionado. Por favor cierra el modal y elige tus números.');
+            if (seleccionadosMap.size === 0) {
+                alert('No hay ningún número seleccionado.');
                 return;
             }
 
-            let colision = seleccionadosSeguros.some(n => vendidosGlobales[n]);
+            let listaArray = Array.from(seleccionadosMap);
+            let colision = listaArray.some(n => vendidosGlobales[n]);
             if (colision) {
                 alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona.');
                 closeModal();
-                seleccionadosSeguros = [];
+                seleccionadosMap.clear();
+                renderizarBloqueParcial();
                 actualizarBarra();
                 return;
             }
 
             let updates = {};
-            seleccionadosSeguros.forEach(num => {
+            listaArray.forEach(num => {
                 updates[num] = {
                     nombre: name,
                     telefono: phone,
@@ -568,10 +644,10 @@
             });
 
             database.ref('vendidos').update(updates).then(() => {
-                let total = (seleccionadosSeguros.length * precioPorBoleto).toLocaleString('es-VE');
-                let numerosLista = seleccionadosSeguros.join(', ');
+                let total = (listaArray.length * precioPorBoleto).toLocaleString('es-VE');
+                let numerosLista = listaArray.join(', ');
 
-                const mensaje = `Hola! 👋 Quiero apartar ${seleccionadosSeguros.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                const mensaje = `Hola! 👋 Quiero apartar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 const urlWhatsApp = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
 
@@ -585,20 +661,29 @@
         }
 
         function filterNumbers() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const buttons = grid.getElementsByClassName('number-btn');
-            for (let btn of buttons) {
-                const text = btn.innerText;
-                if (text.includes(input)) {
-                    btn.style.display = 'block';
-                } else {
-                    btn.style.display = 'none';
-                }
+            const input = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!input) return;
+
+            // Buscar en qué bloque cae el número introducido para cambiar automáticamente
+            let numBuscado = parseInt(input, 10);
+            if (!isNaN(numBuscado) && numBuscado >= 1 && numBuscado <= 1500) {
+                if (numBuscado <= 500) cambiarBloque(1, 500, document.querySelectorAll('.tab-btn')[0]);
+                else if (numBuscado <= 1000) cambiarBloque(501, 1000, document.querySelectorAll('.tab-btn')[1]);
+                else cambiarBloque(1001, 1500, document.querySelectorAll('.tab-btn')[2]);
+
+                setTimeout(() => {
+                    const btnTarget = document.getElementById(`btn-${String(numBuscado).padStart(4, '0')}`);
+                    if(btnTarget) {
+                        btnTarget.style.borderColor = '#4ade80';
+                        btnTarget.style.transform = 'scale(1.15)';
+                        setTimeout(() => { btnTarget.style.transform = 'scale(1)'; }, 1000);
+                    }
+                }, 100);
             }
         }
 
         window.onload = function() {
-            generarGrid();         
+            renderizarBloqueParcial(); 
             escucharBaseDeDatos(); 
         };
     </script>
