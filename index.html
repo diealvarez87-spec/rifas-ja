@@ -31,7 +31,7 @@
             background-attachment: fixed;
         }
 
-        /* Elementos decorativos flotantes (Regalos arriba y serpentinas/confeti abajo) */
+        /* Regalos arriba */
         .gift-deco-left, .gift-deco-right {
             position: absolute;
             font-size: 3.5rem;
@@ -43,28 +43,12 @@
         .gift-deco-left { top: 25px; left: 10px; transform: rotate(-15deg); }
         .gift-deco-right { top: 15px; right: 10px; transform: rotate(15deg); animation-delay: 1.5s; }
 
-        .deco-bottom-left, .deco-bottom-right {
-            position: absolute;
-            font-size: 2.5rem;
-            z-index: 3;
-            pointer-events: none;
-            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
-            animation: flotarAbajo 3.5s ease-in-out infinite alternate;
-        }
-        .deco-bottom-left { bottom: 15px; left: 15px; transform: rotate(20deg); }
-        .deco-bottom-right { bottom: 20px; right: 15px; transform: rotate(-20deg); animation-delay: 1.8s; }
-
         @keyframes flotar {
             0% { transform: translateY(0) rotate(-15deg); }
             100% { transform: translateY(-6px) rotate(-10deg); }
         }
 
-        @keyframes flotarAbajo {
-            0% { transform: translateY(0) rotate(20deg); }
-            100% { transform: translateY(-8px) rotate(15deg); }
-        }
-
-        header, .container, .action-bar {
+        header, .container-wrapper, .action-bar {
             position: relative;
             z-index: 2;
         }
@@ -118,10 +102,17 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
+        /* CONTENEDOR WRAPPER PARA UBICAR LAS SERPENTINAS JUSTO ABAJO */
+        .container-wrapper {
+            width: 100%;
+            max-width: 620px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
         /* CONTENEDOR PRINCIPAL: EFECTO LIQUID GLASS */
         .container {
             width: 100%;
-            max-width: 620px;
             background: rgba(15, 23, 42, 0.55);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
@@ -130,6 +121,30 @@
             border-radius: 24px;
             padding: 16px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* Serpentinas y confeti dorado decorativo justo abajo de la tarjeta */
+        .serpentinas-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            margin-top: -12px;
+            position: relative;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .serpentina-item {
+            font-size: 1.8rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            animation: moverSerpentina 3s ease-in-out infinite alternate;
+        }
+        .serpentina-item:nth-child(2) { animation-delay: 1.5s; font-size: 2rem; }
+        .serpentina-item:nth-child(3) { animation-delay: 0.8s; }
+
+        @keyframes moverSerpentina {
+            0% { transform: translateY(0) rotate(-10deg); }
+            100% { transform: translateY(-5px) rotate(10deg); }
         }
 
         .search-box { margin-bottom: 10px; }
@@ -412,10 +427,6 @@
     <div class="gift-deco-left">🎁</div>
     <div class="gift-deco-right">🎁</div>
 
-    <!-- Serpentinas / Confeti dorado decorativo en la parte inferior -->
-    <div class="deco-bottom-left">✨</div>
-    <div class="deco-bottom-right">🎊</div>
-
     <header>
         <div class="badge-gift">✨ Gran Sorteo Exclusivo ✨</div>
         <h1>Rifas J.A.</h1>
@@ -423,29 +434,38 @@
         <div class="precio-ticket">Valor del boleto: 4.000 Bs</div>
     </header>
 
-    <div class="container">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filterNumbers()">
+    <div class="container-wrapper">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filterNumbers()">
+            </div>
+
+            <!-- Pestañas de Bloques -->
+            <div class="block-tabs" id="blockTabs">
+                <button class="tab-btn active" onclick="cambiarBloque(1, 500, this)">0001 - 0500</button>
+                <button class="tab-btn" onclick="cambiarBloque(501, 1000, this)">0501 - 1000</button>
+                <button class="tab-btn" onclick="cambiarBloque(1001, 1500, this)">1001 - 1500</button>
+            </div>
+
+            <div class="legend-box">
+                <div class="legend-item"><div class="legend-color disponible"></div><span>Disponible</span></div>
+                <div class="legend-item"><div class="legend-color seleccionado"></div><span>Seleccionado</span></div>
+                <div class="legend-item"><div class="legend-color vendido"></div><span>Vendido</span></div>
+            </div>
+
+            <div class="grid-info">
+                <span id="rangoActualLabel">Mostrando: 0001 al 0500</span>
+                <span>1500 boletos activos</span>
+            </div>
+            <div class="grid" id="numberGrid"></div>
         </div>
 
-        <!-- Pestañas de Bloques -->
-        <div class="block-tabs" id="blockTabs">
-            <button class="tab-btn active" onclick="cambiarBloque(1, 500, this)">0001 - 0500</button>
-            <button class="tab-btn" onclick="cambiarBloque(501, 1000, this)">0501 - 1000</button>
-            <button class="tab-btn" onclick="cambiarBloque(1001, 1500, this)">1001 - 1500</button>
+        <!-- Serpentinas y confeti dorado decorativo justo debajo de la tarjeta -->
+        <div class="serpentinas-bottom">
+            <span class="serpentina-item">🎗️</span>
+            <span class="serpentina-item">✨</span>
+            <span class="serpentina-item">🎊</span>
         </div>
-
-        <div class="legend-box">
-            <div class="legend-item"><div class="legend-color disponible"></div><span>Disponible</span></div>
-            <div class="legend-item"><div class="legend-color seleccionado"></div><span>Seleccionado</span></div>
-            <div class="legend-item"><div class="legend-color vendido"></div><span>Vendido</span></div>
-        </div>
-
-        <div class="grid-info">
-            <span id="rangoActualLabel">Mostrando: 0001 al 0500</span>
-            <span>1500 boletos activos</span>
-        </div>
-        <div class="grid" id="numberGrid"></div>
     </div>
 
     <!-- Barra Flotante Inferior -->
