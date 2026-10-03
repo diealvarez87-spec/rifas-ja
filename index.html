@@ -31,7 +31,7 @@
             background-attachment: fixed;
         }
 
-        /* Regalos flotantes decorativos detallados en los laterales */
+        /* Elementos decorativos flotantes (Regalos arriba y serpentinas/confeti abajo) */
         .gift-deco-left, .gift-deco-right {
             position: absolute;
             font-size: 3.5rem;
@@ -43,9 +43,25 @@
         .gift-deco-left { top: 25px; left: 10px; transform: rotate(-15deg); }
         .gift-deco-right { top: 15px; right: 10px; transform: rotate(15deg); animation-delay: 1.5s; }
 
+        .deco-bottom-left, .deco-bottom-right {
+            position: absolute;
+            font-size: 2.5rem;
+            z-index: 3;
+            pointer-events: none;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+            animation: flotarAbajo 3.5s ease-in-out infinite alternate;
+        }
+        .deco-bottom-left { bottom: 15px; left: 15px; transform: rotate(20deg); }
+        .deco-bottom-right { bottom: 20px; right: 15px; transform: rotate(-20deg); animation-delay: 1.8s; }
+
         @keyframes flotar {
             0% { transform: translateY(0) rotate(-15deg); }
             100% { transform: translateY(-6px) rotate(-10deg); }
+        }
+
+        @keyframes flotarAbajo {
+            0% { transform: translateY(0) rotate(20deg); }
+            100% { transform: translateY(-8px) rotate(15deg); }
         }
 
         header, .container, .action-bar {
@@ -392,9 +408,13 @@
 </head>
 <body>
 
-    <!-- Regalos flotantes decorativos detallados en los laterales -->
+    <!-- Regalos flotantes decorativos en los laterales superiores -->
     <div class="gift-deco-left">🎁</div>
     <div class="gift-deco-right">🎁</div>
+
+    <!-- Serpentinas / Confeti dorado decorativo en la parte inferior -->
+    <div class="deco-bottom-left">✨</div>
+    <div class="deco-bottom-right">🎊</div>
 
     <header>
         <div class="badge-gift">✨ Gran Sorteo Exclusivo ✨</div>
