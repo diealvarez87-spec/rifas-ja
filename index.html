@@ -31,7 +31,7 @@
             background-attachment: fixed;
         }
 
-        /* Regalos decorativos flotantes detallados a los lados del header */
+        /* Regalos flotantes decorativos detallados en los laterales */
         .gift-deco-left, .gift-deco-right {
             position: absolute;
             font-size: 4rem;
@@ -101,7 +101,7 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        /* CONTENEDOR PRINCIPAL: EFECTO LIQUID GLASS BIEN BELLO */
+        /* CONTENEDOR PRINCIPAL: EFECTO LIQUID GLASS */
         .container {
             width: 100%;
             max-width: 620px;
@@ -621,6 +621,18 @@
             modal.style.display = 'none';
         }
 
+        // Función para limpiar por completo el formulario y cerrar el modal tras enviar
+        function resetModalForm() {
+            document.getElementById('userName').value = '';
+            document.getElementById('userPhone').value = '';
+            document.getElementById('fileCapture').value = '';
+            document.getElementById('fileNameDisplay').innerText = '';
+            modal.style.display = 'none';
+            seleccionadosMap.clear();
+            actualizarBarra();
+            renderizarBloqueParcial();
+        }
+
         function sendToWhatsApp() {
             const name = document.getElementById('userName').value.trim();
             const phone = document.getElementById('userPhone').value.trim();
@@ -668,6 +680,9 @@
                 const mensaje = `Hola! 👋 Quiero apartar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 const urlWhatsApp = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
+
+                // Limpiamos todo el formulario y cerramos el modal antes de abrir WhatsApp
+                resetModalForm();
 
                 alert("¡Listo! Tus números han sido marcados. Abriendo WhatsApp...");
                 window.location.href = urlWhatsApp;
