@@ -18,11 +18,11 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%);
+            background: linear-gradient(135deg, #090d16 0%, #171033 40%, #1e1b4b 100%);
             color: #ffffff;
             min-height: 100vh;
             padding: 10px 15px;
-            padding-bottom: 100px;
+            padding-bottom: 110px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -48,82 +48,168 @@
             100% { transform: translateY(-6px) rotate(-10deg); }
         }
 
-        header, .container-wrapper, .action-bar {
+        header, .container-wrapper, .top-buyers-card, .footer-security, .action-bar {
             position: relative;
             z-index: 2;
+            width: 100%;
+            max-width: 620px;
         }
 
         header {
             text-align: center;
             margin: 5px 0 12px 0;
-            width: 100%;
-            max-width: 600px;
         }
         .badge-gift {
             background: linear-gradient(135deg, #fbbf24, #d97706);
             color: #1e1b4b;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 900;
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 30px;
             display: inline-block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.5);
             text-transform: uppercase;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             border: 1px solid rgba(255,255,255,0.4);
         }
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.8rem;
             font-weight: 900;
-            color: #ffffff;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to bottom, #ffffff 30%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
             letter-spacing: -0.5px;
             line-height: 1.1;
         }
         header p {
-            color: #f3e8ff;
-            font-size: 0.85rem;
-            margin-top: 2px;
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            margin-top: 4px;
             font-weight: 600;
         }
-        .precio-ticket {
-            font-size: 0.95rem;
-            color: #fef08a;
-            font-weight: 800;
-            margin-top: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 6px 18px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            display: inline-block;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
 
-        /* CONTENEDOR WRAPPER */
-        .container-wrapper {
+        /* Banner de Progreso de Ventas */
+        .progress-card {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-bottom: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #f3e8ff;
+        }
+        .progress-bar-bg {
             width: 100%;
-            max-width: 620px;
-            position: relative;
-            margin-bottom: 20px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
         }
 
-        /* CONTENEDOR PRINCIPAL: LIQUID GLASS */
+        /* Selector de Modo (Manual o Al Azar) */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+            background: rgba(0,0,0,0.25);
+            padding: 5px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .mode-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .mode-btn.active {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
+            font-weight: 900;
+        }
+
+        /* Panel Al Azar */
+        .random-panel {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .random-panel h3 { color: #4ade80; font-size: 1.1rem; margin-bottom: 10px; font-weight: 800; }
+        .random-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .qty-btn {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .qty-display { font-size: 1.5rem; font-weight: 900; color: #4ade80; width: 50px; }
+        .btn-random-action {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 14px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34,197,94,0.5);
+            font-size: 0.95rem;
+        }
+
+        /* Contenedor Liquid Glass */
+        .container-wrapper { margin-bottom: 15px; }
         .container {
             width: 100%;
-            background: rgba(15, 23, 42, 0.55);
+            background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-top: 1px solid rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-top: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 24px;
             padding: 16px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
         }
 
-        /* Serpentinas y confeti dorado decorativo justo abajo de la tarjeta */
         .serpentinas-bottom {
             display: flex;
             justify-content: space-between;
@@ -153,21 +239,17 @@
             padding: 10px 16px;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.7);
             color: white;
             font-size: 0.9rem;
             outline: none;
             transition: all 0.3s;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
         .search-box input:focus {
             border-color: #fbbf24;
-            background: rgba(15, 23, 42, 0.85);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4), inset 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
         }
 
-        /* Pestañas de Bloques Liquid Glass */
         .block-tabs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -202,10 +284,9 @@
             justify-content: space-around;
             margin-bottom: 10px;
             background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(10px);
             padding: 8px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             font-size: 0.75rem;
         }
         .legend-item { display: flex; align-items: center; gap: 5px; font-weight: 600; color: #e2e8f0; }
@@ -226,12 +307,11 @@
             padding-bottom: 6px;
         }
         
-        /* Grid de Píldoras */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
             gap: 8px;
-            max-height: 280px;
+            max-height: 260px;
             overflow-y: auto;
             padding-right: 4px;
         }
@@ -240,7 +320,6 @@
         
         .number-btn {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.2);
             color: #ffffff;
             padding: 8px 0;
@@ -248,16 +327,10 @@
             font-size: 0.85rem;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .number-btn:hover { 
-            background: rgba(251, 191, 36, 0.25); 
-            border-color: #fbbf24; 
-            transform: translateY(-2px); 
-        }
-        
+        .number-btn:hover { background: rgba(251, 191, 36, 0.25); border-color: #fbbf24; transform: translateY(-2px); }
         .number-btn.vendido {
             background: rgba(153, 27, 27, 0.6) !important;
             border-color: rgba(239, 68, 68, 0.5) !important;
@@ -265,7 +338,6 @@
             cursor: not-allowed;
             opacity: 0.7;
             text-decoration: line-through;
-            box-shadow: none;
         }
         .number-btn.selected {
             background: linear-gradient(135deg, #fbbf24, #d97706) !important;
@@ -276,213 +348,160 @@
             font-weight: 900;
         }
 
-        /* Barra Flotante Liquid Glass */
+        /* Top Compradores */
+        .top-buyers-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        .top-buyers-title {
+            color: #fbbf24;
+            font-size: 0.95rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .buyers-list {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .buyer-podium {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 8px 10px;
+            border-radius: 12px;
+            min-width: 90px;
+        }
+        .buyer-podium strong { color: #ffffff; display: block; font-size: 0.85rem; }
+
+        /* Footer de Seguridad */
+        .footer-security {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            text-align: center;
+        }
+        .security-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+        .security-item span { font-size: 1.1rem; }
+
+        /* Barra Flotante */
         .action-bar {
             position: fixed;
             bottom: 0; left: 0; width: 100%;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid #22c55e;
             padding: 12px 20px;
             display: none;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            box-shadow: 0 -15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.6);
         }
         .action-info span { font-size: 0.8rem; color: #cbd5e1; display: block; }
-        .action-info strong { font-size: 1.2rem; color: #fbbf24; font-weight: 800; }
+        .action-info strong { font-size: 1.2rem; color: #4ade80; font-weight: 900; }
         .btn-apartar {
-            background: linear-gradient(135deg, #fbbf24, #d97706);
-            color: #1e1b4b;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: #ffffff;
             border: none;
             padding: 10px 24px;
             font-size: 1rem;
             font-weight: 900;
             border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
             transition: 0.2s;
             border: 1px solid rgba(255,255,255,0.4);
         }
         .btn-apartar:hover { transform: scale(1.05); }
 
-        /* Modal Estilo Liquid Glass */
+        /* Modal */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 15px;
-            overflow-y: auto;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
+            justify-content: center; align-items: center; z-index: 1000; padding: 15px; overflow-y: auto;
         }
         .modal-content {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            border-top: 1px solid rgba(255, 255, 255, 0.6);
-            padding: 20px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-            margin: auto;
+            background: rgba(15, 23, 42, 0.9);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            padding: 20px; border-radius: 24px; width: 100%; max-width: 400px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8); margin: auto;
         }
         .modal-content h3 { color: #fbbf24; text-align: center; margin-bottom: 12px; font-size: 1.3rem; font-weight: 900; }
         
         .pago-box {
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
-            padding: 12px;
-            margin-bottom: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 14px; padding: 12px; margin-bottom: 12px;
         }
         .pago-title {
-            color: #fbbf24;
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            padding-bottom: 4px;
+            color: #fbbf24; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px; text-align: center;
+            border-bottom: 1px solid rgba(251,191,36,0.2); padding-bottom: 4px;
         }
-        .pago-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            color: #e2e8f0;
-        }
+        .pago-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.85rem; color: #e2e8f0; }
         .btn-copy {
-            background: rgba(251, 191, 36, 0.2);
-            color: #fbbf24;
-            border: 1px solid rgba(251, 191, 36, 0.4);
-            padding: 3px 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: bold;
-            transition: 0.2s;
+            background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid #fbbf24;
+            padding: 3px 8px; border-radius: 6px; cursor: pointer; font-size: 0.7rem; font-weight: bold;
         }
-        .btn-copy:hover { background: #fbbf24; color: #0f172a; }
-        .toast-msg {
-            color: #4ade80; font-size: 0.7rem; display: none; text-align: right; margin-top: -3px; margin-bottom: 3px;
-        }
+        .toast-msg { color: #4ade80; font-size: 0.7rem; display: none; text-align: right; margin-top: -3px; margin-bottom: 3px; }
 
-        .modal-content input[type="text"], 
-        .modal-content input[type="tel"] {
+        .modal-content input[type="text"], .modal-content input[type="tel"] {
             width: 100%; padding: 10px 14px; margin-bottom: 8px; border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(15, 23, 42, 0.6);
-            color: white; font-size: 0.9rem; outline: none;
+            border: 1px solid rgba(255, 255, 255, 0.25); background: rgba(15, 23, 42, 0.8); color: white; font-size: 0.9rem; outline: none;
         }
-        .modal-content input:focus { border-color: #fbbf24; }
-        
         .upload-box {
-            border: 2px dashed rgba(251, 191, 36, 0.5);
-            background: rgba(15, 23, 42, 0.4);
-            border-radius: 12px;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: 0.2s;
+            border: 2px dashed rgba(251, 191, 36, 0.5); background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px; padding: 10px; text-align: center; margin-bottom: 12px; cursor: pointer;
         }
-        .upload-box:hover {
-            border-color: #fbbf24;
-            background: rgba(251, 191, 36, 0.1);
-        }
-        .upload-box span {
-            display: block;
-            font-size: 0.8rem;
-            color: #fbbf24;
-            font-weight: 600;
-        }
+        .upload-box span { display: block; font-size: 0.8rem; color: #fbbf24; font-weight: 700; }
         .upload-box input[type="file"] { display: none; }
-        .file-name {
-            font-size: 0.7rem;
-            color: #4ade80;
-            margin-top: 3px;
-            font-weight: bold;
-        }
-
+        .file-name { font-size: 0.7rem; color: #4ade80; margin-top: 3px; font-weight: bold; }
         .modal-buttons { display: flex; gap: 8px; }
         .btn { flex: 1; padding: 10px; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.9rem; }
         .btn-whatsapp { background: #22c55e; color: #fff; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4); }
-        .btn-whatsapp:hover { background: #16a34a; }
         .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.2); }
 
-        /* Estilo para el Modal Elegante de Aviso de Capture */
+        /* Alerta Elegante */
         .custom-alert-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            padding: 20px;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(12px);
+            justify-content: center; align-items: center; z-index: 2000; padding: 20px;
         }
         .custom-alert-box {
             background: linear-gradient(135deg, #1e1b4b, #0f172a);
-            border: 2px solid rgba(251, 191, 36, 0.5);
-            border-radius: 24px;
-            padding: 25px;
-            max-width: 380px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            animation: escalaModal 0.3s ease-out;
+            border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 24px; padding: 25px;
+            max-width: 380px; width: 100%; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
         }
-        @keyframes escalaModal {
-            0% { transform: scale(0.8); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .custom-alert-icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
-        }
-        .custom-alert-box h4 {
-            color: #fbbf24;
-            font-size: 1.3rem;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-        .custom-alert-box p {
-            color: #e2e8f0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
+        .custom-alert-icon { font-size: 3rem; margin-bottom: 12px; }
+        .custom-alert-box h4 { color: #fbbf24; font-size: 1.3rem; font-weight: 900; margin-bottom: 10px; }
+        .custom-alert-box p { color: #e2e8f0; font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
         .custom-alert-btn {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: #ffffff;
-            border: none;
-            width: 100%;
-            padding: 12px;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
-            transition: 0.2s;
+            background: linear-gradient(135deg, #22c55e, #16a34a); color: #ffffff; border: none;
+            width: 100%; padding: 12px; border-radius: 14px; font-size: 1rem; font-weight: 900; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
         }
-        .custom-alert-btn:hover { transform: scale(1.03); }
     </style>
 </head>
 <body>
 
-    <!-- Regalos flotantes decorativos superiores -->
     <div class="gift-deco-left">🎁</div>
     <div class="gift-deco-right">🎁</div>
 
@@ -490,16 +509,47 @@
         <div class="badge-gift">✨ Gran Sorteo Exclusivo ✨</div>
         <h1>Rifas J.A.</h1>
         <p>¡Selecciona tus números de la suerte!</p>
-        <div class="precio-ticket">Valor del boleto: 4.000 Bs</div>
     </header>
 
-    <div class="container-wrapper">
+    <!-- Banner de Progreso de Ventas -->
+    <div class="progress-card">
+        <div class="progress-header">
+            <span style="color: #4ade80; font-weight: 900;">🔥 Boletos Vendidos</span>
+            <span id="progressText" style="color: #fbbf24; font-weight: 900;">0 / 1500 (0%)</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <div style="text-align: center; margin-top: 8px; font-size: 1rem; color: #fbbf24; font-weight: 900; text-shadow: 0 2px 10px rgba(251, 191, 36, 0.4);">
+            Valor del boleto: 4.000 Bs
+        </div>
+    </div>
+
+    <!-- Selector de Modo (Manual o Al Azar) -->
+    <div class="mode-selector">
+        <button class="mode-btn active" id="btnModeManual" onclick="cambiarModo('manual')">👆 Elegir Manual</button>
+        <button class="mode-btn" id="btnModeRandom" onclick="cambiarModo('random')">🎲 Elegir al Azar</button>
+    </div>
+
+    <!-- Panel de Selección Al Azar -->
+    <div class="random-panel" id="randomPanel">
+        <h3 style="color: #4ade80;">Selección Automática al Azar</h3>
+        <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 15px;">¿Cuántos boletos aleatorios deseas apartar?</p>
+        <div class="random-controls">
+            <button class="qty-btn" onclick="cambiarCantidadAzar(-1)">-</button>
+            <div class="qty-display" id="qtyAzar">1</div>
+            <button class="qty-btn" onclick="cambiarCantidadAzar(1)">+</button>
+        </div>
+        <button class="btn-random-action" onclick="seleccionarAleatorios()">✨ Seleccionar Boletos</button>
+    </div>
+
+    <!-- Contenedor Principal Manual -->
+    <div class="container-wrapper" id="manualContainer">
         <div class="container">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filterNumbers()">
             </div>
 
-            <!-- Pestañas de Bloques -->
             <div class="block-tabs" id="blockTabs">
                 <button class="tab-btn active" onclick="cambiarBloque(1, 500, this)">0001 - 0500</button>
                 <button class="tab-btn" onclick="cambiarBloque(501, 1000, this)">0501 - 1000</button>
@@ -519,7 +569,6 @@
             <div class="grid" id="numberGrid"></div>
         </div>
 
-        <!-- Serpentinas y confeti dorado decorativo -->
         <div class="serpentinas-bottom">
             <span class="serpentina-item">🎗️</span>
             <span class="serpentina-item">✨</span>
@@ -527,11 +576,26 @@
         </div>
     </div>
 
+    <!-- Sección Top Compradores -->
+    <div class="top-buyers-card">
+        <div class="top-buyers-title">👑 Top Participantes Mayores</div>
+        <div class="buyers-list" id="topBuyersList">
+            <span style="font-size: 0.8rem; color: #94a3b8;">Cargando mayores compradores...</span>
+        </div>
+    </div>
+
+    <!-- Footer de Seguridad y Confianza -->
+    <div class="footer-security">
+        <div class="security-item"><span style="color:#4ade80;">🔒</span>Pagos Seguros</div>
+        <div class="security-item"><span style="color:#4ade80;">🛡️</span>SSL Encriptado</div>
+        <div class="security-item"><span style="color:#4ade80;">✅</span>Verificado J.A.</div>
+    </div>
+
     <!-- Barra Flotante Inferior -->
     <div class="action-bar" id="actionBar">
         <div class="action-info">
             <span id="seleccionText">0 boletos seleccionados</span>
-            <strong id="totalBsText">Total: 0 Bs</strong>
+            <strong id="totalBsText" style="color: #4ade80;">Total: 0 Bs</strong>
         </div>
         <button class="btn-apartar" onclick="openModal()">Apartar</button>
     </div>
@@ -543,7 +607,6 @@
             
             <div class="pago-box">
                 <div class="pago-title">📱 Datos para el Pago Móvil</div>
-                
                 <div class="pago-item">
                     <span><strong>Banco:</strong> <span id="bancoPapá">Banco de Venezuela</span></span>
                     <button class="btn-copy" onclick="copyText('bancoPapá', 'toastBanco')">Copiar</button>
@@ -583,7 +646,7 @@
         </div>
     </div>
 
-    <!-- Alerta Elegante de Aviso de Capture -->
+    <!-- Alerta Elegante -->
     <div class="custom-alert-overlay" id="customAlert">
         <div class="custom-alert-box">
             <div class="custom-alert-icon">📸✨</div>
@@ -618,14 +681,65 @@
         let inicioBloqueActual = 1;
         let finBloqueActual = 500;
         let urlWhatsAppTemporal = "";
+        let cantidadAzar = 1;
+
+        function cambiarModo(modo) {
+            const manualContainer = document.getElementById('manualContainer');
+            const randomPanel = document.getElementById('randomPanel');
+            const btnManual = document.getElementById('btnModeManual');
+            const btnRandom = document.getElementById('btnModeRandom');
+
+            if (modo === 'manual') {
+                manualContainer.style.display = 'block';
+                randomPanel.style.display = 'none';
+                btnManual.classList.add('active');
+                btnRandom.classList.remove('active');
+            } else {
+                manualContainer.style.display = 'none';
+                randomPanel.style.display = 'block';
+                btnRandom.classList.add('active');
+                btnManual.classList.remove('active');
+            }
+        }
+
+        function cambiarCantidadAzar(delta) {
+            cantidadAzar += delta;
+            if (cantidadAzar < 1) cantidadAzar = 1;
+            if (cantidadAzar > 20) cantidadAzar = 20;
+            document.getElementById('qtyAzar').innerText = cantidadAzar;
+        }
+
+        function seleccionarAleatorios() {
+            let disponibles = [];
+            for (let i = 1; i <= totalNumbers; i++) {
+                let numStr = String(i).padStart(4, '0');
+                if (!vendidosGlobales[numStr] && !seleccionadosMap.has(numStr)) {
+                    disponibles.push(numStr);
+                }
+            }
+
+            if (disponibles.length < cantidadAzar) {
+                alert('No hay suficientes números disponibles para esa cantidad.');
+                return;
+            }
+
+            for (let j = 0; j < cantidadAzar; j++) {
+                let indexRandom = Math.floor(Math.random() * disponibles.length);
+                let elegido = disponibles.splice(indexRandom, 1)[0];
+                seleccionadosMap.add(elegido);
+            }
+
+            actualizarBarra();
+            renderizarBloqueParcial();
+            cambiarModo('manual');
+            alert(`¡Se han seleccionado ${cantidadAzar} número(s) al azar exitosamente! Revisa tu lista.`);
+        }
 
         function cambiarBloque(inicio, fin, elementoBtn) {
             inicioBloqueActual = inicio;
             finBloqueActual = fin;
-
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             elementoBtn.classList.add('active');
-
             document.getElementById('rangoActualLabel').innerText = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
             renderizarBloqueParcial();
         }
@@ -644,7 +758,6 @@
                 } else if (seleccionadosMap.has(numStr)) {
                     btn.classList.add('selected');
                 }
-
                 btn.onclick = () => toggleNumber(numStr);
                 grid.appendChild(btn);
             }
@@ -654,6 +767,13 @@
             database.ref('vendidos').on('value', (snapshot) => {
                 vendidosGlobales = snapshot.val() || {};
                 
+                let totalVendidos = Object.keys(vendidosGlobales).length;
+                let porcentaje = Math.round((totalVendidos / totalNumbers) * 100);
+                document.getElementById('progressText').innerText = `${totalVendidos} / ${totalNumbers} (${porcentaje}%)`;
+                document.getElementById('progressBarFill').style.width = `${porcentaje}%`;
+
+                calcularTopCompradores(vendidosGlobales);
+
                 for (let i = inicioBloqueActual; i <= finBloqueActual; i++) {
                     const numStr = String(i).padStart(4, '0');
                     const btn = document.getElementById(`btn-${numStr}`);
@@ -675,6 +795,27 @@
             });
         }
 
+        function calcularTopCompradores(vendidos) {
+            let conteoClientes = {};
+            for (let num in vendidos) {
+                let cliente = vendidos[num].nombre || "Anónimo";
+                conteoClientes[cliente] = (conteoClientes[cliente] || 0) + 1;
+            }
+
+            let ordenados = Object.entries(conteoClientes).sort((a, b) => b[1] - a[1]).slice(0, 3);
+            let htmlPodium = "";
+
+            if (ordenados.length === 0) {
+                htmlPodium = '<span style="font-size: 0.8rem; color: #94a3b8;">¡Sé el primero en el podio comprando tus tickets!</span>';
+            } else {
+                ordenados.forEach(([nombre, cantidad], idx) => {
+                    let medalla = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : '🥉');
+                    htmlPodium += `<div class="buyer-podium">${medalla} <strong>${nombre}</strong> <span style="color:#fbbf24; font-size:0.75rem;">${cantidad} T.</span></div>`;
+                });
+            }
+            document.getElementById('topBuyersList').innerHTML = htmlPodium;
+        }
+
         function toggleNumber(num) {
             const btn = document.getElementById(`btn-${num}`);
             if (btn && btn.classList.contains('vendido')) return;
@@ -694,7 +835,6 @@
                 actionBar.style.display = 'flex';
                 let total = seleccionadosMap.size * precioPorBoleto;
                 let totalFormateado = total.toLocaleString('es-VE'); 
-                
                 document.getElementById('seleccionText').innerText = `${seleccionadosMap.size} boleto(s) seleccionado(s)`;
                 document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
             } else {
@@ -724,15 +864,12 @@
                 alert('Por favor selecciona al menos un número primero.');
                 return;
             }
-            
             let total = (seleccionadosMap.size * precioPorBoleto).toLocaleString('es-VE');
             document.getElementById('totalModal').innerText = `${total} Bs`;
             modal.style.display = 'flex';
         }
 
-        function closeModal() {
-            modal.style.display = 'none';
-        }
+        function closeModal() { modal.style.display = 'none'; }
 
         function resetModalForm() {
             document.getElementById('userName').value = '';
@@ -750,54 +887,31 @@
             const phone = document.getElementById('userPhone').value.trim();
             const capture = document.getElementById('fileCapture').files[0];
             
-            if(!name || !phone) {
-                alert('Por favor completa tu nombre y teléfono.');
-                return;
-            }
-
-            if(!capture) {
-                alert('Por favor adjunta la imagen o capture de tu pago.');
-                return;
-            }
-
-            if (seleccionadosMap.size === 0) {
-                alert('No hay ningún número seleccionado.');
-                return;
-            }
+            if(!name || !phone) { alert('Por favor completa tu nombre y teléfono.'); return; }
+            if(!capture) { alert('Por favor adjunta la imagen o capture de tu pago.'); return; }
+            if (seleccionadosMap.size === 0) { alert('No hay ningún número seleccionado.'); return; }
 
             let listaArray = Array.from(seleccionadosMap);
             let colision = listaArray.some(n => vendidosGlobales[n]);
             if (colision) {
                 alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona.');
-                closeModal();
-                seleccionadosMap.clear();
-                renderizarBloqueParcial();
-                actualizarBarra();
+                closeModal(); seleccionadosMap.clear(); renderizarBloqueParcial(); actualizarBarra();
                 return;
             }
 
             let updates = {};
             listaArray.forEach(num => {
-                updates[num] = {
-                    nombre: name,
-                    telefono: phone,
-                    fecha: new Date().toISOString()
-                };
+                updates[num] = { nombre: name, telefono: phone, fecha: new Date().toISOString() };
             });
 
             database.ref('vendidos').update(updates).then(() => {
                 let total = (listaArray.length * precioPorBoleto).toLocaleString('es-VE');
                 let numerosLista = listaArray.join(', ');
-
                 const mensaje = `Hola! 👋 Quiero apartar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 urlWhatsAppTemporal = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
-
                 resetModalForm();
-
-                // Mostramos el aviso elegante en vez de abrir WhatsApp de una vez
                 customAlert.style.display = 'flex';
-                
             }).catch(error => {
                 alert("Hubo un error al registrar en la base de datos. Verifica tu conexión.");
                 console.error(error);
@@ -812,7 +926,6 @@
         function filterNumbers() {
             const input = document.getElementById('searchInput').value.trim().toLowerCase();
             if (!input) return;
-
             let numBuscado = parseInt(input, 10);
             if (!isNaN(numBuscado) && numBuscado >= 1 && numBuscado <= 1500) {
                 if (numBuscado <= 500) cambiarBloque(1, 500, document.querySelectorAll('.tab-btn')[0]);
