@@ -89,7 +89,7 @@
             font-weight: 500;
         }
 
-        /* Tarjeta de Progreso Estilo Moderno */
+        /* Tarjeta de Progreso Modificada (Solo % y Total) */
         .progress-box {
             background: #1e293b;
             border: 1px solid #334155;
@@ -402,7 +402,7 @@
         }
         .btn-buy-pro:hover { background: #059669; }
 
-        /* MODAL DE PAGO NUEVO Y ELEGANTE */
+        /* Modal de Pago */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
@@ -442,7 +442,7 @@
         .upload-box {
             border: 1px dashed #475569; background: #0f172a44;
             border-radius: 10px; padding: 14px; text-align: center; margin-bottom: 16px; cursor: pointer;
-            color: #94a3b8; font-size: 0.85srem;
+            color: #94a3b8; font-size: 0.85rem;
         }
         .upload-box:hover { border-color: #3b82f6; background: #0f172a; }
         .upload-box span { display: block; font-size: 0.85rem; color: #cbd5e1; font-weight: 500; }
@@ -487,11 +487,11 @@
         <p>¡Elige tus números de la suerte y gana!</p>
     </header>
 
-    <!-- Tarjeta Progreso -->
+    <!-- Tarjeta Progreso (Modificada: solo % y Total 1500) -->
     <div class="progress-box">
         <div class="progress-info">
-            <span>🔥 Boletos Vendidos</span>
-            <span id="progressText" style="color: #34d399;">0 / 1500 (0%)</span>
+            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
+            <span id="progressText" style="color: #34d399;">0%</span>
         </div>
         <div class="progress-bar-track">
             <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -566,7 +566,7 @@
         <button class="btn-buy-pro" onclick="openModal()">Apartar</button>
     </div>
 
-    <!-- Modal de Pago Rediseñado (Limpio y Profesional) -->
+    <!-- Modal de Pago -->
     <div class="modal" id="dataModal">
         <div class="modal-content">
             <h3>Finalizar Reserva</h3>
@@ -740,7 +740,9 @@
                 
                 let totalVendidos = Object.keys(vendidosGlobales).length;
                 let porcentaje = Math.round((totalVendidos / totalNumbers) * 100);
-                document.getElementById('progressText').innerText = `${totalVendidos} / ${totalNumbers} (${porcentaje}%)`;
+                
+                // Actualiza solo con el porcentaje y la barra de progreso
+                document.getElementById('progressText').innerText = `${porcentaje}%`;
                 document.getElementById('progressBarFill').style.width = `${porcentaje}%`;
 
                 calcularTopCompradores(vendidosGlobales);
