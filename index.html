@@ -732,13 +732,13 @@
         </div>
     </div>
 
-    <!-- MODAL: PANEL DE ADMINISTRACIÓN (Con Lupita de Búsqueda) -->
+    <!-- MODAL: PANEL DE ADMINISTRACIÓN -->
     <div class="modal" id="adminDashboardModal">
         <div class="modal-content" style="max-width: 520px; max-height: 85vh; overflow-y: auto;">
             <h3>🛠️ Administración de Boletos</h3>
             <p style="color: #34d399; font-size: 0.85rem; margin-bottom: 10px;">Busca al cliente por nombre o número:</p>
             
-            <!-- 🔍 LUPITA DE BÚSQUEDA PARA PAPÁ -->
+            <!-- Lupita de Búsqueda -->
             <input type="text" id="adminSearchInput" class="admin-search-box" placeholder="🔍 Buscar por nombre, teléfono o número..." onkeyup="filtrarTablaAdmin()">
 
             <div class="admin-table-container" id="adminSoldListContainer">
@@ -768,7 +768,7 @@
             </div>
 
             <div class="modal-buttons" style="margin-top: 15px;">
-                <button class="btn btn-secondary" onclick="document.getElementById('adminDashboardModal').style.display='none'">Cerrar Panel</button>
+                <button class="btn btn-secondary" onclick="cerrarPanelAdmin()">Cerrar Panel</button>
             </div>
         </div>
     </div>
@@ -838,7 +838,15 @@
         function abrirPanelAdmin() {
             document.getElementById('adminDashboardModal').style.display = 'flex';
             document.getElementById('adminSearchInput').value = '';
+            // Cada vez que se abre el panel, se oculta el ticket anterior para que quede limpio
+            document.getElementById('ticketContainerWrapper').style.display = 'none';
             renderizarTablaAdmin(vendidosGlobales);
+        }
+
+        // Función para cerrar el panel y limpiar por completo el ticket visual
+        function cerrarPanelAdmin() {
+            document.getElementById('ticketContainerWrapper').style.display = 'none';
+            document.getElementById('adminDashboardModal').style.display = 'none';
         }
 
         function renderizarTablaAdmin(datos) {
@@ -878,7 +886,6 @@
             container.innerHTML = html;
         }
 
-        // 🔍 Función de filtrado rápido con la lupita del panel secreto
         function filtrarTablaAdmin() {
             let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
             let filas = document.querySelectorAll('.admin-row');
