@@ -7,9 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Firebase -->
+    <!-- Firebase y html2canvas -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         * {
@@ -91,7 +92,7 @@
             font-weight: 500;
         }
 
-        /* Tarjeta de Progreso (Solo % y Total) */
+        /* Tarjeta de Progreso */
         .progress-box {
             background: #1e293b;
             border: 1px solid #334155;
@@ -412,7 +413,7 @@
         }
         .btn-buy-pro:hover { background: #059669; }
 
-        /* MODAL DE PAGO */
+        /* MODAL */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
@@ -466,20 +467,53 @@
         .btn-secondary { background: #334155; color: #cbd5e1; }
         .btn-secondary:hover { background: #475569; }
 
-        /* Estilos del Panel Secreto */
+        /* Buscador en el Panel Secreto */
+        .admin-search-box {
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            font-size: 0.85rem;
+            outline: none;
+        }
+        .admin-search-box:focus { border-color: #3b82f6; }
+
+        /* Estilos de la Tabla Admin */
+        .admin-table-container {
+            max-height: 220px;
+            overflow-y: auto;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
         .admin-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: #cbd5e1;
         }
         .admin-table th, .admin-table td {
-            border: 1px solid #334155;
+            border-bottom: 1px solid #334155;
             padding: 8px;
             text-align: left;
         }
-        .admin-table th { background: #0f172a; color: #60a5fa; }
+        .admin-table th { background: #0f172a; color: #60a5fa; position: sticky; top: 0; }
+        .admin-btn-action {
+            display: flex;
+            gap: 4px;
+        }
+        .btn-ticket-admin {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-ticket-admin:hover { background: #2563eb; }
         .btn-delete-admin {
             background: #ef4444;
             color: white;
@@ -490,6 +524,36 @@
             font-weight: bold;
         }
         .btn-delete-admin:hover { background: #dc2626; }
+
+        /* TICKET OFICIAL VISUAL */
+        #ticketPreviewCard {
+            width: 100%;
+            max-width: 340px;
+            background: #ffffff;
+            color: #000000;
+            border: 3px solid #d9534f;
+            padding: 18px;
+            margin: 15px auto;
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .btn-download-img {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+        .btn-download-img:hover { background: #059669; }
 
         /* Alerta Elegante */
         .custom-alert-overlay {
@@ -668,14 +732,41 @@
         </div>
     </div>
 
-    <!-- MODAL: PANEL DE ADMINISTRACIÓN -->
+    <!-- MODAL: PANEL DE ADMINISTRACIÓN (Con Lupita de Búsqueda) -->
     <div class="modal" id="adminDashboardModal">
-        <div class="modal-content" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
+        <div class="modal-content" style="max-width: 520px; max-height: 85vh; overflow-y: auto;">
             <h3>🛠️ Administración de Boletos</h3>
-            <p style="color: #34d399; font-size: 0.85rem; margin-bottom: 10px;">Control total de números vendidos:</p>
-            <div id="adminSoldListContainer">
+            <p style="color: #34d399; font-size: 0.85rem; margin-bottom: 10px;">Busca al cliente por nombre o número:</p>
+            
+            <!-- 🔍 LUPITA DE BÚSQUEDA PARA PAPÁ -->
+            <input type="text" id="adminSearchInput" class="admin-search-box" placeholder="🔍 Buscar por nombre, teléfono o número..." onkeyup="filtrarTablaAdmin()">
+
+            <div class="admin-table-container" id="adminSoldListContainer">
                 <span style="font-size: 0.8rem; color: #94a3b8;">Cargando registros...</span>
             </div>
+
+            <!-- TICKET OFICIAL VISUAL -->
+            <div id="ticketContainerWrapper" style="display:none; margin-top: 15px;">
+                <div id="ticketPreviewCard">
+                    <h2 style="color: #000; margin: 0 0 8px 0; border-bottom: 2px solid #ccc; padding-bottom: 6px; font-size: 18px;">Boleto N°: <span id="outBoleto">0000</span></h2>
+                    <div style="text-align: left; font-size: 12px; line-height: 1.5; color: #111;">
+                        <p><b>Nombre:</b> <span id="outNombre">Cliente</span></p>
+                        <p><b>Teléfono:</b> <span id="outTelef">0000000000</span></p>
+                        <p><b>Zona:</b> Edo Zulia</p>
+                        <hr style="border: 0; border-top: 1px solid #ccc; margin: 6px 0;">
+                        <p style="font-size: 10px; color: #333;">
+                            <b>Fecha:</b> <span id="outFecha">--/--/----</span><br>
+                            <b>Sorteo:</b> RIFAS J.A.<br>
+                            <b>Valor:</b> 4.000 Bs , <b>Pagado:</b> 4.000 Bs
+                        </p>
+                    </div>
+                    <div style="font-size: 8px; color: #555; border-top: 1px solid #ccc; margin-top: 6px; padding-top: 4px;">
+                        Verificado Oficial J.A.
+                    </div>
+                </div>
+                <button class="btn-download-img" onclick="descargarTicketComoImagen()">📥 Descargar Imagen del Ticket</button>
+            </div>
+
             <div class="modal-buttons" style="margin-top: 15px;">
                 <button class="btn btn-secondary" onclick="document.getElementById('adminDashboardModal').style.display='none'">Cerrar Panel</button>
             </div>
@@ -719,7 +810,6 @@
         let urlWhatsAppTemporal = "";
         let cantidadAzar = 1;
 
-        // Variables para el disparador secreto (5 toques rápidos)
         let secretClicks = 0;
         let secretTimer = null;
 
@@ -736,7 +826,6 @@
 
         function verificarClaveAdmin() {
             const pass = document.getElementById('adminPasswordInput').value;
-            // CAMBIA AQUÍ TU CONTRASEÑA SI LO DESEAS
             if (pass === "admin123") {
                 document.getElementById('adminPasswordInput').value = '';
                 document.getElementById('adminLoginModal').style.display = 'none';
@@ -748,10 +837,15 @@
 
         function abrirPanelAdmin() {
             document.getElementById('adminDashboardModal').style.display = 'flex';
+            document.getElementById('adminSearchInput').value = '';
+            renderizarTablaAdmin(vendidosGlobales);
+        }
+
+        function renderizarTablaAdmin(datos) {
             let container = document.getElementById('adminSoldListContainer');
             
-            if (Object.keys(vendidosGlobales).length === 0) {
-                container.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8; text-align:center;">No hay boletos vendidos registrados.</p>';
+            if (Object.keys(datos).length === 0) {
+                container.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8; text-align:center; padding:15px;">No hay boletos vendidos registrados.</p>';
                 return;
             }
 
@@ -764,25 +858,70 @@
                         <th>Acción</th>
                     </tr>
                 </thead>
-                <tbody>`;
+                <tbody id="adminTableBody">`;
             
-            for (let num in vendidosGlobales) {
-                let info = vendidosGlobales[num];
-                html += `<tr>
+            for (let num in datos) {
+                let info = datos[num];
+                html += `<tr class="admin-row" data-search="${num} ${info.nombre || ''} ${info.telefono || ''}">
                     <td><strong>${num}</strong></td>
                     <td>${info.nombre || 'Anónimo'}</td>
                     <td>${info.telefono || 'N/A'}</td>
-                    <td><button class="btn-delete-admin" onclick="liberarBoletoAdmin('${num}')">Liberar</button></td>
+                    <td>
+                        <div class="admin-btn-action">
+                            <button class="btn-ticket-admin" onclick="prepararTicketVisual('${num}', '${info.nombre || 'Cliente'}', '${info.telefono || 'N/A'}', '${info.fecha || ''}')">Ticket</button>
+                            <button class="btn-delete-admin" onclick="liberarBoletoAdmin('${num}')">X</button>
+                        </div>
+                    </td>
                 </tr>`;
             }
             html += `</tbody></table>`;
             container.innerHTML = html;
         }
 
+        // 🔍 Función de filtrado rápido con la lupita del panel secreto
+        function filtrarTablaAdmin() {
+            let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
+            let filas = document.querySelectorAll('.admin-row');
+
+            filas.forEach(fila => {
+                let textoBusqueda = fila.getAttribute('data-search').toLowerCase();
+                if (textoBusqueda.includes(filtro)) {
+                    fila.style.display = "";
+                } else {
+                    fila.style.display = "none";
+                }
+            });
+        }
+
+        function prepararTicketVisual(num, nombre, telefono, fechaISO) {
+            document.getElementById('outBoleto').innerText = num;
+            document.getElementById('outNombre').innerText = nombre;
+            document.getElementById('outTelef').innerText = telefono;
+
+            let fechaFormateada = fechaISO ? new Date(fechaISO).toLocaleDateString() + " " + new Date(fechaISO).toLocaleTimeString() : new Date().toLocaleDateString();
+            document.getElementById('outFecha').innerText = fechaFormateada;
+
+            document.getElementById('ticketContainerWrapper').style.display = 'block';
+            document.getElementById('ticketContainerWrapper').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function descargarTicketComoImagen() {
+            const ticketElement = document.getElementById('ticketPreviewCard');
+            
+            html2canvas(ticketElement, { scale: 2 }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = `Boleto_${document.getElementById('outBoleto').innerText}_RifasJA.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            }).catch(err => {
+                alert("Error al generar la imagen del ticket. Inténtalo de nuevo.");
+            });
+        }
+
         function liberarBoletoAdmin(num) {
             if (confirm(`¿Estás seguro de liberar el boleto ${num}?`)) {
                 database.ref('vendidos/' + num).remove().then(() => {
-                    alert(`Boleto ${num} liberado con éxito.`);
+                    document.getElementById('ticketContainerWrapper').style.display = 'none';
                     abrirPanelAdmin();
                 }).catch(err => {
                     alert("Error al liberar: " + err.message);
@@ -882,7 +1021,7 @@
 
                 calcularTopCompradores(vendidosGlobales);
                 if(document.getElementById('adminDashboardModal').style.display === 'flex') {
-                    abrirPanelAdmin();
+                    renderizarTablaAdmin(vendidosGlobales);
                 }
 
                 for (let i = inicioBloqueActual; i <= finBloqueActual; i++) {
@@ -1021,7 +1160,6 @@
             const numerosArr = Array.from(seleccionadosMap).sort();
             const totalBs = seleccionadosMap.size * precioPorBoleto;
 
-            // Guardar preventivamente en Firebase como pendientes o apartados si deseas
             let updates = {};
             numerosArr.forEach(num => {
                 updates[num] = { nombre: nombre, telefono: telefono, fecha: new Date().toISOString() };
@@ -1055,7 +1193,6 @@
             document.getElementById('fileNameDisplay').innerText = '';
         }
 
-        // Inicializar escucha al cargar la página
         window.onload = () => {
             renderizarBloqueParcial();
             escucharBaseDeDatos();
