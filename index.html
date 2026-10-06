@@ -81,6 +81,8 @@
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
             line-height: 1.1;
+            cursor: pointer;
+            user-select: none;
         }
         header p {
             color: #94a3b8;
@@ -441,7 +443,7 @@
         .btn-copy:hover { background: #3b82f633; }
         .toast-msg { color: #34d399; font-size: 0.7rem; display: none; text-align: right; margin-top: -6px; margin-bottom: 6px; font-weight: 600; }
 
-        .modal-content input[type="text"], .modal-content input[type="tel"] {
+        .modal-content input[type="text"], .modal-content input[type="tel"], .modal-content input[type="password"] {
             width: 100%; padding: 12px 16px; margin-bottom: 10px; border-radius: 10px;
             border: 1px solid #334155; background: #0f172a; color: white; font-size: 0.9rem; outline: none;
         }
@@ -463,6 +465,31 @@
         .btn-whatsapp:hover { background: #059669; }
         .btn-secondary { background: #334155; color: #cbd5e1; }
         .btn-secondary:hover { background: #475569; }
+
+        /* Estilos del Panel Secreto */
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+        .admin-table th, .admin-table td {
+            border: 1px solid #334155;
+            padding: 8px;
+            text-align: left;
+        }
+        .admin-table th { background: #0f172a; color: #60a5fa; }
+        .btn-delete-admin {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-delete-admin:hover { background: #dc2626; }
 
         /* Alerta Elegante */
         .custom-alert-overlay {
@@ -491,11 +518,11 @@
 
     <header>
         <div class="pro-badge">✨ Gran Sorteo Exclusivo ✨</div>
-        <h1>Rifas J.A.</h1>
+        <h1 onclick="triggerSecretAdmin()">Rifas J.A.</h1>
         <p>¡Elige tus números de la suerte y gana!</p>
     </header>
 
-    <!-- Tarjeta Progreso (Solo % y Total Meta) -->
+    <!-- Tarjeta Progreso -->
     <div class="progress-box">
         <div class="progress-info">
             <span>🔥 Avance del Sorteo</span>
@@ -510,7 +537,7 @@
         <div class="price-tag">Valor del boleto: 4.000 Bs</div>
     </div>
 
-    <!-- Selector de Modo (Manual o Al Azar) -->
+    <!-- Selector de Modo -->
     <div class="mode-container">
         <button class="mode-tab-btn active" id="btnModeManual" onclick="cambiarModo('manual')">👆 Elegir Manual</button>
         <button class="mode-tab-btn" id="btnModeRandom" onclick="cambiarModo('random')">🎲 Elegir al Azar</button>
@@ -568,7 +595,7 @@
         <div class="sec-badge"><span style="color:#34d399;">✅</span>Verificado J.A.</div>
     </div>
 
-    <!-- Barra Inferior de Acción (Cambiado a "Comprar") -->
+    <!-- Barra Inferior de Acción -->
     <div class="action-bar" id="actionBar">
         <div class="action-info">
             <span id="seleccionText">0 seleccionados</span>
@@ -577,7 +604,7 @@
         <button class="btn-buy-pro" onclick="openModal()">Comprar</button>
     </div>
 
-    <!-- Modal de Pago Rediseñado (Título cambiado a Finalizar Compra) -->
+    <!-- Modal de Pago -->
     <div class="modal" id="dataModal">
         <div class="modal-content">
             <h3>Finalizar Compra</h3>
@@ -628,6 +655,33 @@
         </div>
     </div>
 
+    <!-- MODAL: LOGIN PANEL SECRETO -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content" style="max-width: 340px;">
+            <h3>🔐 Panel Secreto</h3>
+            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 15px; text-align: center;">Ingresa la clave de administración:</p>
+            <input type="password" id="adminPasswordInput" placeholder="Contraseña...">
+            <div class="modal-buttons" style="margin-top: 10px;">
+                <button class="btn btn-secondary" onclick="document.getElementById('adminLoginModal').style.display='none'">Cancelar</button>
+                <button class="btn btn-whatsapp" onclick="verificarClaveAdmin()">Entrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PANEL DE ADMINISTRACIÓN -->
+    <div class="modal" id="adminDashboardModal">
+        <div class="modal-content" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
+            <h3>🛠️ Administración de Boletos</h3>
+            <p style="color: #34d399; font-size: 0.85rem; margin-bottom: 10px;">Control total de números vendidos:</p>
+            <div id="adminSoldListContainer">
+                <span style="font-size: 0.8rem; color: #94a3b8;">Cargando registros...</span>
+            </div>
+            <div class="modal-buttons" style="margin-top: 15px;">
+                <button class="btn btn-secondary" onclick="document.getElementById('adminDashboardModal').style.display='none'">Cerrar Panel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Alerta Elegante -->
     <div class="custom-alert-overlay" id="customAlert">
         <div class="custom-alert-box">
@@ -664,6 +718,77 @@
         let finBloqueActual = 500;
         let urlWhatsAppTemporal = "";
         let cantidadAzar = 1;
+
+        // Variables para el disparador secreto (5 toques rápidos)
+        let secretClicks = 0;
+        let secretTimer = null;
+
+        function triggerSecretAdmin() {
+            secretClicks++;
+            clearTimeout(secretTimer);
+            if (secretClicks >= 5) {
+                secretClicks = 0;
+                document.getElementById('adminLoginModal').style.display = 'flex';
+            } else {
+                secretTimer = setTimeout(() => { secretClicks = 0; }, 1500);
+            }
+        }
+
+        function verificarClaveAdmin() {
+            const pass = document.getElementById('adminPasswordInput').value;
+            // CAMBIA AQUÍ TU CONTRASEÑA SI LO DESEAS
+            if (pass === "admin123") {
+                document.getElementById('adminPasswordInput').value = '';
+                document.getElementById('adminLoginModal').style.display = 'none';
+                abrirPanelAdmin();
+            } else {
+                alert("Contraseña incorrecta.");
+            }
+        }
+
+        function abrirPanelAdmin() {
+            document.getElementById('adminDashboardModal').style.display = 'flex';
+            let container = document.getElementById('adminSoldListContainer');
+            
+            if (Object.keys(vendidosGlobales).length === 0) {
+                container.innerHTML = '<p style="font-size:0.85rem; color:#94a3b8; text-align:center;">No hay boletos vendidos registrados.</p>';
+                return;
+            }
+
+            let html = `<table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Comprador</th>
+                        <th>Teléfono</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+            
+            for (let num in vendidosGlobales) {
+                let info = vendidosGlobales[num];
+                html += `<tr>
+                    <td><strong>${num}</strong></td>
+                    <td>${info.nombre || 'Anónimo'}</td>
+                    <td>${info.telefono || 'N/A'}</td>
+                    <td><button class="btn-delete-admin" onclick="liberarBoletoAdmin('${num}')">Liberar</button></td>
+                </tr>`;
+            }
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function liberarBoletoAdmin(num) {
+            if (confirm(`¿Estás seguro de liberar el boleto ${num}?`)) {
+                database.ref('vendidos/' + num).remove().then(() => {
+                    alert(`Boleto ${num} liberado con éxito.`);
+                    abrirPanelAdmin();
+                }).catch(err => {
+                    alert("Error al liberar: " + err.message);
+                });
+            }
+        }
 
         function cambiarModo(modo) {
             const manualContainer = document.getElementById('manualContainer');
@@ -752,11 +877,13 @@
                 let totalVendidos = Object.keys(vendidosGlobales).length;
                 let porcentaje = Math.round((totalVendidos / totalNumbers) * 100);
                 
-                // Actualizamos solo el porcentaje y mantenemos la meta total
                 document.getElementById('progressTextPercent').innerText = `${porcentaje}%`;
                 document.getElementById('progressBarFill').style.width = `${porcentaje}%`;
 
                 calcularTopCompradores(vendidosGlobales);
+                if(document.getElementById('adminDashboardModal').style.display === 'flex') {
+                    abrirPanelAdmin();
+                }
 
                 for (let i = inicioBloqueActual; i <= finBloqueActual; i++) {
                     const numStr = String(i).padStart(4, '0');
@@ -806,24 +933,63 @@
 
             if (seleccionadosMap.has(num)) {
                 seleccionadosMap.delete(num);
-                if(btn) btn.classList.remove('selected');
+                btn.classList.remove('selected');
             } else {
                 seleccionadosMap.add(num);
-                if(btn) btn.classList.add('selected');
+                btn.classList.add('selected');
             }
             actualizarBarra();
         }
 
         function actualizarBarra() {
-            if (seleccionadosMap.size > 0) {
+            const cantidad = seleccionadosMap.size;
+            const totalBs = cantidad * precioPorBoleto;
+
+            document.getElementById('seleccionText').innerText = `${cantidad} seleccionados`;
+            document.getElementById('totalBsText').innerText = `Total: ${totalBs.toLocaleString()} Bs`;
+
+            if (cantidad > 0) {
                 actionBar.style.display = 'flex';
-                let total = seleccionadosMap.size * precioPorBoleto;
-                let totalFormateado = total.toLocaleString('es-VE'); 
-                document.getElementById('seleccionText').innerText = `${seleccionadosMap.size} seleccionados`;
-                document.getElementById('totalBsText').innerText = `Total: ${totalFormateado} Bs`;
             } else {
                 actionBar.style.display = 'none';
             }
+        }
+
+        function filterNumbers() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (query === '') {
+                renderizarBloqueParcial();
+                return;
+            }
+
+            grid.innerHTML = '';
+            for (let i = 1; i <= totalNumbers; i++) {
+                const numStr = String(i).padStart(4, '0');
+                if (numStr.includes(query)) {
+                    const btn = document.createElement('button');
+                    btn.className = 'number-btn';
+                    btn.innerText = numStr;
+                    btn.id = `btn-search-${numStr}`;
+                    
+                    if (vendidosGlobales[numStr]) {
+                        btn.classList.add('vendido');
+                    } else if (seleccionadosMap.has(numStr)) {
+                        btn.classList.add('selected');
+                    }
+                    btn.onclick = () => toggleNumber(numStr);
+                    grid.appendChild(btn);
+                }
+            }
+        }
+
+        function openModal() {
+            const totalBs = seleccionadosMap.size * precioPorBoleto;
+            document.getElementById('totalModal').innerText = `${totalBs.toLocaleString()} Bs`;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
         }
 
         function copyText(elementId, toastId) {
@@ -836,100 +1002,63 @@
         }
 
         function showFileName() {
-            const fileInput = document.getElementById('fileCapture');
+            const input = document.getElementById('fileCapture');
             const display = document.getElementById('fileNameDisplay');
-            if (fileInput.files.length > 0) {
-                display.innerText = "✓ Capture: " + fileInput.files[0].name;
+            if (input.files && input.files[0]) {
+                display.innerText = "📎 " + input.files[0].name;
             }
-        }
-
-        function openModal() {
-            if (seleccionadosMap.size === 0) {
-                alert('Por favor selecciona al menos un número primero.');
-                return;
-            }
-            let total = (seleccionadosMap.size * precioPorBoleto).toLocaleString('es-VE');
-            document.getElementById('totalModal').innerText = `${total} Bs`;
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() { modal.style.display = 'none'; }
-
-        function resetModalForm() {
-            document.getElementById('userName').value = '';
-            document.getElementById('userPhone').value = '';
-            document.getElementById('fileCapture').value = '';
-            document.getElementById('fileNameDisplay').innerText = '';
-            modal.style.display = 'none';
-            seleccionadosMap.clear();
-            actualizarBarra();
-            renderizarBloqueParcial();
         }
 
         function prepararEnvioWhatsApp() {
-            const name = document.getElementById('userName').value.trim();
-            const phone = document.getElementById('userPhone').value.trim();
-            const capture = document.getElementById('fileCapture').files[0];
-            
-            if(!name || !phone) { alert('Por favor completa tu nombre y teléfono.'); return; }
-            if(!capture) { alert('Por favor adjunta la imagen o capture de tu pago.'); return; }
-            if (seleccionadosMap.size === 0) { alert('No hay ningún número seleccionado.'); return; }
+            const nombre = document.getElementById('userName').value.trim();
+            const telefono = document.getElementById('userPhone').value.trim();
 
-            let listaArray = Array.from(seleccionadosMap);
-            let colision = listaArray.some(n => vendidosGlobales[n]);
-            if (colision) {
-                alert('¡Atención! Uno de los números que elegiste acaba de ser comprado por otra persona.');
-                closeModal(); seleccionadosMap.clear(); renderizarBloqueParcial(); actualizarBarra();
+            if (!nombre || !telefono) {
+                alert("Por favor, completa tu nombre y número de teléfono.");
                 return;
             }
 
+            const numerosArr = Array.from(seleccionadosMap).sort();
+            const totalBs = seleccionadosMap.size * precioPorBoleto;
+
+            // Guardar preventivamente en Firebase como pendientes o apartados si deseas
             let updates = {};
-            listaArray.forEach(num => {
-                updates[num] = { nombre: name, telefono: phone, fecha: new Date().toISOString() };
+            numerosArr.forEach(num => {
+                updates[num] = { nombre: nombre, telefono: telefono, fecha: new Date().toISOString() };
             });
 
             database.ref('vendidos').update(updates).then(() => {
-                let total = (listaArray.length * precioPorBoleto).toLocaleString('es-VE');
-                let numerosLista = listaArray.join(', ');
-                const mensaje = `Hola! 👋 Quiero comprar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
-                
+                let mensaje = `¡Hola! 👋 Quiero confirmar mi compra en *Rifas J.A.*\n\n` +
+                              `👤 *Nombre:* ${nombre}\n` +
+                              `📞 *Teléfono:* ${telefono}\n` +
+                              `🎟️ *Números (${numerosArr.length}):* ${numerosArr.join(', ')}\n` +
+                              `💰 *Total Pagado:* ${totalBs.toLocaleString()} Bs\n\n` +
+                              `Adjunto mi comprobante de pago para la verificación. ✅`;
+
                 urlWhatsAppTemporal = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
-                resetModalForm();
+
+                closeModal();
                 customAlert.style.display = 'flex';
-            }).catch(error => {
-                alert("Hubo un error al registrar en la base de datos. Verifica tu conexión.");
-                console.error(error);
+            }).catch(err => {
+                alert("Hubo un error al apartar los números. Inténtalo de nuevo.");
             });
         }
 
         function ejecutarAperturaWhatsApp() {
             customAlert.style.display = 'none';
-            window.location.href = urlWhatsAppTemporal;
+            window.open(urlWhatsAppTemporal, '_blank');
+            seleccionadosMap.clear();
+            actualizarBarra();
+            renderizarBloqueParcial();
+            document.getElementById('userName').value = '';
+            document.getElementById('userPhone').value = '';
+            document.getElementById('fileNameDisplay').innerText = '';
         }
 
-        function filterNumbers() {
-            const input = document.getElementById('searchInput').value.trim().toLowerCase();
-            if (!input) return;
-            let numBuscado = parseInt(input, 10);
-            if (!isNaN(numBuscado) && numBuscado >= 1 && numBuscado <= 1500) {
-                if (numBuscado <= 500) cambiarBloque(1, 500, document.querySelectorAll('.tab-pro-btn')[0]);
-                else if (numBuscado <= 1000) cambiarBloque(501, 1000, document.querySelectorAll('.tab-pro-btn')[1]);
-                else cambiarBloque(1001, 1500, document.querySelectorAll('.tab-pro-btn')[2]);
-
-                setTimeout(() => {
-                    const btnTarget = document.getElementById(`btn-${String(numBuscado).padStart(4, '0')}`);
-                    if(btnTarget) {
-                        btnTarget.style.borderColor = '#10b981';
-                        btnTarget.style.transform = 'scale(1.15)';
-                        setTimeout(() => { btnTarget.style.transform = 'scale(1)'; }, 1000);
-                    }
-                }, 100);
-            }
-        }
-
-        window.onload = function() {
-            renderizarBloqueParcial(); 
-            escucharBaseDeDatos(); 
+        // Inicializar escucha al cargar la página
+        window.onload = () => {
+            renderizarBloqueParcial();
+            escucharBaseDeDatos();
         };
     </script>
 </body>
