@@ -89,7 +89,7 @@
             font-weight: 500;
         }
 
-        /* Tarjeta de Progreso Modificada (Solo % y Total) */
+        /* Tarjeta de Progreso (Solo % y Total) */
         .progress-box {
             background: #1e293b;
             border: 1px solid #334155;
@@ -105,6 +105,14 @@
             font-weight: 600;
             margin-bottom: 8px;
             color: #cbd5e1;
+        }
+        #progressTextPercent {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #34d399;
+        }
+        #progressTextTotal {
+            color: #94a3b8;
         }
         .progress-bar-track {
             width: 100%;
@@ -133,7 +141,7 @@
             border-radius: 10px;
         }
 
-        /* Selector de Modo (Manual / Al Azar) */
+        /* Selector de Modo */
         .mode-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -402,7 +410,7 @@
         }
         .btn-buy-pro:hover { background: #059669; }
 
-        /* Modal de Pago */
+        /* MODAL DE PAGO */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
@@ -487,11 +495,14 @@
         <p>¡Elige tus números de la suerte y gana!</p>
     </header>
 
-    <!-- Tarjeta Progreso (Modificada: solo % y Total 1500) -->
+    <!-- Tarjeta Progreso (Solo % y Total Meta) -->
     <div class="progress-box">
         <div class="progress-info">
-            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
-            <span id="progressText" style="color: #34d399;">0%</span>
+            <span>🔥 Avance del Sorteo</span>
+            <span id="progressTextContainer">
+                <span id="progressTextPercent">0%</span> 
+                <span id="progressTextTotal">/ 1500 Boletos</span>
+            </span>
         </div>
         <div class="progress-bar-track">
             <div class="progress-bar-fill" id="progressBarFill"></div>
@@ -557,19 +568,19 @@
         <div class="sec-badge"><span style="color:#34d399;">✅</span>Verificado J.A.</div>
     </div>
 
-    <!-- Barra Inferior de Acción -->
+    <!-- Barra Inferior de Acción (Cambiado a "Comprar") -->
     <div class="action-bar" id="actionBar">
         <div class="action-info">
             <span id="seleccionText">0 seleccionados</span>
             <strong id="totalBsText">Total: 0 Bs</strong>
         </div>
-        <button class="btn-buy-pro" onclick="openModal()">Apartar</button>
+        <button class="btn-buy-pro" onclick="openModal()">Comprar</button>
     </div>
 
-    <!-- Modal de Pago -->
+    <!-- Modal de Pago Rediseñado (Título cambiado a Finalizar Compra) -->
     <div class="modal" id="dataModal">
         <div class="modal-content">
-            <h3>Finalizar Reserva</h3>
+            <h3>Finalizar Compra</h3>
             
             <div class="pago-box">
                 <div class="pago-title">
@@ -741,8 +752,8 @@
                 let totalVendidos = Object.keys(vendidosGlobales).length;
                 let porcentaje = Math.round((totalVendidos / totalNumbers) * 100);
                 
-                // Actualiza solo con el porcentaje y la barra de progreso
-                document.getElementById('progressText').innerText = `${porcentaje}%`;
+                // Actualizamos solo el porcentaje y mantenemos la meta total
+                document.getElementById('progressTextPercent').innerText = `${porcentaje}%`;
                 document.getElementById('progressBarFill').style.width = `${porcentaje}%`;
 
                 calcularTopCompradores(vendidosGlobales);
@@ -880,7 +891,7 @@
             database.ref('vendidos').update(updates).then(() => {
                 let total = (listaArray.length * precioPorBoleto).toLocaleString('es-VE');
                 let numerosLista = listaArray.join(', ');
-                const mensaje = `Hola! 👋 Quiero apartar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
+                const mensaje = `Hola! 👋 Quiero comprar ${listaArray.length} número(s) de la rifa Rifas J.A.\n\n🎟️ *Números elegidos:* ${numerosLista}\n💰 *Total pagado:* ${total} Bs.\n\n👤 *Nombre:* ${name}\n📱 *Teléfono:* ${phone}\n\n📸 *Nota:* Adjunto mi capture de pago a este chat.`;
                 
                 urlWhatsAppTemporal = `https://wa.me/${numeroWhatsAppContacto}?text=${encodeURIComponent(mensaje)}`;
                 resetModalForm();
