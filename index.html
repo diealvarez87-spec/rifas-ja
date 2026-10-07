@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas J.A.</title>
+    <title>Rifas J.A. - Gran Sorteo</title>
     <style>
         :root {
             --bg-base: #070913;
@@ -124,29 +124,108 @@
             color: #93c5fd;
         }
 
-        /* IMAGEN DE LOS PREMIOS */
-        .prizes-showcase {
+        /* SELECTOR RÁPIDO DE BOLETOS AL AZAR */
+        .random-picker-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .picker-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #93c5fd;
+            display: flex;
             align-items: center;
-            padding: 6px 0;
-            position: relative;
+            gap: 6px;
+            margin: 0;
         }
 
-        .prizes-showcase img {
-            width: 100%;
-            max-width: 380px;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
-            animation: floatPrize 3s ease-in-out infinite;
+        .quick-buttons-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
         }
 
-        @keyframes floatPrize {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
+        .quick-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: 0.2s;
         }
 
+        .quick-btn:hover, .quick-btn.active {
+            background: var(--accent-blue);
+            border-color: #93c5fd;
+            box-shadow: 0 0 10px var(--accent-blue-glow);
+        }
+
+        .lucky-action-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* SECCIÓN DE PREMIOS EN TARJETAS */
+        .section-heading {
+            font-size: 15px;
+            font-weight: 800;
+            color: #93c5fd;
+            margin: 4px 0 2px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .prizes-grid-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .mini-prize-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mini-prize-card b {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .mini-prize-card span {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* PANEL INTERACTIVO DE NÚMEROS */
         .interactive-panel {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -259,7 +338,7 @@
             opacity: 0.6;
         }
 
-        /* PODIO ESTILO REFERENCIA */
+        /* PODIO DE COMPRADORES */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -385,6 +464,7 @@
             margin: 0;
         }
 
+        /* BARRA INFERIOR FLOTANTE */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -413,6 +493,7 @@
             cursor: pointer;
         }
 
+        /* VENTANAS MODALES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -473,11 +554,6 @@
         <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
     </div>
 
-    <!-- IMAGEN DE LOS PREMIOS -->
-    <div class="prizes-showcase">
-        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=800" alt="Premios Rifas J.A." id="imagenPremios">
-    </div>
-
     <div class="progress-card">
         <div class="progress-header">
             <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
@@ -488,6 +564,33 @@
         </div>
         <div class="price-badge-box">
             Valor del boleto: 4.000 Bs
+        </div>
+    </div>
+
+    <!-- SELECTOR RÁPIDO DE NÚMEROS AL AZAR -->
+    <div class="random-picker-card">
+        <h3 class="picker-title">🎲 Selección Rápida al Azar</h3>
+        <div class="quick-buttons-row">
+            <div class="quick-btn" onclick="seleccionarAlAzar(5, this)">5</div>
+            <div class="quick-btn" onclick="seleccionarAlAzar(10, this)">10</div>
+            <div class="quick-btn" onclick="seleccionarAlAzar(20, this)">20</div>
+            <div class="quick-btn" onclick="seleccionarAlAzar(50, this)">50</div>
+        </div>
+        <button class="lucky-action-btn" onclick="seleccionarAleatorioPersonalizado()">
+            ✨ Elegir cantidad personalizada
+        </button>
+    </div>
+
+    <!-- PREMIOS EN JUEGO -->
+    <div class="section-heading">🎁 Premios Principales</div>
+    <div class="prizes-grid-cards">
+        <div class="mini-prize-card">
+            <b>Smart TV 75" 4K</b>
+            <span>Premio Mayor</span>
+        </div>
+        <div class="mini-prize-card">
+            <b>Nevera Condesa</b>
+            <span>Segundo Premio</span>
         </div>
     </div>
 
@@ -514,7 +617,7 @@
         <div class="tickets-grid" id="gridBoletos"></div>
     </div>
 
-    <!-- PODIO ESTILO REFERENCIA -->
+    <!-- PODIO DE COMPRADORES -->
     <div class="podium-card">
         <div class="podium-icon-top">🏆</div>
         <div class="podium-title-area">
@@ -640,6 +743,44 @@
                 <p class="podium-tickets-txt">${top3.cantidad} T.</p>
             </div>
         `;
+    }
+
+    /* FUNCIÓN DE SELECCIÓN AUTOMÁTICA AL AZAR */
+    function seleccionarAlAzar(cantidad, elementoBtn) {
+        document.querySelectorAll('.quick-btn').forEach(b => b.classList.remove('active'));
+        if(elementoBtn) elementoBtn.classList.add('active');
+
+        // Buscar todos los números disponibles que no estén vendidos ni seleccionados
+        let disponibles = [];
+        for (let i = 1; i <= 1500; i++) {
+            let numStr = String(i).padStart(4, '0');
+            if (!vendidos.includes(numStr) && !seleccionados.includes(numStr)) {
+                disponibles.push(numStr);
+            }
+        }
+
+        if (disponibles.length < cantidad) {
+            alert("⚠️ No hay suficientes boletos disponibles para esa cantidad.");
+            return;
+        }
+
+        // Seleccionar aleatoriamente
+        for (let i = 0; i < cantidad; i++) {
+            let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
+            let numeroElegido = disponibles.splice(indiceAleatorio, 1)[0];
+            seleccionados.push(numeroElegido);
+        }
+
+        actualizarResumen();
+        generarBoletos(inicioRango, finRango);
+        alert(`¡Listo! Se seleccionaron ${cantidad} números al azar automáticamente.`);
+    }
+
+    function seleccionarAleatorioPersonalizado() {
+        let cantidadTxt = prompt("¿Cuántos números al azar deseas elegir?", "5");
+        let cantidad = parseInt(cantidadTxt);
+        if (isNaN(cantidad) || cantidad <= 0) return;
+        seleccionarAlAzar(cantidad, null);
     }
 
     function generarBoletos(inicio, fin) {
