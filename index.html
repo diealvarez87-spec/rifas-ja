@@ -40,7 +40,6 @@
             padding-bottom: 90px;
         }
 
-        /* Cabecera con Regalos */
         .header-section {
             text-align: center;
             padding-top: 15px;
@@ -93,7 +92,6 @@
             margin-top: 4px;
         }
 
-        /* Tarjeta de Progreso y Valor */
         .progress-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -141,7 +139,6 @@
             color: #93c5fd;
         }
 
-        /* Botones de Modo */
         .mode-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -162,7 +159,6 @@
             align-items: center;
             justify-content: center;
             gap: 6px;
-            transition: all 0.2s;
         }
 
         .mode-btn.active {
@@ -172,7 +168,6 @@
             box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* Panel Interactivo */
         .interactive-panel {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -185,7 +180,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        /* Contenedor Azar con el Signo + */
         .random-container {
             display: none;
             background: rgba(59, 130, 246, 0.08);
@@ -223,9 +217,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.1s;
         }
-        .btn-plus:active { transform: scale(0.92); }
 
         .random-pay-btn {
             background: var(--accent-green);
@@ -236,7 +228,6 @@
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .search-input {
@@ -249,11 +240,8 @@
             font-size: 13px;
             box-sizing: border-box;
             outline: none;
-            transition: border-color 0.2s;
         }
-        .search-input:focus { border-color: var(--accent-blue); }
 
-        /* Rangos */
         .ranges-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -270,7 +258,6 @@
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .range-tab.active {
@@ -280,7 +267,6 @@
             box-shadow: 0 0 10px var(--accent-blue-glow);
         }
 
-        /* Leyenda */
         .status-legend {
             display: flex;
             justify-content: space-around;
@@ -292,7 +278,6 @@
         }
 
         .legend-item { display: flex; align-items: center; gap: 5px; }
-
         .dot { width: 8px; height: 8px; border-radius: 50%; }
         .dot.available { background: var(--text-muted); }
         .dot.selected { background: var(--accent-blue); box-shadow: 0 0 6px var(--accent-blue); }
@@ -305,7 +290,6 @@
             color: var(--text-muted);
         }
 
-        /* Grid optimizado con rendimiento fluido */
         .tickets-grid {
             max-height: 220px;
             overflow-y: auto;
@@ -316,7 +300,6 @@
             padding: 10px;
             border-radius: 12px;
             border: 1px solid var(--card-border);
-            will-change: scroll-position;
         }
 
         .ticket-cell {
@@ -347,7 +330,6 @@
             opacity: 0.6;
         }
 
-        /* Barra Inferior Flotante */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -374,10 +356,8 @@
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
         }
 
-        /* Modales */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -405,7 +385,22 @@
             overflow-y: auto;
         }
 
-        .modal-title { font-size: 18px; font-weight: 800; color: #93c5fd; text-align: center; margin: 0; }
+        /* Estilo para el Logo del BDV en el Modal */
+        .bank-logo-container {
+            text-align: center;
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: -4px;
+        }
+        .bank-logo-container img {
+            max-width: 140px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .modal-title { font-size: 16px; font-weight: 800; color: #93c5fd; text-align: center; margin: 0; }
         .bank-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
         .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 10px; border-radius: 8px; font-size: 13px; }
         .copy-btn { background: var(--accent-blue); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
@@ -421,7 +416,6 @@
 
 <div class="main-container">
 
-    <!-- Cabecera con Regalos Laterales -->
     <div class="header-section">
         <div class="gift-left">🎁</div>
         <div class="gift-right">🎁</div>
@@ -430,7 +424,6 @@
         <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
     </div>
 
-    <!-- Progreso del Sorteo y Valor -->
     <div class="progress-card">
         <div class="progress-header">
             <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
@@ -444,7 +437,6 @@
         </div>
     </div>
 
-    <!-- Botones de Modo -->
     <div class="mode-row">
         <div id="btnModoManual" class="mode-btn active" onclick="cambiarModo('manual')">
             👇 Elegir Manual
@@ -454,10 +446,7 @@
         </div>
     </div>
 
-    <!-- Panel Interactivo -->
     <div class="interactive-panel">
-        
-        <!-- Contenedor Azar con el Botón + -->
         <div id="panelAzar" class="random-container">
             <span class="random-info-text" id="textoAzarContador">Toca [+] para sumar azar (0)</span>
             <div class="random-controls">
@@ -466,7 +455,6 @@
             </div>
         </div>
 
-        <!-- Buscador Manual -->
         <input type="text" id="inputBuscador" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
 
         <div class="ranges-row">
@@ -486,13 +474,11 @@
             <span>1500 activos</span>
         </div>
 
-        <!-- Grid de Pastillas -->
         <div class="tickets-grid" id="gridBoletos"></div>
     </div>
 
 </div>
 
-<!-- Barra Inferior Flotante -->
 <div class="bottom-floating-bar">
     <div class="selection-summary">
         <span id="cantSeleccionados">0 seleccionados</span>
@@ -501,15 +487,20 @@
     <button class="apartar-btn" onclick="abrirModalPago()">Apartar</button>
 </div>
 
-<!-- VENTANA FLOTANTE 1: DATOS DE PAGO Y CAPTURE -->
+<!-- VENTANA FLOTANTE 1: DATOS DE PAGO Y LOGO BDV -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
-        <h3 class="modal-title">🏦 Pago Móvil (Banco de Venezuela)</h3>
+        <div class="bank-logo-container">
+            <img src="https://i.imgur.com/8QO0h9r.png" alt="Banco de Venezuela" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4b/Banco_de_Venezuela_logo.svg'">
+        </div>
+        <h3 class="modal-title">Pago Móvil (Banco de Venezuela)</h3>
+        
         <div class="bank-box">
             <div class="bank-row"><span><b>Banco:</b> Banco de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
             <div class="bank-row"><span><b>Cédula:</b> 18483754</span><button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button></div>
             <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
+
         <div>
             <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">📸 Adjuntar Capture de Pago (*Obligatorio):</label>
             <label class="file-upload-box" id="fileLabel">
@@ -517,6 +508,7 @@
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             </label>
         </div>
+
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
             <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
@@ -551,7 +543,6 @@
     </div>
 </div>
 
-<!-- Script Optimizado -->
 <script>
     let inicioRango = 1;
     let finRango = 500;
@@ -677,7 +668,6 @@
         grid.appendChild(fragment);
     }
 
-    // Agregar número al azar con el botón de signo +
     function agregarAzarPlus() {
         let disponibles = [];
         for (let i = 1; i <= 1500; i++) {
@@ -765,8 +755,16 @@
 
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
 
+        // Limpiar todo y resetear la página para una nueva compra limpia
         cerrarModal('modalAdvertencia');
         seleccionados = [];
+        tieneCapture = false;
+        document.getElementById('inputCapture').value = '';
+        document.getElementById('inputNombre').value = '';
+        document.getElementById('inputTelefono').value = '';
+        document.getElementById('fileLabel').style.borderColor = 'rgba(59, 130, 246, 0.4)';
+        document.getElementById('fileLabel').innerHTML = `📂 Toca para subir tu comprobante de pago`;
+        
         actualizarResumen();
         generarBoletos(inicioRango, finRango);
     }
