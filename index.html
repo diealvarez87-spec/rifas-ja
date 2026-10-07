@@ -38,7 +38,7 @@
             border: 1px solid var(--border);
         }
 
-        /* Header con los regalos a los lados */
+        /* Header exacto con los regalos a los lados */
         header {
             text-align: center;
             margin-bottom: 12px;
@@ -239,7 +239,7 @@
             margin-bottom: 8px;
         }
 
-        /* Grid de números */
+        /* Grid de números (4 columnas exactas) */
         .grid-wrapper {
             max-height: 200px;
             overflow-y: auto;
@@ -271,6 +271,13 @@
             background: var(--accent-blue);
             color: white;
             border-color: var(--accent-blue);
+        }
+
+        .num-btn.sold {
+            background: #7f1d1d;
+            color: #fca5a5;
+            border-color: #991b1b;
+            cursor: not-allowed;
         }
 
         /* Barra inferior de apartado */
@@ -307,7 +314,7 @@
             text-decoration: none;
         }
 
-        /* Modal de contraseña para el panel secreto */
+        /* Modal de contraseña y admin */
         #passwordModal, #adminModal {
             display: none;
             position: fixed;
@@ -365,7 +372,6 @@
 <body>
 
 <div class="container">
-    <!-- Header exacto con los regalos y los 5 toques -->
     <header onclick="registrarToqueAdmin()">
         <span class="gift-left">🎁</span>
         <span class="gift-right">🎁</span>
@@ -429,13 +435,13 @@
     <div class="footer-action">
         <div class="selection-summary">
             <div id="textoCantSeleccionados">0 seleccionados</div>
-            <div id="totalPagar">Total: 4.000 Bs</div>
+            <div id="totalPagar">Total: 0 Bs</div>
         </div>
         <a href="#" id="whatsappBtn" class="btn-apartar" onclick="enviarWhatsApp(event)">Apartar</a>
     </div>
 </div>
 
-<!-- MODAL DE CONTRASEÑA (Se abre con los 5 toques en el título) -->
+<!-- MODAL DE CONTRASEÑA -->
 <div id="passwordModal">
     <div class="modal-box">
         <h3>🔒 Acceso de Administrador</h3>
@@ -456,17 +462,16 @@
             <button onclick="cerrarAdmin()" style="background: var(--accent-red); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor:pointer;">X</button>
         </div>
         <div style="flex: 1; overflow-y: auto; text-align: left; font-size: 13px; color: var(--text-muted);">
-            <p>Panel de administración activo. Aquí puedes gestionar los números vendidos y los clientes.</p>
+            <p>Panel de administración activo.</p>
         </div>
     </div>
 </div>
 
 <script>
-    let numeroElegido = "0011"; // Tal cual la foto de ejemplo
+    let numerosSeleccionados = [];
     let precioBoleto = 4000;
     const grid = document.getElementById('gridNumeros');
 
-    // Control de los 5 toques en el título
     let toquesAdmin = 0;
     let tiempoUltimoToque = 0;
 
@@ -492,7 +497,6 @@
 
     function verificarPassword() {
         let pass = document.getElementById('inputPassword').value;
-        // Aquí puedes cambiar "1234" por la contraseña que usabas con tu papá
         if (pass === "1234" || pass === "admin") { 
             cerrarPasswordModal();
             document.getElementById('adminModal').style.display = 'flex';
@@ -514,20 +518,25 @@
             let btn = document.createElement('button');
             btn.className = 'num-btn';
             btn.innerText = numStr;
-            if (numeroElegido === numStr) btn.classList.add('selected');
+            
+            if (numerosSeleccionados.includes(numStr)) {
+                btn.classList.add('selected');
+            }
             
             btn.onclick = function() {
-                document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                numeroElegido = numStr;
-                document.getElementById('textoCantSeleccionados').innerText = "1 seleccionados";
-                document.getElementById('totalPagar').innerText = `Total: ${precioBoleto.toLocaleString()} Bs`;
+                if (numerosSeleccionados.includes(numStr)) {
+                    numerosSeleccionados = numerosSeleccionados.filter(n => n !== numStr);
+                    btn.classList.remove('selected');
+                } else {
+                    numerosSeleccionados.push(numStr);
+                    btn.classList.add('selected');
+                }
+                actualizarResumen();
             };
             grid.appendChild(btn);
         }
     }
 
-    // Arrancar mostrando el primer rango con el 0011 seleccionado de ejemplo
     generarGrid(1, 500, "Mostrando: 0001 al 0500");
 
     function cambiarRango(inicio, fin, elemento) {
@@ -535,6 +544,13 @@
         elemento.classList.add('active');
         let textoRango = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
         generarGrid(inicio, fin, textoRango);
+    }
+
+    function actualizarResumen() {
+        let cant = numerosSeleccionados.length;
+        let total = cant * precioBoleto;
+        document.getElementById('textoCantSeleccionados').innerText = `${cant} seleccionados`;
+        document.getElementById('totalPagar').innerText = `Total: ${total.toLocaleString()} Bs`;
     }
 
     function cambiarModo(modo) {
@@ -553,10 +569,13 @@
 
     function elegirAlAzar() {
         let randomNum = Math.floor(Math.random() * 1500) + 1;
-        numeroElegido = String(randomNum).padStart(4, '0');
-        document.getElementById('textoCantSeleccionados').innerText = "1 seleccionados";
-        document.getElementById('totalPagar').innerText = `Total: ${precioBoleto.toLocaleString()} Bs`;
-        alert(`¡Número al azar seleccionado: ${numeroElegido}!`);
+        let numStr = String(randomNum).padStart(4, '0');
+        if (!numerosSeleccionados.includes(numStr)) {
+            numerosSeleccionados.push(numStr);
+            actualizarResumen();
+            generarGrid(1, 500, "Mostrando: 0001 al 0500");
+        }
+        alert(`¡Número al azar agregado: ${numStr}!`);
     }
 
     function filtrarNumeros() {
@@ -573,12 +592,12 @@
     }
 
     function enviarWhatsApp(e) {
-        if (!numeroElegido) {
+        if (numerosSeleccionados.length === 0) {
             e.preventDefault();
-            alert("Por favor selecciona un número primero.");
+            alert("Por favor selecciona al menos un número.");
             return;
         }
-        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A.`;
+        let mensaje = `Hola, quiero apartar los números: ${numerosSeleccionados.join(', ')} para la rifa de Rifas J.A. Total a pagar: ${numerosSeleccionados.length * precioBoleto} Bs.`;
         let telefonoPapa = "584246737022";
         document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
     }
