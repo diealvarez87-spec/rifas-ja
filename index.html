@@ -6,17 +6,16 @@
     <title>Rifas J.A.</title>
     <style>
         :root {
-            --bg-dark: #0f1016;
-            --surface: #191b24;
-            --surface-card: #222532;
-            --border: #2f344a;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --accent-gold: #f59e0b;
-            --accent-blue: #3b82f6;
-            --accent-green: #10b981;
-            --whatsapp: #25d366;
-            --danger: #ef4444;
+            --bg-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --surface-card: #252525;
+            --border-color: #333333;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-green: #28a745;
+            --whatsapp-green: #25d366;
+            --accent-blue: #007bff;
+            --accent-gold: #d4af37;
         }
 
         body {
@@ -24,307 +23,199 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
-            padding: 10px;
+            padding: 12px;
             box-sizing: border-box;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
-            background: var(--surface);
-            padding: 16px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--border);
+            background: var(--surface-dark);
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
 
         header {
             text-align: center;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            margin-bottom: 20px;
         }
 
         header h1 {
-            color: #f8fafc;
+            color: #ffffff;
             margin: 0 0 5px 0;
-            font-size: 24px;
+            font-size: 26px;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 14px;
             margin: 0;
         }
 
         .stats-banner {
             background: var(--surface-card);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-color);
             padding: 12px;
             border-radius: 10px;
             text-align: center;
-            margin-bottom: 12px;
-            font-size: 14px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #ffffff;
         }
 
         .stats-banner b {
             color: var(--accent-gold);
         }
 
-        .price-box {
-            background: #1e293b;
-            border: 1px solid var(--border);
-            text-align: center;
-            padding: 12px;
-            border-radius: 10px;
+        .section-title {
+            font-weight: bold;
             font-size: 15px;
-            font-weight: bold;
-            color: #38bdf8;
-            margin-bottom: 12px;
-        }
-
-        .mode-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .btn-mode {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            color: white;
-            background: #334155;
-        }
-
-        .btn-mode.active {
-            background: var(--accent-blue);
+            margin-bottom: 8px;
+            display: block;
+            color: #ffffff;
         }
 
         .search-box {
             width: 100%;
             padding: 12px;
             margin-bottom: 12px;
-            background: #0f172a;
-            border: 1px solid var(--border);
+            background: #161616;
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             box-sizing: border-box;
-            font-size: 14px;
-            color: white;
-        }
-
-        .ranges-container {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .btn-range {
-            flex: 1;
-            padding: 8px 4px;
-            background: #1e293b;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-range.active {
-            background: var(--accent-gold);
-            color: #000;
-            border-color: var(--accent-gold);
+            font-size: 15px;
+            color: var(--text-main);
         }
 
         .grid-wrapper {
-            max-height: 240px;
+            max-height: 280px;
             overflow-y: auto;
-            border: 1px solid var(--border);
-            padding: 8px;
+            border: 1px solid var(--border-color);
+            padding: 10px;
             border-radius: 10px;
-            background: #0f172a;
-            margin-bottom: 12px;
+            background: #161616;
+            margin-bottom: 15px;
         }
 
         .numbers-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
+            gap: 8px;
         }
 
         .num-btn {
-            padding: 10px 0;
-            background: #1e293b;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 12px 0;
+            background: #2d2d2d;
+            border: none;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-main);
         }
 
         .num-btn.selected {
             background: var(--accent-green);
             color: white;
-            border-color: var(--accent-green);
         }
 
         .selection-card {
-            background: #1e293b;
-            border: 1px solid var(--border);
-            padding: 10px;
+            background: #2c2516;
+            border: 1px solid #5a4a1a;
+            padding: 12px;
             border-radius: 10px;
             text-align: center;
-            font-size: 14px;
-            margin-bottom: 12px;
-            color: var(--accent-gold);
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #ffd700;
         }
 
         .btn-whatsapp {
             display: block;
             width: 100%;
-            background: var(--whatsapp);
+            background: var(--whatsapp-green);
             color: white;
             text-align: center;
-            padding: 12px;
+            padding: 14px;
             border-radius: 10px;
             font-weight: bold;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 16px;
             box-sizing: border-box;
-            margin-bottom: 10px;
         }
 
-        .btn-admin-open {
-            display: block;
-            width: 100%;
-            background: #334155;
-            color: white;
+        .divider {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 30px 0;
+        }
+
+        /* Panel de Administrador Ampliado y Cómodo */
+        .admin-panel {
+            background: var(--surface-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #444444;
+        }
+
+        .admin-panel h3 {
+            margin-top: 0;
             text-align: center;
-            padding: 10px;
-            border-radius: 10px;
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        /* --- PANEL DE ADMINISTRACIÓN GRANDE Y CÓMODO --- */
-        #adminModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .admin-content-large {
-            background: var(--surface);
-            width: 100%;
-            max-width: 500px;
-            height: 85vh;
-            border-radius: 14px;
-            border: 2px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
-            box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 12px;
-        }
-
-        .admin-header h3 {
-            margin: 0;
             color: #ffffff;
             font-size: 18px;
+            margin-bottom: 18px;
         }
 
-        .btn-close-modal {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
+        .form-row {
+            margin-bottom: 14px;
         }
 
-        .admin-search {
+        .form-row label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #dddddd;
+        }
+
+        .form-row input {
             width: 100%;
             padding: 12px;
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-        }
-
-        .admin-list-container {
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #0f172a;
-            padding: 8px;
-        }
-
-        .admin-item {
-            background: #1e293b;
-            padding: 10px;
+            background: #161616;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border);
+            box-sizing: border-box;
+            font-size: 16px; /* Evita zoom automático molesto en iPhone/Android */
+            color: var(--text-main);
         }
 
-        .admin-item-info b {
-            color: var(--accent-gold);
-            font-size: 14px;
-        }
-
-        .admin-item-info p {
-            margin: 2px 0 0 0;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .btn-ticket-action {
+        .btn-generate {
+            width: 100%;
             background: var(--accent-blue);
             color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 14px;
+            border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #ticketPreview {
+            display: none;
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            color: #000000;
+            border: 3px solid #d9534f;
+            padding: 20px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
@@ -332,31 +223,17 @@
 
 <div class="container">
     <header>
-        <h1>🎁 Rifas J.A.</h1>
-        <p>¡Elige tus números de la suerte y gana!</p>
+        <h1>🎟️ Rifas J.A.</h1>
+        <p>¡Participa y gana con nosotros!</p>
     </header>
     
     <div class="stats-banner">
-        🔥 Avance del Sorteo: <b>0%</b> / 1500 Boletos
+        <b>Total:</b> 1500 Boletos &nbsp;|&nbsp; <b>Estado:</b> En marcha 🔥
     </div>
 
-    <div class="price-box">
-        Valor del boleto: 4.000 Bs
-    </div>
-
-    <div class="mode-buttons">
-        <button class="btn-mode active">✨ Elegir Manual</button>
-        <button class="btn-mode">🎲 Elegir al Azar</button>
-    </div>
-
-    <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumeros()">
+    <span class="section-title">Elige tu número de la suerte:</span>
+    <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 150)..." onkeyup="filtrarNumeros()">
     
-    <div class="ranges-container">
-        <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001-0500</button>
-        <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501-1000</button>
-        <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001-1500</button>
-    </div>
-
     <div class="grid-wrapper">
         <div class="numbers-grid" id="gridNumeros"></div>
     </div>
@@ -367,69 +244,71 @@
 
     <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
 
-    <!-- Botón de administración grande -->
-    <button class="btn-admin-open" onclick="abrirAdmin()">🛠️ Panel de Administración</button>
-</div>
+    <hr class="divider">
 
-<!-- MODAL DE ADMINISTRACIÓN GRANDE -->
-<div id="adminModal">
-    <div class="admin-content-large">
-        <div class="admin-header">
-            <h3>🛠️ Administración de Boletos</h3>
-            <button class="btn-close-modal" onclick="cerrarAdmin()">Cerrar ✕</button>
+    <!-- Panel de Administrador Ampliado -->
+    <div class="admin-panel">
+        <h3>🔐 Panel de Control (Generar Ticket)</h3>
+        
+        <div class="form-row">
+            <label>Número de Boleto:</label>
+            <input type="text" id="ticketNum" placeholder="Ej. 3151">
         </div>
 
-        <input type="text" id="adminSearchInput" class="admin-search" placeholder="🔍 Buscar cliente por nombre o número..." onkeyup="filtrarAdminLista()">
+        <div class="form-row">
+            <label>Nombre Completo:</label>
+            <input type="text" id="ticketNombre" placeholder="Ej. Jose Alvarez">
+        </div>
 
-        <div class="admin-list-container" id="adminListContainer">
-            <div class="admin-item">
-                <div class="admin-item-info">
-                    <b>N° 1421</b> — Yelimar Partidas
-                    <p>📞 04140663373</p>
-                </div>
-                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
-            </div>
-            <div class="admin-item">
-                <div class="admin-item-info">
-                    <b>N° 1442</b> — Yelimar Partidas
-                    <p>📞 04140663373</p>
-                </div>
-                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
-            </div>
+        <div class="form-row">
+            <label>Cédula:</label>
+            <input type="text" id="ticketCedula" placeholder="Ej. V-18483754">
+        </div>
+
+        <div class="form-row">
+            <label>Teléfono:</label>
+            <input type="text" id="ticketTelef" placeholder="Ej. 04246737022">
+        </div>
+
+        <button class="btn-generate" onclick="generarTicketVisual()">Generar Ticket 🎫</button>
+    </div>
+
+    <div id="ticketPreview">
+        <h2 style="color: #000; margin: 0 0 10px 0; border-bottom: 2px solid #ccc; padding-bottom: 8px; font-size: 20px;">Boleto: <span id="outBoleto">3151</span></h2>
+        <div style="text-align: left; font-size: 14px; line-height: 1.5; color: #111;">
+            <p><b>Nombre:</b> <span id="outNombre">Jose Alvarez</span></p>
+            <p><b>Cedula:</b> <span id="outCedula">V-18483754</span></p>
+            <p><b>Telef.:</b> <span id="outTelef">04246737022</span></p>
+            <p><b>Dir1:</b> Edo Zulia</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">
+            <p style="font-size: 12px; color: #333;">
+                <b>Fecha:</b> <span id="outFecha">30-09-2026</span><br>
+                <b>Sorteo:</b> RIFAS J.A.<br>
+                <b>Valor:</b> 10 , <b>Pagado:</b> 10
+            </p>
+        </div>
+        <div style="font-size: 9px; color: #555; border-top: 1px solid #ccc; margin-top: 10px; padding-top: 6px;">
+            8a6b8187a5e337e0a7f4d8ecaa7de8615574908
         </div>
     </div>
+
 </div>
 
 <script>
     let numeroElegido = null;
     const grid = document.getElementById('gridNumeros');
 
-    function generarGrid(inicio, fin) {
-        grid.innerHTML = '';
-        for (let i = inicio; i <= fin; i++) {
-            let numStr = String(i).padStart(4, '0');
-            let btn = document.createElement('button');
-            btn.className = 'num-btn';
-            btn.innerText = numStr;
-            if (numeroElegido === numStr) btn.classList.add('selected');
-            
-            btn.onclick = function() {
-                document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
-                btn.classList.add('selected');
-                numeroElegido = numStr;
-                document.getElementById('numeroSeleccionado').innerText = numStr;
-            };
-            grid.appendChild(btn);
-        }
-    }
-
-    // Iniciar con el primer rango (1 a 500)
-    generarGrid(1, 500);
-
-    function cambiarRango(inicio, fin, elemento) {
-        document.querySelectorAll('.btn-range').forEach(b => b.classList.remove('active'));
-        elemento.classList.add('active');
-        generarGrid(inicio, fin);
+    for (let i = 1; i <= 1500; i++) {
+        let btn = document.createElement('button');
+        btn.className = 'num-btn';
+        btn.innerText = i;
+        btn.onclick = function() {
+            document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            numeroElegido = i;
+            document.getElementById('numeroSeleccionado').innerText = i;
+        };
+        grid.appendChild(btn);
     }
 
     function filtrarNumeros() {
@@ -451,30 +330,29 @@
             alert("Por favor selecciona un número primero.");
             return;
         }
-        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A.`;
+        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A. Aquí adjunto mi pago.`;
         let telefonoPapa = "584246737022";
         document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
     }
 
-    function abrirAdmin() {
-        document.getElementById('adminModal').style.display = 'flex';
-    }
+    function generarTicketVisual() {
+        let num = document.getElementById('ticketNum').value || "000";
+        let nombre = document.getElementById('ticketNombre').value || "Cliente";
+        let cedula = document.getElementById('ticketCedula').value || "V-0000000";
+        let telef = document.getElementById('ticketTelef').value || "04246737022";
 
-    function cerrarAdmin() {
-        document.getElementById('adminModal').style.display = 'none';
-    }
+        document.getElementById('outBoleto').innerText = num;
+        document.getElementById('outNombre').innerText = nombre;
+        document.getElementById('outCedula').innerText = cedula;
+        document.getElementById('outTelef').innerText = telef;
 
-    function filtrarAdminLista() {
-        let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
-        let items = document.getElementsByClassName('admin-item');
-        for (let i = 0; i < items.length; i++) {
-            let texto = items[i].innerText.toLowerCase();
-            if (texto.includes(filtro)) {
-                items[i].style.display = "flex";
-            } else {
-                items[i].style.display = "none";
-            }
-        }
+        let d = new Date();
+        let fechaStr = d.toLocaleDateString() + " / " + d.toLocaleTimeString();
+        document.getElementById('outFecha').innerText = fechaStr;
+
+        let cuadro = document.getElementById('ticketPreview');
+        cuadro.style.display = 'block';
+        cuadro.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
