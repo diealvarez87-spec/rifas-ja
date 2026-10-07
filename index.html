@@ -5,68 +5,219 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifas J.A.</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            padding: 10px;
-        }
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        h2 {
-            text-align: center;
-            color: #ffcc00;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            max-height: 250px;
-            overflow-y: auto;
-            background: #252525;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .btn-num {
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-num.selected {
-            background: #28a745;
-        }
-        .input-box, .btn-main {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #222;
-            color: white;
-            box-sizing: border-box;
-        }
-        .btn-main {
-            background: #007bff;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-whatsapp {
-            background: #25d366;
+        :root {
+            --bg-dark: #0f1016;
+            --surface: #191b24;
+            --surface-card: #222532;
+            --border: #2f344a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --whatsapp: #25d366;
+            --danger: #ef4444;
         }
 
-        /* --- PANEL DE ADMINISTRACIÓN AMPLIADO A PANTALLA COMPLETA --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        header h1 {
+            color: #f8fafc;
+            margin: 0 0 5px 0;
+            font-size: 24px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .stats-banner {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .stats-banner b {
+            color: var(--accent-gold);
+        }
+
+        .price-box {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .btn-mode {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            background: #334155;
+        }
+
+        .btn-mode.active {
+            background: var(--accent-blue);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 14px;
+            color: white;
+        }
+
+        .ranges-container {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .btn-range {
+            flex: 1;
+            padding: 8px 4px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-range.active {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
+        }
+
+        .grid-wrapper {
+            max-height: 240px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            padding: 8px;
+            border-radius: 10px;
+            background: #0f172a;
+            margin-bottom: 12px;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+        }
+
+        .num-btn {
+            padding: 10px 0;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .num-btn.selected {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        .selection-card {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: var(--accent-gold);
+        }
+
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background: var(--whatsapp);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 15px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .btn-admin-open {
+            display: block;
+            width: 100%;
+            background: #334155;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        /* --- PANEL DE ADMINISTRACIÓN GRANDE Y CÓMODO --- */
         #adminModal {
             display: none;
             position: fixed;
@@ -74,117 +225,235 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             justify-content: center;
             align-items: center;
-            padding: 15px;
+            padding: 10px;
             box-sizing: border-box;
         }
+
         .admin-content-large {
-            background: #1e1e1e;
+            background: var(--surface);
             width: 100%;
             max-width: 500px;
             height: 85vh;
-            border-radius: 12px;
-            border: 2px solid #555;
+            border-radius: 14px;
+            border: 2px solid var(--border);
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 16px;
             box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
-        .admin-list {
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .admin-header h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .btn-close-modal {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .admin-search {
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 12px;
+        }
+
+        .admin-list-container {
             flex: 1;
             overflow-y: auto;
-            margin-top: 10px;
-            border: 1px solid #333;
-            background: #121212;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #0f172a;
+            padding: 8px;
+        }
+
+        .admin-item {
+            background: #1e293b;
             padding: 10px;
             border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+
+        .admin-item-info b {
+            color: var(--accent-gold);
+            font-size: 14px;
+        }
+
+        .admin-item-info p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .btn-ticket-action {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🎟️ Rifas J.A.</h2>
-    <p style="text-align: center;">Selecciona tu número de la suerte</p>
+    <header>
+        <h1>🎁 Rifas J.A.</h1>
+        <p>¡Elige tus números de la suerte y gana!</p>
+    </header>
+    
+    <div class="stats-banner">
+        🔥 Avance del Sorteo: <b>0%</b> / 1500 Boletos
+    </div>
 
-    <input type="text" id="buscador" class="input-box" placeholder="🔍 Buscar número..." onkeyup="filtrar()">
+    <div class="price-box">
+        Valor del boleto: 4.000 Bs
+    </div>
 
-    <div class="grid" id="gridNumeros"></div>
+    <div class="mode-buttons">
+        <button class="btn-mode active">✨ Elegir Manual</button>
+        <button class="btn-mode">🎲 Elegir al Azar</button>
+    </div>
 
-    <p style="margin-top: 15px;">Seleccionado: <b id="lblSeleccionado" style="color: #ffcc00;">Ninguno</b></p>
+    <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumeros()">
+    
+    <div class="ranges-container">
+        <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001-0500</button>
+        <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501-1000</button>
+        <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001-1500</button>
+    </div>
 
-    <a href="#" id="linkWsp" target="_blank">
-        <button class="btn-main btn-whatsapp">Apartar por WhatsApp 📱</button>
-    </a>
+    <div class="grid-wrapper">
+        <div class="numbers-grid" id="gridNumeros"></div>
+    </div>
 
-    <!-- Botón para abrir el panel de administración grande -->
-    <button class="btn-main" style="background: #555; margin-top: 20px;" onclick="abrirAdmin()">🛠️ Panel de Administración</button>
+    <div class="selection-card">
+        Número seleccionado: <b id="numeroSeleccionado">Ninguno</b>
+    </div>
+
+    <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
+
+    <!-- Botón de administración grande -->
+    <button class="btn-admin-open" onclick="abrirAdmin()">🛠️ Panel de Administración</button>
 </div>
 
-<!-- MODAL DE ADMINISTRADOR GRANDE -->
+<!-- MODAL DE ADMINISTRACIÓN GRANDE -->
 <div id="adminModal">
     <div class="admin-content-large">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px;">
-            <h3 style="margin: 0; color: #ffcc00;">🛠️ Panel de Administración</h3>
-            <button onclick="cerrarAdmin()" style="background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; cursor: pointer;">Cerrar ✕</button>
+        <div class="admin-header">
+            <h3>🛠️ Administración de Boletos</h3>
+            <button class="btn-close-modal" onclick="cerrarAdmin()">Cerrar ✕</button>
         </div>
 
-        <input type="text" id="adminSearch" class="input-box" placeholder="🔍 Buscar cliente en admin..." onkeyup="filtrarAdmin()">
+        <input type="text" id="adminSearchInput" class="admin-search" placeholder="🔍 Buscar cliente por nombre o número..." onkeyup="filtrarAdminLista()">
 
-        <div class="admin-list" id="adminListContainer">
-            <!-- Ejemplo de la lista que tenías -->
-            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <b>N° 1421</b> - Yelimar Partidas<br>
-                    <small style="color: #aaa;">📞 04140663373</small>
+        <div class="admin-list-container" id="adminListContainer">
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1421</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
                 </div>
-                <button style="background: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold;">Ticket 🎫</button>
+                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
             </div>
-            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <b>N° 1442</b> - Yelimar Partidas<br>
-                    <small style="color: #aaa;">📞 04140663373</small>
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1442</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
                 </div>
-                <button style="background: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold;">Ticket 🎫</button>
+                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let numeroSeleccionado = null;
+    let numeroElegido = null;
     const grid = document.getElementById('gridNumeros');
 
-    // Generar los 1500 boletos
-    for (let i = 1; i <= 1500; i++) {
-        let btn = document.createElement('button');
-        btn.className = 'btn-num';
-        btn.innerText = i;
-        btn.onclick = function() {
-            document.querySelectorAll('.btn-num').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            numeroSeleccionado = i;
-            document.getElementById('lblSeleccionado').innerText = i;
-            actualizarWsp();
-        };
-        grid.appendChild(btn);
-    }
-
-    function filtrar() {
-        let val = document.getElementById('buscador').value;
-        let botones = grid.getElementsByClassName('btn-num');
-        for (let b of botones) {
-            b.style.display = b.innerText.includes(val) ? '' : 'none';
+    function generarGrid(inicio, fin) {
+        grid.innerHTML = '';
+        for (let i = inicio; i <= fin; i++) {
+            let numStr = String(i).padStart(4, '0');
+            let btn = document.createElement('button');
+            btn.className = 'num-btn';
+            btn.innerText = numStr;
+            if (numeroElegido === numStr) btn.classList.add('selected');
+            
+            btn.onclick = function() {
+                document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                numeroElegido = numStr;
+                document.getElementById('numeroSeleccionado').innerText = numStr;
+            };
+            grid.appendChild(btn);
         }
     }
 
-    function actualizarWsp() {
-        let t = "584246737022";
-        let msg = `Hola, quiero apartar el número ${numeroSeleccionado} para la rifa.`;
-        document.getElementById('linkWsp').href = `https://wa.me/${t}?text=${encodeURIComponent(msg)}`;
+    // Iniciar con el primer rango (1 a 500)
+    generarGrid(1, 500);
+
+    function cambiarRango(inicio, fin, elemento) {
+        document.querySelectorAll('.btn-range').forEach(b => b.classList.remove('active'));
+        elemento.classList.add('active');
+        generarGrid(inicio, fin);
+    }
+
+    function filtrarNumeros() {
+        let filtro = document.getElementById('buscadorNumeros').value.toLowerCase();
+        let botones = grid.getElementsByClassName('num-btn');
+        for (let i = 0; i < botones.length; i++) {
+            let texto = botones[i].innerText;
+            if (texto.includes(filtro)) {
+                botones[i].style.display = "";
+            } else {
+                botones[i].style.display = "none";
+            }
+        }
+    }
+
+    function enviarWhatsApp(e) {
+        if (!numeroElegido) {
+            e.preventDefault();
+            alert("Por favor selecciona un número primero.");
+            return;
+        }
+        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A.`;
+        let telefonoPapa = "584246737022";
+        document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
     }
 
     function abrirAdmin() {
@@ -195,11 +464,16 @@
         document.getElementById('adminModal').style.display = 'none';
     }
 
-    function filtrarAdmin() {
-        let val = document.getElementById('adminSearch').value.toLowerCase();
-        let items = document.getElementById('adminListContainer').children;
-        for (let item of items) {
-            item.style.display = item.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+    function filtrarAdminLista() {
+        let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
+        let items = document.getElementsByClassName('admin-item');
+        for (let i = 0; i < items.length; i++) {
+            let texto = items[i].innerText.toLowerCase();
+            if (texto.includes(filtro)) {
+                items[i].style.display = "flex";
+            } else {
+                items[i].style.display = "none";
+            }
         }
     }
 </script>
