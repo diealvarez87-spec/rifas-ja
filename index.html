@@ -139,35 +139,6 @@
             color: #93c5fd;
         }
 
-        .mode-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .mode-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 13px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-muted);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .mode-btn.active {
-            background: var(--accent-green);
-            color: white;
-            border-color: #34d399;
-            box-shadow: 0 0 14px rgba(16, 185, 129, 0.4);
-        }
-
         .interactive-panel {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -178,56 +149,6 @@
             flex-direction: column;
             gap: 14px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-        }
-
-        .random-container {
-            display: none;
-            background: rgba(59, 130, 246, 0.08);
-            border: 1px solid rgba(59, 130, 246, 0.35);
-            border-radius: 14px;
-            padding: 14px;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .random-info-text {
-            font-size: 13px;
-            color: #93c5fd;
-            font-weight: 700;
-        }
-
-        .random-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-plus {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            border: none;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            font-size: 22px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .random-pay-btn {
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            padding: 11px 16px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
         }
 
         .search-input {
@@ -328,6 +249,73 @@
             border-color: var(--badge-red-border);
             cursor: not-allowed;
             opacity: 0.6;
+        }
+
+        /* SECCIÓN DEL PODIO */
+        .podium-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .podium-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #93c5fd;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0;
+        }
+
+        .podium-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .podium-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+        }
+
+        .podium-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .podium-rank {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .rank-1 { background: #f59e0b; color: #fff; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
+        .rank-2 { background: #94a3b8; color: #fff; }
+        .rank-3 { background: #d97706; color: #fff; }
+
+        .podium-count {
+            color: var(--accent-green);
+            font-weight: 800;
         }
 
         .bottom-floating-bar {
@@ -433,24 +421,7 @@
         </div>
     </div>
 
-    <div class="mode-row">
-        <div id="btnModoManual" class="mode-btn active" onclick="cambiarModo('manual')">
-            👇 Elegir Manual
-        </div>
-        <div id="btnModoAzar" class="mode-btn" onclick="cambiarModo('azar')">
-            🎲 Elegir al Azar
-        </div>
-    </div>
-
     <div class="interactive-panel">
-        <div id="panelAzar" class="random-container">
-            <span class="random-info-text" id="textoAzarContador">Toca [+] para sumar azar (0)</span>
-            <div class="random-controls">
-                <button class="btn-plus" onclick="agregarAzarPlus()">+</button>
-                <button class="random-pay-btn" onclick="abrirModalPago()">Pagar</button>
-            </div>
-        </div>
-
         <input type="text" id="inputBuscador" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
 
         <div class="ranges-row">
@@ -471,6 +442,25 @@
         </div>
 
         <div class="tickets-grid" id="gridBoletos"></div>
+    </div>
+
+    <!-- PODIO DE COMPRADORES -->
+    <div class="podium-card">
+        <h3 class="podium-title">🏆 Podio de Mayores Compradores</h3>
+        <div class="podium-list" id="listaPodio">
+            <div class="podium-item">
+                <div class="podium-user"><div class="podium-rank rank-1">1</div> <span>Por definir</span></div>
+                <span class="podium-count">0 boletos</span>
+            </div>
+            <div class="podium-item">
+                <div class="podium-user"><div class="podium-rank rank-2">2</div> <span>Por definir</span></div>
+                <span class="podium-count">0 boletos</span>
+            </div>
+            <div class="podium-item">
+                <div class="podium-user"><div class="podium-rank rank-3">3</div> <span>Por definir</span></div>
+                <span class="podium-count">0 boletos</span>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -544,12 +534,49 @@
     let precioBoleto = 4000;
     let tieneCapture = false;
     let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
+    let podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
 
     function actualizarProgreso() {
         let totalVendidos = vendidos.length;
         let porcentaje = Math.max(1, Math.round((totalVendidos / 1500) * 100));
         document.getElementById('porcentajeProgreso').innerText = porcentaje + '%';
         document.getElementById('barraProgresoFill').style.width = porcentaje + '%';
+        actualizarPodioUI();
+    }
+
+    function actualizarPodioUI() {
+        let contenedorPodio = document.getElementById('listaPodio');
+        if (podioCompradores.length === 0) {
+            contenedorPodio.innerHTML = `
+                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-1">1</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
+                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-2">2</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
+                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-3">3</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
+            `;
+            return;
+        }
+
+        podioCompradores.sort((a, b) => b.cantidad - a.cantidad);
+        let html = '';
+        for (let i = 0; i < 3; i++) {
+            let item = podioCompradores[i];
+            let rankClass = i === 0 ? 'rank-1' : (i === 1 ? 'rank-2' : 'rank-3');
+            if (item) {
+                html += `
+                    <div class="podium-item">
+                        <div class="podium-user"><div class="podium-rank ${rankClass}">${i+1}</div> <span>${item.nombre}</span></div>
+                        <span class="podium-count">${item.cantidad} boletos</span>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="podium-item">
+                        <div class="podium-user"><div class="podium-rank ${rankClass}">${i+1}</div> <span>Por definir</span></div>
+                        <span class="podium-count">0 boletos</span>
+                    </div>
+                `;
+            }
+        }
+        contenedorPodio.innerHTML = html;
     }
 
     function generarBoletos(inicio, fin) {
@@ -587,25 +614,6 @@
         actualizarProgreso();
     }
 
-    function cambiarModo(modo) {
-        let btnManual = document.getElementById('btnModoManual');
-        let btnAzar = document.getElementById('btnModoAzar');
-        let panelAzar = document.getElementById('panelAzar');
-        let inputBuscador = document.getElementById('inputBuscador');
-
-        if (modo === 'manual') {
-            btnManual.classList.add('active');
-            btnAzar.classList.remove('active');
-            panelAzar.style.display = 'none';
-            inputBuscador.style.display = 'block';
-        } else {
-            btnAzar.classList.add('active');
-            btnManual.classList.remove('active');
-            panelAzar.style.display = 'flex';
-            inputBuscador.style.display = 'none';
-        }
-    }
-
     function seleccionarRango(inicio, fin) {
         inicioRango = inicio;
         finRango = fin;
@@ -623,7 +631,6 @@
         let total = cantidad * precioBoleto;
         document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
         document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
-        document.getElementById('textoAzarContador').innerText = `Toca [+] para sumar azar (${cantidad})`;
     }
 
     function filtrarNumero(query) {
@@ -660,28 +667,6 @@
         }
         grid.innerHTML = '';
         grid.appendChild(fragment);
-    }
-
-    function agregarAzarPlus() {
-        let disponibles = [];
-        for (let i = 1; i <= 1500; i++) {
-            let numStr = String(i).padStart(4, '0');
-            if (!vendidos.includes(numStr) && !seleccionados.includes(numStr)) {
-                disponibles.push(numStr);
-            }
-        }
-
-        if (disponibles.length === 0) {
-            alert("⚠️ No quedan números disponibles.");
-            return;
-        }
-
-        let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
-        let elegido = disponibles[indiceAleatorio];
-        seleccionados.push(elegido);
-
-        actualizarResumen();
-        generarBoletos(inicioRango, finRango);
     }
 
     function copiarTexto(texto) {
@@ -743,7 +728,17 @@
                 vendidos.push(num);
             }
         });
+
+        // Registrar en el podio
+        let compradorExistente = podioCompradores.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
+        if (compradorExistente) {
+            compradorExistente.cantidad += seleccionados.length;
+        } else {
+            podioCompradores.push({ nombre: nombre, cantidad: seleccionados.length });
+        }
+
         localStorage.setItem('rifas_ja_vendidos', JSON.stringify(vendidos));
+        localStorage.setItem('rifas_ja_podio', JSON.stringify(podioCompradores));
 
         let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
 
@@ -764,6 +759,7 @@
 
     window.addEventListener('focus', function() {
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
+        podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
         generarBoletos(inicioRango, finRango);
     });
 
