@@ -6,17 +6,17 @@
     <title>Rifas J.A.</title>
     <style>
         :root {
-            --bg-dark: #0f1016;
-            --surface: #191b24;
-            --surface-card: #222532;
-            --border: #2f344a;
+            --bg-dark: #0a0b10;
+            --surface: #13151f;
+            --surface-card: #1b1e2e;
+            --border: #2a2f45;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --accent-gold: #f59e0b;
+            --accent-gold: #fbbf24;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
+            --accent-red: #ef4444;
             --whatsapp: #25d366;
-            --danger: #ef4444;
         }
 
         body {
@@ -24,112 +24,170 @@
             background-color: var(--bg-dark);
             color: var(--text-main);
             margin: 0;
-            padding: 10px;
+            padding: 8px;
             box-sizing: border-box;
         }
 
         .container {
-            max-width: 500px;
+            max-width: 480px;
             margin: 0 auto;
             background: var(--surface);
-            padding: 16px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            padding: 14px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             border: 1px solid var(--border);
         }
 
+        /* Header con los regalos a los lados */
         header {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 15px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 14px;
             border: 1px solid var(--border);
-            cursor: pointer; /* Para indicar que se puede tocar */
+            position: relative;
+            cursor: pointer;
             user-select: none;
+        }
+
+        .gift-left, .gift-right {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 26px;
+        }
+        .gift-left { left: 12px; }
+        .gift-right { right: 12px; }
+
+        header h2 {
+            color: #38bdf8;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0 0 2px 0;
         }
 
         header h1 {
             color: #f8fafc;
-            margin: 0 0 5px 0;
+            margin: 0;
             font-size: 24px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 13px;
-            margin: 0;
+            font-size: 12px;
+            margin: 3px 0 0 0;
         }
 
-        .stats-banner {
+        /* Progreso del sorteo */
+        .progress-box {
             background: var(--surface-card);
             border: 1px solid var(--border);
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 12px;
-            font-size: 14px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
         }
 
-        .stats-banner b {
-            color: var(--accent-gold);
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
         }
 
+        .progress-info span:last-child {
+            color: var(--accent-green);
+        }
+
+        .progress-bar-bg {
+            background: #0f172a;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .progress-bar-fill {
+            background: var(--accent-green);
+            width: 1%;
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* Valor del boleto */
         .price-box {
             background: #1e293b;
             border: 1px solid var(--border);
             text-align: center;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 12px;
             font-size: 15px;
             font-weight: bold;
             color: #38bdf8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
+        /* Botones de modo */
         .mode-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 10px;
         }
 
         .btn-mode {
             flex: 1;
             padding: 10px;
-            border-radius: 8px;
-            border: none;
+            border-radius: 10px;
+            border: 1px solid var(--border);
             font-weight: bold;
             cursor: pointer;
             font-size: 13px;
             color: white;
-            background: #334155;
+            background: var(--surface-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .btn-mode.active {
-            background: var(--accent-blue);
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+        }
+
+        /* Panel de selección manual */
+        .manual-panel {
+            background: var(--surface-card);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 12px;
+            margin-bottom: 10px;
         }
 
         .search-box {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
             background: #0f172a;
             border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 8px;
             box-sizing: border-box;
-            font-size: 14px;
+            font-size: 13px;
             color: white;
         }
 
         .ranges-container {
             display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 5px;
+            margin-bottom: 8px;
         }
 
         .btn-range {
             flex: 1;
-            padding: 8px 4px;
+            padding: 7px 2px;
             background: #1e293b;
             border: 1px solid var(--border);
             color: var(--text-muted);
@@ -141,24 +199,59 @@
         }
 
         .btn-range.active {
-            background: var(--accent-gold);
-            color: #000;
-            border-color: var(--accent-gold);
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
         }
 
+        /* Leyenda de estados */
+        .legend-box {
+            display: flex;
+            justify-content: space-around;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            padding: 4px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .dot.available { background: #64748b; }
+        .dot.selected { background: var(--accent-blue); }
+        .dot.sold { background: var(--accent-red); }
+
+        .grid-status-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        /* Grid de números */
         .grid-wrapper {
-            max-height: 240px;
+            max-height: 200px;
             overflow-y: auto;
             border: 1px solid var(--border);
-            padding: 8px;
-            border-radius: 10px;
+            padding: 6px;
+            border-radius: 8px;
             background: #0f172a;
-            margin-bottom: 12px;
         }
 
         .numbers-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 6px;
         }
 
@@ -171,161 +264,124 @@
             cursor: pointer;
             font-size: 13px;
             color: var(--text-main);
+            text-align: center;
         }
 
         .num-btn.selected {
-            background: var(--accent-green);
+            background: var(--accent-blue);
             color: white;
-            border-color: var(--accent-green);
+            border-color: var(--accent-blue);
         }
 
-        .selection-card {
-            background: #1e293b;
+        /* Barra inferior de apartado */
+        .footer-action {
+            background: var(--surface-card);
             border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 12px;
-            color: var(--accent-gold);
-        }
-
-        .btn-whatsapp {
-            display: block;
-            width: 100%;
-            background: var(--whatsapp);
-            color: white;
-            text-align: center;
-            padding: 12px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-decoration: none;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-
-        /* --- PANEL DE ADMINISTRACIÓN SECRETO (AMPLIADO) --- */
-        #adminModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .admin-content-large {
-            background: var(--surface);
-            width: 100%;
-            max-width: 500px;
-            height: 85vh;
-            border-radius: 14px;
-            border: 2px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            padding: 16px;
-            box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-        }
-
-        .admin-header {
+            padding: 10px 12px;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-            margin-bottom: 12px;
         }
 
-        .admin-header h3 {
-            margin: 0;
-            color: #ffffff;
-            font-size: 18px;
-        }
-
-        .btn-close-modal {
-            background: var(--danger);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .admin-search {
-            width: 100%;
-            padding: 12px;
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: white;
-            font-size: 14px;
-            box-sizing: border-box;
-            margin-bottom: 12px;
-        }
-
-        .admin-list-container {
-            flex: 1;
-            overflow-y: auto;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #0f172a;
-            padding: 8px;
-        }
-
-        .admin-item {
-            background: #1e293b;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border);
-        }
-
-        .admin-item-info b {
-            color: var(--accent-gold);
-            font-size: 14px;
-        }
-
-        .admin-item-info p {
-            margin: 2px 0 0 0;
+        .selection-summary div:first-child {
             font-size: 12px;
             color: var(--text-muted);
         }
 
-        .btn-ticket-action {
-            background: var(--accent-blue);
+        .selection-summary div:last-child {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        .btn-apartar {
+            background: var(--accent-green);
             color: white;
             border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 14px;
+            text-decoration: none;
         }
+
+        /* Modal de contraseña para el panel secreto */
+        #passwordModal, #adminModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .modal-box {
+            background: var(--surface);
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+        }
+
+        .modal-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: white;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 9px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-accept { background: var(--accent-green); color: white; }
+        .btn-cancel { background: var(--accent-red); color: white; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- HEADER CON EL TRUCO SECRETO DE LOS 5 TOQUES -->
+    <!-- Header exacto con los regalos y los 5 toques -->
     <header onclick="registrarToqueAdmin()">
-        <h1>🎁 Rifas J.A.</h1>
+        <span class="gift-left">🎁</span>
+        <span class="gift-right">🎁</span>
+        <h2>✨ Gran Sorteo Exclusivo</h2>
+        <h1>Rifas J.A.</h1>
         <p>¡Elige tus números de la suerte y gana!</p>
     </header>
     
-    <div class="stats-banner">
-        🔥 Avance del Sorteo: <b>0%</b> / 1500 Boletos
+    <div class="progress-box">
+        <div class="progress-info">
+            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
+            <span>1%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill"></div>
+        </div>
     </div>
 
     <div class="price-box">
@@ -333,17 +389,29 @@
     </div>
 
     <div class="mode-buttons">
-        <button class="btn-mode active" id="btnManual" onclick="cambiarModo('manual')">✨ Elegir Manual</button>
+        <button class="btn-mode active" id="btnManual" onclick="cambiarModo('manual')">👇 Elegir Manual</button>
         <button class="btn-mode" id="btnAzar" onclick="cambiarModo('azar')">🎲 Elegir al Azar</button>
     </div>
 
-    <div id="seccionManual">
+    <!-- Sección Manual -->
+    <div id="seccionManual" class="manual-panel">
         <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumeros()">
         
         <div class="ranges-container">
-            <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001-0500</button>
-            <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501-1000</button>
-            <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001-1500</button>
+            <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001 - 0500</button>
+            <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501 - 1000</button>
+            <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001 - 1500</button>
+        </div>
+
+        <div class="legend-box">
+            <div class="legend-item"><span class="dot available"></span> Disponible</div>
+            <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
+            <div class="legend-item"><span class="dot sold"></span> Vendido</div>
+        </div>
+
+        <div class="grid-status-info">
+            <span id="infoRangoTexto">Mostrando: 0001 al 0500</span>
+            <span>1500 activos</span>
         </div>
 
         <div class="grid-wrapper">
@@ -351,53 +419,54 @@
         </div>
     </div>
 
-    <div id="seccionAzar" style="display: none; text-align: center; padding: 20px;">
-        <p style="color: var(--text-muted); font-size: 14px;">¡Deja que la suerte decida por ti!</p>
-        <button class="btn-mode active" style="padding: 12px 20px; font-size: 15px; width: 100%; margin-top: 10px;" onclick="elegirAlAzar()">¡Sortear Número al Azar! 🎲</button>
+    <!-- Sección Azar -->
+    <div id="seccionAzar" class="manual-panel" style="display: none; text-align: center; padding: 20px;">
+        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">¡Deja que el sistema escoja tu número de la suerte!</p>
+        <button class="btn-mode active" style="width: 100%; justify-content: center; padding: 12px;" onclick="elegirAlAzar()">🎲 Sortear Número Automático</button>
     </div>
 
-    <div class="selection-card">
-        Número seleccionado: <b id="numeroSeleccionado">Ninguno</b>
+    <!-- Barra inferior -->
+    <div class="footer-action">
+        <div class="selection-summary">
+            <div id="textoCantSeleccionados">0 seleccionados</div>
+            <div id="totalPagar">Total: 4.000 Bs</div>
+        </div>
+        <a href="#" id="whatsappBtn" class="btn-apartar" onclick="enviarWhatsApp(event)">Apartar</a>
     </div>
-
-    <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
 </div>
 
-<!-- MODAL DE ADMINISTRACIÓN SECRETO (GRANDE Y CÓMODO) -->
-<div id="adminModal">
-    <div class="admin-content-large">
-        <div class="admin-header">
-            <h3>🛠️ Administración de Boletos</h3>
-            <button class="btn-close-modal" onclick="cerrarAdmin()">Cerrar ✕</button>
+<!-- MODAL DE CONTRASEÑA (Se abre con los 5 toques en el título) -->
+<div id="passwordModal">
+    <div class="modal-box">
+        <h3>🔒 Acceso de Administrador</h3>
+        <p style="font-size: 12px; color: var(--text-muted);">Ingresa la contraseña secreta:</p>
+        <input type="password" id="inputPassword" placeholder="Contraseña...">
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="cerrarPasswordModal()">Cancelar</button>
+            <button class="btn-accept" onclick="verificarPassword()">Entrar</button>
         </div>
+    </div>
+</div>
 
-        <input type="text" id="adminSearchInput" class="admin-search" placeholder="🔍 Buscar cliente por nombre o número..." onkeyup="filtrarAdminLista()">
-
-        <div class="admin-list-container" id="adminListContainer">
-            <div class="admin-item">
-                <div class="admin-item-info">
-                    <b>N° 1421</b> — Yelimar Partidas
-                    <p>📞 04140663373</p>
-                </div>
-                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
-            </div>
-            <div class="admin-item">
-                <div class="admin-item-info">
-                    <b>N° 1442</b> — Yelimar Partidas
-                    <p>📞 04140663373</p>
-                </div>
-                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
-            </div>
+<!-- PANEL DE ADMINISTRACIÓN -->
+<div id="adminModal">
+    <div class="modal-box" style="max-width: 400px; height: 75vh; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px;">
+            <h3 style="margin:0; font-size: 16px;">🛠️ Panel Admin</h3>
+            <button onclick="cerrarAdmin()" style="background: var(--accent-red); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor:pointer;">X</button>
+        </div>
+        <div style="flex: 1; overflow-y: auto; text-align: left; font-size: 13px; color: var(--text-muted);">
+            <p>Panel de administración activo. Aquí puedes gestionar los números vendidos y los clientes.</p>
         </div>
     </div>
 </div>
 
 <script>
-    let numeroElegido = null;
-    let modoActual = 'manual';
+    let numeroElegido = "0011"; // Tal cual la foto de ejemplo
+    let precioBoleto = 4000;
     const grid = document.getElementById('gridNumeros');
 
-    // Contador para el panel secreto con 5 toques en el título
+    // Control de los 5 toques en el título
     let toquesAdmin = 0;
     let tiempoUltimoToque = 0;
 
@@ -412,12 +481,34 @@
 
         if (toquesAdmin >= 5) {
             toquesAdmin = 0;
-            abrirAdmin();
+            document.getElementById('passwordModal').style.display = 'flex';
         }
     }
 
-    function generarGrid(inicio, fin) {
+    function cerrarPasswordModal() {
+        document.getElementById('passwordModal').style.display = 'none';
+        document.getElementById('inputPassword').value = '';
+    }
+
+    function verificarPassword() {
+        let pass = document.getElementById('inputPassword').value;
+        // Aquí puedes cambiar "1234" por la contraseña que usabas con tu papá
+        if (pass === "1234" || pass === "admin") { 
+            cerrarPasswordModal();
+            document.getElementById('adminModal').style.display = 'flex';
+        } else {
+            alert("Contraseña incorrecta ❌");
+        }
+    }
+
+    function cerrarAdmin() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function generarGrid(inicio, fin, rangoTexto) {
         grid.innerHTML = '';
+        document.getElementById('infoRangoTexto').innerText = rangoTexto;
+        
         for (let i = inicio; i <= fin; i++) {
             let numStr = String(i).padStart(4, '0');
             let btn = document.createElement('button');
@@ -429,22 +520,24 @@
                 document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
                 numeroElegido = numStr;
-                document.getElementById('numeroSeleccionado').innerText = numStr;
+                document.getElementById('textoCantSeleccionados').innerText = "1 seleccionados";
+                document.getElementById('totalPagar').innerText = `Total: ${precioBoleto.toLocaleString()} Bs`;
             };
             grid.appendChild(btn);
         }
     }
 
-    generarGrid(1, 500);
+    // Arrancar mostrando el primer rango con el 0011 seleccionado de ejemplo
+    generarGrid(1, 500, "Mostrando: 0001 al 0500");
 
     function cambiarRango(inicio, fin, elemento) {
         document.querySelectorAll('.btn-range').forEach(b => b.classList.remove('active'));
         elemento.classList.add('active');
-        generarGrid(inicio, fin);
+        let textoRango = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
+        generarGrid(inicio, fin, textoRango);
     }
 
     function cambiarModo(modo) {
-        modoActual = modo;
         if (modo === 'manual') {
             document.getElementById('btnManual').classList.add('active');
             document.getElementById('btnAzar').classList.remove('active');
@@ -461,7 +554,8 @@
     function elegirAlAzar() {
         let randomNum = Math.floor(Math.random() * 1500) + 1;
         numeroElegido = String(randomNum).padStart(4, '0');
-        document.getElementById('numeroSeleccionado').innerText = numeroElegido;
+        document.getElementById('textoCantSeleccionados').innerText = "1 seleccionados";
+        document.getElementById('totalPagar').innerText = `Total: ${precioBoleto.toLocaleString()} Bs`;
         alert(`¡Número al azar seleccionado: ${numeroElegido}!`);
     }
 
@@ -487,27 +581,6 @@
         let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A.`;
         let telefonoPapa = "584246737022";
         document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
-    }
-
-    function abrirAdmin() {
-        document.getElementById('adminModal').style.display = 'flex';
-    }
-
-    function cerrarAdmin() {
-        document.getElementById('adminModal').style.display = 'none';
-    }
-
-    function filtrarAdminLista() {
-        let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
-        let items = document.getElementsByClassName('admin-item');
-        for (let i = 0; i < items.length; i++) {
-            let texto = items[i].innerText.toLowerCase();
-            if (texto.includes(filtro)) {
-                items[i].style.display = "flex";
-            } else {
-                items[i].style.display = "none";
-            }
-        }
     }
 </script>
 
