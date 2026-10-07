@@ -96,6 +96,45 @@
             border-color: #bf953f;
         }
 
+        /* Sección de Selección al Azar */
+        .random-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .random-select {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 8px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .random-btn {
+            flex: 1;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            transition: transform 0.1s;
+        }
+        .random-btn:active {
+            transform: scale(0.96);
+        }
+
         /* Rangos (3 partes) */
         .ranges-row {
             display: grid;
@@ -158,7 +197,7 @@
 
         /* Grid de Pastillas Liquid Glass */
         .tickets-grid {
-            max-height: 240px;
+            max-height: 220px;
             overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -175,7 +214,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 10px 0;
             text-align: center;
-            border-radius: 20px; /* Forma de pastilla larga */
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
@@ -297,7 +336,6 @@
             overflow: hidden;
         }
 
-        /* Sutil marca de agua simulando fondo de banco */
         .bank-box::after {
             content: "BDV";
             position: absolute;
@@ -399,10 +437,22 @@
         <div class="subtitle">¡Participa y gana por tan solo 5.000 Bs el ticket!</div>
     </div>
 
-    <!-- Panel Interactivo Buscador + Rangos + Grid -->
+    <!-- Panel Interactivo Buscador + Azar + Rangos + Grid -->
     <div class="interactive-panel">
         <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
         
+        <!-- Opción de Elegir al Azar -->
+        <div class="random-box">
+            <select id="cantidadAzar" class="random-select">
+                <option value="1">1 Ticket</option>
+                <option value="2">2 Tickets</option>
+                <option value="3">3 Tickets</option>
+                <option value="5">5 Tickets</option>
+                <option value="10">10 Tickets</option>
+            </select>
+            <button class="random-btn" onclick="seleccionarAlAzar()">🎲 Elegir al Azar</button>
+        </div>
+
         <div class="ranges-row">
             <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
             <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501 - 1000</div>
@@ -515,8 +565,8 @@
     let precioBoleto = 5000;
     let tieneCapture = false;
 
-    // Simulación de algunos vendidos para que se vea real
-    let vendidos = ["0005", "0012", "0100"];
+    // Cargar números vendidos guardados en el navegador
+    let vendidos = JSON.parse(localStorage.getItem('rifas_vendidos')) || [];
 
     function generarBoletos(inicio, fin) {
         let grid = document.getElementById('gridBoletos');
@@ -601,6 +651,37 @@
         }
     }
 
+    // Función para elegir números al azar y llevar directo a pagar
+    function seleccionarAlAzar() {
+        let cuantos = parseInt(document.getElementById('cantidadAzar').value);
+        
+        // Buscar todos los números disponibles (del 1 al 1500 que no estén vendidos ni ya seleccionados)
+        let disponibles = [];
+        for (let i = 1; i <= 1500; i++) {
+            let numStr = String(i).padStart(4, '0');
+            if (!vendidos.includes(numStr) && !seleccionados.includes(numStr)) {
+                disponibles.push(numStr);
+            }
+        }
+
+        if (disponibles.length < cuantos) {
+            alert("⚠️ No hay suficientes números disponibles para completar tu selección al azar.");
+            return;
+        }
+
+        // Seleccionar aleatoriamente
+        for (let i = 0; i < cuantos; i++) {
+            let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
+            let elegido = disponibles.splice(indiceAleatorio, 1)[0];
+            seleccionados.push(elegido);
+        }
+
+        // Actualizar interfaz y llevar directamente al modal de pago
+        actualizarResumen();
+        generarBoletos(inicioRango, finRango);
+        abrirModalPago();
+    }
+
     function copiarTexto(texto) {
         navigator.clipboard.writeText(texto);
         alert("¡Copiado: " + texto + "!");
@@ -655,10 +736,30 @@
         let numerosFinales = seleccionados.sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
+        // Guardar los números seleccionados como vendidos inmediatamente
+        seleccionados.forEach(num => {
+            if (!vendidos.includes(num)) {
+                vendidos.push(num);
+            }
+        });
+        localStorage.setItem('rifas_vendidos', JSON.stringify(vendidos));
+
         let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas Álvarez.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
 
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+
+        // Cerrar modales y limpiar selección actual al enviar
+        cerrarModal('modalAdvertencia');
+        seleccionados = [];
+        actualizarResumen();
+        generarBoletos(inicioRango, finRango);
     }
+
+    // Detectar cuando el usuario regresa a la pestaña/página desde WhatsApp para actualizar los colores
+    window.addEventListener('focus', function() {
+        vendidos = JSON.parse(localStorage.getItem('rifas_vendidos')) || [];
+        generarBoletos(inicioRango, finRango);
+    });
 
     // Inicializar al cargar
     generarBoletos(1, 500);
