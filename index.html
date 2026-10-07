@@ -124,31 +124,27 @@
             color: #93c5fd;
         }
 
-        /* SECCIÓN DE PREMIOS FLOTANTES SIN CAJA (Estilo referencia) */
+        /* IMAGEN ORIGINAL DE LOS PREMIOS */
         .prizes-showcase {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
-            padding: 10px 0;
+            padding: 6px 0;
             position: relative;
         }
 
         .prizes-showcase img {
-            max-height: 140px;
+            width: 100%;
+            max-width: 380px;
+            height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
             animation: floatPrize 3s ease-in-out infinite;
-        }
-
-        .prizes-showcase img:nth-child(2) {
-            animation-delay: 1.5s;
-            max-height: 130px;
         }
 
         @keyframes floatPrize {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
+            50% { transform: translateY(-5px); }
         }
 
         .interactive-panel {
@@ -263,7 +259,7 @@
             opacity: 0.6;
         }
 
-        /* NUEVO PODIO ESTILO REFERENCIA (Adaptado a colores J.A.) */
+        /* PODIO ESTILO REFERENCIA */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -331,7 +327,6 @@
             position: relative;
         }
 
-        /* Primer puesto más grande y con aro verde brillante */
         .podium-item-ref.rank-1-wrapper {
             transform: translateY(-12px);
         }
@@ -478,10 +473,9 @@
         <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
     </div>
 
-    <!-- PREMIOS FLOTANTES SIN FONDO (Nevera y Televisor) -->
+    <!-- IMAGEN ORIGINAL DE LOS PREMIOS -->
     <div class="prizes-showcase">
-        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400" alt="Nevera Condesa">
-        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=400" alt="Smart TV 75 Pulgadas">
+        <img src="116412_2.png" alt="Premios Rifas J.A.">
     </div>
 
     <div class="progress-card">
@@ -520,16 +514,14 @@
         <div class="tickets-grid" id="gridBoletos"></div>
     </div>
 
-    <!-- NUEVO PODIO ESTILO REFERENCIA -->
+    <!-- PODIO ESTILO REFERENCIA -->
     <div class="podium-card">
         <div class="podium-icon-top">🏆</div>
         <div class="podium-title-area">
             <h3>Top Compradores</h3>
             <p>¡Gracias a nuestros mayores participantes!</p>
         </div>
-        <div class="podium-podiums-container" id="listaPodioRef">
-            <!-- Se llena dinámicamente con JS -->
-        </div>
+        <div class="podium-podiums-container" id="listaPodioRef"></div>
     </div>
 
 </div>
@@ -617,7 +609,6 @@
         let contenedorPodio = document.getElementById('listaPodioRef');
         podioCompradores.sort((a, b) => b.cantidad - a.cantidad);
 
-        // Asegurar que existan 3 puestos (vacíos si no hay suficientes)
         let top1 = podioCompradores[0] || { nombre: 'Por definir', cantidad: 0 };
         let top2 = podioCompradores[1] || { nombre: 'Por definir', cantidad: 0 };
         let top3 = podioCompradores[2] || { nombre: 'Por definir', cantidad: 0 };
@@ -626,7 +617,6 @@
         let inicial2 = top2.nombre !== 'Por definir' ? top2.nombre.charAt(0).toUpperCase() : '👤';
         let inicial3 = top3.nombre !== 'Por definir' ? top3.nombre.charAt(0).toUpperCase() : '👤';
 
-        // Estructura visual de referencia exacta: #2 a la izquierda, #1 en el centro elevado, #3 a la derecha
         contenedorPodio.innerHTML = `
             <div class="podium-item-ref rank-2-wrapper">
                 <div class="podium-avatar-ring">${inicial2}</div>
