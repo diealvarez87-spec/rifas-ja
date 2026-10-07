@@ -42,23 +42,8 @@
 
         .header-section {
             text-align: center;
-            padding-top: 18px;
+            padding-top: 10px;
             position: relative;
-        }
-
-        .gift-left, .gift-right {
-            position: absolute;
-            top: 2px;
-            font-size: 42px;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
-            animation: floatGift 3s ease-in-out infinite;
-        }
-        .gift-left { left: 8px; transform: rotate(-10deg); }
-        .gift-right { right: 8px; transform: rotate(10deg); animation-delay: 1.5s; }
-
-        @keyframes floatGift {
-            0%, 100% { transform: translateY(0) rotate(var(--rot, -10deg)); }
-            50% { transform: translateY(-6px) rotate(var(--rot, -10deg)); }
         }
 
         .badge-banner {
@@ -71,12 +56,12 @@
             padding: 5px 18px;
             border-radius: 20px;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             box-shadow: 0 0 15px rgba(59, 130, 246, 0.35);
         }
 
         .main-title {
-            font-size: 38px;
+            font-size: 34px;
             font-weight: 900;
             margin: 0;
             background: linear-gradient(180deg, #ffffff 30%, #93c5fd 100%);
@@ -87,9 +72,9 @@
         }
 
         .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 4px;
         }
 
         .progress-card {
@@ -139,84 +124,31 @@
             color: #93c5fd;
         }
 
-        /* SECCIÓN DE PREMIOS DESTACADOS */
-        .prizes-section-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: #93c5fd;
-            text-align: center;
-            margin: 4px 0 2px 0;
-            letter-spacing: 0.5px;
-        }
-
-        .prizes-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .prize-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 18px;
-            padding: 12px;
+        /* SECCIÓN DE PREMIOS FLOTANTES SIN CAJA (Estilo referencia) */
+        .prizes-showcase {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 8px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .prize-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
-        }
-
-        .prize-badge {
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            color: #93c5fd;
-            font-size: 10px;
-            font-weight: 800;
-            text-transform: uppercase;
-            padding: 3px 10px;
-            border-radius: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        .prize-img-container {
-            width: 100%;
-            height: 110px;
-            display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
             position: relative;
         }
 
-        .prize-img {
-            max-width: 100%;
-            max-height: 110px;
+        .prizes-showcase img {
+            max-height: 140px;
             object-fit: contain;
-            filter: drop-shadow(0 6px 12px rgba(0,0,0,0.6));
-            transition: transform 0.3s ease;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7));
+            animation: floatPrize 3s ease-in-out infinite;
         }
 
-        .prize-card:hover .prize-img {
-            transform: scale(1.05);
+        .prizes-showcase img:nth-child(2) {
+            animation-delay: 1.5s;
+            max-height: 130px;
         }
 
-        .prize-name {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 0;
-            line-height: 1.3;
+        @keyframes floatPrize {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
         .interactive-panel {
@@ -331,71 +263,131 @@
             opacity: 0.6;
         }
 
-        /* SECCIÓN DEL PODIO */
+        /* NUEVO PODIO ESTILO REFERENCIA (Adaptado a colores J.A.) */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
             border-radius: 20px;
-            padding: 16px;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            text-align: center;
+            gap: 14px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        .podium-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: #93c5fd;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin: 0;
-        }
-
-        .podium-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .podium-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 10px 14px;
-            border-radius: 12px;
-            font-size: 13px;
-        }
-
-        .podium-user {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-        }
-
-        .podium-rank {
-            width: 24px;
-            height: 24px;
+        .podium-icon-top {
+            width: 32px;
+            height: 32px;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            font-weight: 900;
+            font-size: 16px;
         }
 
-        .rank-1 { background: #f59e0b; color: #fff; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); }
-        .rank-2 { background: #94a3b8; color: #fff; }
-        .rank-3 { background: #d97706; color: #fff; }
-
-        .podium-count {
-            color: var(--accent-green);
+        .podium-title-area h3 {
+            font-size: 18px;
             font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 4px 0;
+        }
+
+        .podium-title-area p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .podium-podiums-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 18px;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .podium-item-ref {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .podium-avatar-ring {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            position: relative;
+        }
+
+        /* Primer puesto más grande y con aro verde brillante */
+        .podium-item-ref.rank-1-wrapper {
+            transform: translateY(-12px);
+        }
+        .podium-item-ref.rank-1-wrapper .podium-avatar-ring {
+            width: 68px;
+            height: 68px;
+            border: 3px solid var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent-green);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            font-size: 20px;
+        }
+
+        .podium-item-ref.rank-2-wrapper .podium-avatar-ring {
+            border: 2px solid #94a3b8;
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+        }
+
+        .podium-item-ref.rank-3-wrapper .podium-avatar-ring {
+            border: 2px solid #d97706;
+            background: rgba(217, 119, 6, 0.1);
+            color: #d97706;
+        }
+
+        .podium-crown {
+            position: absolute;
+            top: -16px;
+            font-size: 16px;
+        }
+
+        .podium-badge-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.06);
+            color: var(--text-muted);
+        }
+
+        .podium-name-txt {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+            max-width: 80px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin: 0;
+        }
+
+        .podium-tickets-txt {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin: 0;
         }
 
         .bottom-floating-bar {
@@ -481,11 +473,15 @@
 <div class="main-container">
 
     <div class="header-section">
-        <div class="gift-left">🎁</div>
-        <div class="gift-right">🎁</div>
         <div class="badge-banner">✨ Gran Sorteo Exclusivo ✨</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
+    </div>
+
+    <!-- PREMIOS FLOTANTES SIN FONDO (Nevera y Televisor) -->
+    <div class="prizes-showcase">
+        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400" alt="Nevera Condesa">
+        <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=400" alt="Smart TV 75 Pulgadas">
     </div>
 
     <div class="progress-card">
@@ -498,25 +494,6 @@
         </div>
         <div class="price-badge-box">
             Valor del boleto: 4.000 Bs
-        </div>
-    </div>
-
-    <!-- PREMIOS DESTACADOS EN FRENTE -->
-    <h3 class="prizes-section-title">🌟 ¡Premios Principales en Juego! 🌟</h3>
-    <div class="prizes-grid">
-        <div class="prize-card">
-            <span class="prize-badge">Premio Mayor</span>
-            <div class="prize-img-container">
-                <img src="https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=400" alt="Smart TV 75 Pulgadas" class="prize-img">
-            </div>
-            <p class="prize-name">Smart TV 75" 4K UHD</p>
-        </div>
-        <div class="prize-card">
-            <span class="prize-badge">Segundo Premio</span>
-            <div class="prize-img-container">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400" alt="Nevera Ejecutiva" class="prize-img">
-            </div>
-            <p class="prize-name">Nevera Condesa 4 Puertas</p>
         </div>
     </div>
 
@@ -543,22 +520,15 @@
         <div class="tickets-grid" id="gridBoletos"></div>
     </div>
 
-    <!-- PODIO DE COMPRADORES -->
+    <!-- NUEVO PODIO ESTILO REFERENCIA -->
     <div class="podium-card">
-        <h3 class="podium-title">🏆 Podio de Mayores Compradores</h3>
-        <div class="podium-list" id="listaPodio">
-            <div class="podium-item">
-                <div class="podium-user"><div class="podium-rank rank-1">1</div> <span>Por definir</span></div>
-                <span class="podium-count">0 boletos</span>
-            </div>
-            <div class="podium-item">
-                <div class="podium-user"><div class="podium-rank rank-2">2</div> <span>Por definir</span></div>
-                <span class="podium-count">0 boletos</span>
-            </div>
-            <div class="podium-item">
-                <div class="podium-user"><div class="podium-rank rank-3">3</div> <span>Por definir</span></div>
-                <span class="podium-count">0 boletos</span>
-            </div>
+        <div class="podium-icon-top">🏆</div>
+        <div class="podium-title-area">
+            <h3>Top Compradores</h3>
+            <p>¡Gracias a nuestros mayores participantes!</p>
+        </div>
+        <div class="podium-podiums-container" id="listaPodioRef">
+            <!-- Se llena dinámicamente con JS -->
         </div>
     </div>
 
@@ -644,38 +614,42 @@
     }
 
     function actualizarPodioUI() {
-        let contenedorPodio = document.getElementById('listaPodio');
-        if (podioCompradores.length === 0) {
-            contenedorPodio.innerHTML = `
-                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-1">1</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
-                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-2">2</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
-                <div class="podium-item"><div class="podium-user"><div class="podium-rank rank-3">3</div> <span>Por definir</span></div><span class="podium-count">0 boletos</span></div>
-            `;
-            return;
-        }
-
+        let contenedorPodio = document.getElementById('listaPodioRef');
         podioCompradores.sort((a, b) => b.cantidad - a.cantidad);
-        let html = '';
-        for (let i = 0; i < 3; i++) {
-            let item = podioCompradores[i];
-            let rankClass = i === 0 ? 'rank-1' : (i === 1 ? 'rank-2' : 'rank-3');
-            if (item) {
-                html += `
-                    <div class="podium-item">
-                        <div class="podium-user"><div class="podium-rank ${rankClass}">${i+1}</div> <span>${item.nombre}</span></div>
-                        <span class="podium-count">${item.cantidad} boletos</span>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="podium-item">
-                        <div class="podium-user"><div class="podium-rank ${rankClass}">${i+1}</div> <span>Por definir</span></div>
-                        <span class="podium-count">0 boletos</span>
-                    </div>
-                `;
-            }
-        }
-        contenedorPodio.innerHTML = html;
+
+        // Asegurar que existan 3 puestos (vacíos si no hay suficientes)
+        let top1 = podioCompradores[0] || { nombre: 'Por definir', cantidad: 0 };
+        let top2 = podioCompradores[1] || { nombre: 'Por definir', cantidad: 0 };
+        let top3 = podioCompradores[2] || { nombre: 'Por definir', cantidad: 0 };
+
+        let inicial1 = top1.nombre !== 'Por definir' ? top1.nombre.charAt(0).toUpperCase() : '👤';
+        let inicial2 = top2.nombre !== 'Por definir' ? top2.nombre.charAt(0).toUpperCase() : '👤';
+        let inicial3 = top3.nombre !== 'Por definir' ? top3.nombre.charAt(0).toUpperCase() : '👤';
+
+        // Estructura visual de referencia exacta: #2 a la izquierda, #1 en el centro elevado, #3 a la derecha
+        contenedorPodio.innerHTML = `
+            <div class="podium-item-ref rank-2-wrapper">
+                <div class="podium-avatar-ring">${inicial2}</div>
+                <span class="podium-badge-tag">🏆 #2</span>
+                <p class="podium-name-txt">${top2.nombre}</p>
+                <p class="podium-tickets-txt">${top2.cantidad} T.</p>
+            </div>
+            <div class="podium-item-ref rank-1-wrapper">
+                <div class="podium-avatar-ring">
+                    <span class="podium-crown">👑</span>
+                    ${inicial1}
+                </div>
+                <span class="podium-badge-tag" style="background: rgba(16,185,129,0.15); color: var(--accent-green);">🏆 #1</span>
+                <p class="podium-name-txt" style="font-size: 13px;">${top1.nombre}</p>
+                <p class="podium-tickets-txt">${top1.cantidad} T.</p>
+            </div>
+            <div class="podium-item-ref rank-3-wrapper">
+                <div class="podium-avatar-ring">${inicial3}</div>
+                <span class="podium-badge-tag">🏆 #3</span>
+                <p class="podium-name-txt">${top3.nombre}</p>
+                <p class="podium-tickets-txt">${top3.cantidad} T.</p>
+            </div>
+        `;
     }
 
     function generarBoletos(inicio, fin) {
