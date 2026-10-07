@@ -5,202 +5,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifas J.A.</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            margin: 0;
-            padding: 10px;
-        }
-        .container {
-            max-width: 500px;
-            margin: auto;
-            background: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-        h2 {
-            text-align: center;
-            color: #ffcc00;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-            max-height: 250px;
-            overflow-y: auto;
-            background: #252525;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .btn-num {
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-num.selected {
-            background: #28a745;
-        }
-        .input-box, .btn-main {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: 1px solid #444;
-            background: #222;
-            color: white;
-            box-sizing: border-box;
-        }
-        .btn-main {
-            background: #007bff;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .btn-whatsapp {
-            background: #25d366;
+        :root {
+            --bg-dark: #121212;
+            --surface-dark: #1e1e1e;
+            --surface-card: #252525;
+            --border-color: #333333;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --accent-green: #28a745;
+            --whatsapp-green: #25d366;
+            --accent-blue: #007bff;
+            --accent-gold: #d4af37;
         }
 
-        /* --- PANEL DE ADMINISTRACIÓN AMPLIADO A PANTALLA COMPLETA --- */
-        #adminModal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
             box-sizing: border-box;
         }
-        .admin-content-large {
-            background: #1e1e1e;
-            width: 100%;
-            max-width: 500px;
-            height: 85vh;
-            border-radius: 12px;
-            border: 2px solid #555;
-            display: flex;
-            flex-direction: column;
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--surface-dark);
             padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #ffffff;
+            margin: 0 0 5px 0;
+            font-size: 26px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .stats-banner {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: #ffffff;
+        }
+
+        .stats-banner b {
+            color: var(--accent-gold);
+        }
+
+        .section-title {
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 8px;
+            display: block;
+            color: #ffffff;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .grid-wrapper {
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 10px;
+            background: #161616;
+            margin-bottom: 15px;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .num-btn {
+            padding: 12px 0;
+            background: #2d2d2d;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+            color: var(--text-main);
+        }
+
+        .num-btn.selected {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        .selection-card {
+            background: #2c2516;
+            border: 1px solid #5a4a1a;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 15px;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background: var(--whatsapp-green);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 16px;
             box-sizing: border-box;
         }
-        .admin-list {
-            flex: 1;
-            overflow-y: auto;
-            margin-top: 10px;
-            border: 1px solid #333;
-            background: #121212;
-            padding: 10px;
+
+        .divider {
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 30px 0;
+        }
+
+        /* Panel de Administrador Ampliado y Cómodo */
+        .admin-panel {
+            background: var(--surface-card);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #444444;
+        }
+
+        .admin-panel h3 {
+            margin-top: 0;
+            text-align: center;
+            color: #ffffff;
+            font-size: 18px;
+            margin-bottom: 18px;
+        }
+
+        .form-row {
+            margin-bottom: 14px;
+        }
+
+        .form-row label {
+            display: block;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #dddddd;
+        }
+
+        .form-row input {
+            width: 100%;
+            padding: 12px;
+            background: #161616;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px; /* Evita zoom automático molesto en iPhone/Android */
+            color: var(--text-main);
+        }
+
+        .btn-generate {
+            width: 100%;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        #ticketPreview {
+            display: none;
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            color: #000000;
+            border: 3px solid #d9534f;
+            padding: 20px;
+            margin: 25px auto 0 auto;
+            text-align: center;
+            border-radius: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🎟️ Rifas J.A.</h2>
-    <p style="text-align: center;">Selecciona tu número de la suerte</p>
+    <header>
+        <h1>🎟️ Rifas J.A.</h1>
+        <p>¡Participa y gana con nosotros!</p>
+    </header>
+    
+    <div class="stats-banner">
+        <b>Total:</b> 1500 Boletos &nbsp;|&nbsp; <b>Estado:</b> En marcha 🔥
+    </div>
 
-    <input type="text" id="buscador" class="input-box" placeholder="🔍 Buscar número..." onkeyup="filtrar()">
+    <span class="section-title">Elige tu número de la suerte:</span>
+    <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 150)..." onkeyup="filtrarNumeros()">
+    
+    <div class="grid-wrapper">
+        <div class="numbers-grid" id="gridNumeros"></div>
+    </div>
 
-    <div class="grid" id="gridNumeros"></div>
+    <div class="selection-card">
+        Número seleccionado: <b id="numeroSeleccionado">Ninguno</b>
+    </div>
 
-    <p style="margin-top: 15px;">Seleccionado: <b id="lblSeleccionado" style="color: #ffcc00;">Ninguno</b></p>
+    <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
 
-    <a href="#" id="linkWsp" target="_blank">
-        <button class="btn-main btn-whatsapp">Apartar por WhatsApp 📱</button>
-    </a>
+    <hr class="divider">
 
-    <!-- Botón para abrir el panel de administración grande -->
-    <button class="btn-main" style="background: #555; margin-top: 20px;" onclick="abrirAdmin()">🛠️ Panel de Administración</button>
-</div>
-
-<!-- MODAL DE ADMINISTRADOR GRANDE -->
-<div id="adminModal">
-    <div class="admin-content-large">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 10px;">
-            <h3 style="margin: 0; color: #ffcc00;">🛠️ Panel de Administración</h3>
-            <button onclick="cerrarAdmin()" style="background: #dc3545; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold; cursor: pointer;">Cerrar ✕</button>
+    <!-- Panel de Administrador Ampliado -->
+    <div class="admin-panel">
+        <h3>🔐 Panel de Control (Generar Ticket)</h3>
+        
+        <div class="form-row">
+            <label>Número de Boleto:</label>
+            <input type="text" id="ticketNum" placeholder="Ej. 3151">
         </div>
 
-        <input type="text" id="adminSearch" class="input-box" placeholder="🔍 Buscar cliente en admin..." onkeyup="filtrarAdmin()">
+        <div class="form-row">
+            <label>Nombre Completo:</label>
+            <input type="text" id="ticketNombre" placeholder="Ej. Jose Alvarez">
+        </div>
 
-        <div class="admin-list" id="adminListContainer">
-            <!-- Ejemplo de la lista que tenías -->
-            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <b>N° 1421</b> - Yelimar Partidas<br>
-                    <small style="color: #aaa;">📞 04140663373</small>
-                </div>
-                <button style="background: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold;">Ticket 🎫</button>
-            </div>
-            <div style="background: #252525; padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <b>N° 1442</b> - Yelimar Partidas<br>
-                    <small style="color: #aaa;">📞 04140663373</small>
-                </div>
-                <button style="background: #007bff; color: white; border: none; padding: 8px 12px; border-radius: 5px; font-weight: bold;">Ticket 🎫</button>
-            </div>
+        <div class="form-row">
+            <label>Cédula:</label>
+            <input type="text" id="ticketCedula" placeholder="Ej. V-18483754">
+        </div>
+
+        <div class="form-row">
+            <label>Teléfono:</label>
+            <input type="text" id="ticketTelef" placeholder="Ej. 04246737022">
+        </div>
+
+        <button class="btn-generate" onclick="generarTicketVisual()">Generar Ticket 🎫</button>
+    </div>
+
+    <div id="ticketPreview">
+        <h2 style="color: #000; margin: 0 0 10px 0; border-bottom: 2px solid #ccc; padding-bottom: 8px; font-size: 20px;">Boleto: <span id="outBoleto">3151</span></h2>
+        <div style="text-align: left; font-size: 14px; line-height: 1.5; color: #111;">
+            <p><b>Nombre:</b> <span id="outNombre">Jose Alvarez</span></p>
+            <p><b>Cedula:</b> <span id="outCedula">V-18483754</span></p>
+            <p><b>Telef.:</b> <span id="outTelef">04246737022</span></p>
+            <p><b>Dir1:</b> Edo Zulia</p>
+            <hr style="border: 0; border-top: 1px solid #ccc; margin: 10px 0;">
+            <p style="font-size: 12px; color: #333;">
+                <b>Fecha:</b> <span id="outFecha">30-09-2026</span><br>
+                <b>Sorteo:</b> RIFAS J.A.<br>
+                <b>Valor:</b> 10 , <b>Pagado:</b> 10
+            </p>
+        </div>
+        <div style="font-size: 9px; color: #555; border-top: 1px solid #ccc; margin-top: 10px; padding-top: 6px;">
+            8a6b8187a5e337e0a7f4d8ecaa7de8615574908
         </div>
     </div>
+
 </div>
 
 <script>
-    let numeroSeleccionado = null;
+    let numeroElegido = null;
     const grid = document.getElementById('gridNumeros');
 
-    // Generar los 1500 boletos
     for (let i = 1; i <= 1500; i++) {
         let btn = document.createElement('button');
-        btn.className = 'btn-num';
+        btn.className = 'num-btn';
         btn.innerText = i;
         btn.onclick = function() {
-            document.querySelectorAll('.btn-num').forEach(b => b.classList.remove('selected'));
+            document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
             btn.classList.add('selected');
-            numeroSeleccionado = i;
-            document.getElementById('lblSeleccionado').innerText = i;
-            actualizarWsp();
+            numeroElegido = i;
+            document.getElementById('numeroSeleccionado').innerText = i;
         };
         grid.appendChild(btn);
     }
 
-    function filtrar() {
-        let val = document.getElementById('buscador').value;
-        let botones = grid.getElementsByClassName('btn-num');
-        for (let b of botones) {
-            b.style.display = b.innerText.includes(val) ? '' : 'none';
+    function filtrarNumeros() {
+        let filtro = document.getElementById('buscadorNumeros').value.toLowerCase();
+        let botones = grid.getElementsByClassName('num-btn');
+        for (let i = 0; i < botones.length; i++) {
+            let texto = botones[i].innerText;
+            if (texto.includes(filtro)) {
+                botones[i].style.display = "";
+            } else {
+                botones[i].style.display = "none";
+            }
         }
     }
 
-    function actualizarWsp() {
-        let t = "584246737022";
-        let msg = `Hola, quiero apartar el número ${numeroSeleccionado} para la rifa.`;
-        document.getElementById('linkWsp').href = `https://wa.me/${t}?text=${encodeURIComponent(msg)}`;
-    }
-
-    function abrirAdmin() {
-        document.getElementById('adminModal').style.display = 'flex';
-    }
-
-    function cerrarAdmin() {
-        document.getElementById('adminModal').style.display = 'none';
-    }
-
-    function filtrarAdmin() {
-        let val = document.getElementById('adminSearch').value.toLowerCase();
-        let items = document.getElementById('adminListContainer').children;
-        for (let item of items) {
-            item.style.display = item.innerText.toLowerCase().includes(val) ? 'flex' : 'none';
+    function enviarWhatsApp(e) {
+        if (!numeroElegido) {
+            e.preventDefault();
+            alert("Por favor selecciona un número primero.");
+            return;
         }
+        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A. Aquí adjunto mi pago.`;
+        let telefonoPapa = "584246737022";
+        document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
+    }
+
+    function generarTicketVisual() {
+        let num = document.getElementById('ticketNum').value || "000";
+        let nombre = document.getElementById('ticketNombre').value || "Cliente";
+        let cedula = document.getElementById('ticketCedula').value || "V-0000000";
+        let telef = document.getElementById('ticketTelef').value || "04246737022";
+
+        document.getElementById('outBoleto').innerText = num;
+        document.getElementById('outNombre').innerText = nombre;
+        document.getElementById('outCedula').innerText = cedula;
+        document.getElementById('outTelef').innerText = telef;
+
+        let d = new Date();
+        let fechaStr = d.toLocaleDateString() + " / " + d.toLocaleTimeString();
+        document.getElementById('outFecha').innerText = fechaStr;
+
+        let cuadro = document.getElementById('ticketPreview');
+        cuadro.style.display = 'block';
+        cuadro.scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
