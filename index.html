@@ -385,19 +385,16 @@
             overflow-y: auto;
         }
 
-        /* Estilo para el Logo del BDV en el Modal */
-        .bank-logo-container {
+        /* Encabezado limpio para el Banco sin errores de imagen */
+        .bank-header-title {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
             text-align: center;
-            background: #ffffff;
             padding: 10px;
             border-radius: 10px;
-            margin-bottom: -4px;
-        }
-        .bank-logo-container img {
-            max-width: 140px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.5px;
         }
 
         .modal-title { font-size: 16px; font-weight: 800; color: #93c5fd; text-align: center; margin: 0; }
@@ -442,7 +439,7 @@
             👇 Elegir Manual
         </div>
         <div id="btnModoAzar" class="mode-btn" onclick="cambiarModo('azar')">
-            🎲 Elegir al Azar (+)
+            🎲 Elegir al Azar
         </div>
     </div>
 
@@ -451,7 +448,7 @@
             <span class="random-info-text" id="textoAzarContador">Toca [+] para sumar azar (0)</span>
             <div class="random-controls">
                 <button class="btn-plus" onclick="agregarAzarPlus()">+</button>
-                <button class="random-pay-btn" onclick="abrirModalPago()">Pagar Ahora</button>
+                <button class="random-pay-btn" onclick="abrirModalPago()">Pagar</button>
             </div>
         </div>
 
@@ -487,13 +484,11 @@
     <button class="apartar-btn" onclick="abrirModalPago()">Apartar</button>
 </div>
 
-<!-- VENTANA FLOTANTE 1: DATOS DE PAGO Y LOGO BDV -->
+<!-- VENTANA FLOTANTE 1: DATOS DE PAGO -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
-        <div class="bank-logo-container">
-            <img src="https://i.imgur.com/8QO0h9r.png" alt="Banco de Venezuela" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/4/4b/Banco_de_Venezuela_logo.svg'">
-        </div>
-        <h3 class="modal-title">Pago Móvil (Banco de Venezuela)</h3>
+        <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
+        <h3 class="modal-title">Pago Móvil</h3>
         
         <div class="bank-box">
             <div class="bank-row"><span><b>Banco:</b> Banco de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
@@ -755,7 +750,7 @@
 
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
 
-        // Limpiar todo y resetear la página para una nueva compra limpia
+        // Reinicio completo de la página para la siguiente compra
         cerrarModal('modalAdvertencia');
         seleccionados = [];
         tieneCapture = false;
