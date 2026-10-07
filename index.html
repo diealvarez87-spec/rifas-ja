@@ -10,7 +10,6 @@
             --card-bg: rgba(15, 22, 38, 0.75);
             --card-border: rgba(255, 255, 255, 0.08);
             --accent-green: #10b981;
-            --accent-green-hover: #059669;
             --accent-blue: #3b82f6;
             --accent-blue-glow: rgba(59, 130, 246, 0.4);
             --text-main: #ffffff;
@@ -41,11 +40,26 @@
             padding-bottom: 90px;
         }
 
-        /* Cabecera */
+        /* Cabecera con Regalos */
         .header-section {
             text-align: center;
-            padding-top: 10px;
+            padding-top: 15px;
             position: relative;
+        }
+
+        .gift-left, .gift-right {
+            position: absolute;
+            top: 5px;
+            font-size: 38px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+            animation: floatGift 3s ease-in-out infinite;
+        }
+        .gift-left { left: 10px; transform: rotate(-10deg); }
+        .gift-right { right: 10px; transform: rotate(10deg); animation-delay: 1.5s; }
+
+        @keyframes floatGift {
+            0%, 100% { transform: translateY(0) rotate(var(--rot, -10deg)); }
+            50% { transform: translateY(-5px) rotate(var(--rot, -10deg)); }
         }
 
         .badge-banner {
@@ -113,6 +127,7 @@
             height: 100%;
             background: var(--accent-green);
             box-shadow: 0 0 8px var(--accent-green);
+            transition: width 0.3s ease;
         }
 
         .price-badge-box {
@@ -126,7 +141,7 @@
             color: #93c5fd;
         }
 
-        /* Botones de Modo (Elegir Manual vs Elegir al Azar Directo) */
+        /* Botones de Modo */
         .mode-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -157,7 +172,7 @@
             box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
         }
 
-        /* Panel Interactivo Buscador + Rangos + Grid */
+        /* Panel Interactivo */
         .interactive-panel {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
@@ -170,39 +185,58 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
-        /* Contenedor del Selector Azar (Se muestra al presionar el botón Azar) */
+        /* Contenedor Azar con el Signo + */
         .random-container {
             display: none;
             background: rgba(59, 130, 246, 0.08);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 12px;
-            padding: 10px;
+            padding: 12px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .random-info-text {
+            font-size: 12px;
+            color: #93c5fd;
+            font-weight: 700;
+        }
+
+        .random-controls {
+            display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .random-select {
-            flex: 1;
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 9px;
-            border-radius: 10px;
-            font-size: 13px;
-            outline: none;
-            font-weight: bold;
-        }
-
-        .random-action-btn {
+        .btn-plus {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
             border: none;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
+            font-size: 20px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+        }
+        .btn-plus:active { transform: scale(0.92); }
+
+        .random-pay-btn {
+            background: var(--accent-green);
+            color: white;
+            border: none;
             padding: 9px 14px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         .search-input {
@@ -217,11 +251,9 @@
             outline: none;
             transition: border-color 0.2s;
         }
-        .search-input:focus {
-            border-color: var(--accent-blue);
-        }
+        .search-input:focus { border-color: var(--accent-blue); }
 
-        /* Rangos (3 partes) */
+        /* Rangos */
         .ranges-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -248,7 +280,7 @@
             box-shadow: 0 0 10px var(--accent-blue-glow);
         }
 
-        /* Leyenda de colores */
+        /* Leyenda */
         .status-legend {
             display: flex;
             justify-content: space-around;
@@ -259,17 +291,9 @@
             border-bottom: 1px solid var(--card-border);
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
         .dot.available { background: var(--text-muted); }
         .dot.selected { background: var(--accent-blue); box-shadow: 0 0 6px var(--accent-blue); }
         .dot.sold { background: #ef4444; }
@@ -281,7 +305,7 @@
             color: var(--text-muted);
         }
 
-        /* Grid de Pastillas */
+        /* Grid optimizado con rendimiento fluido */
         .tickets-grid {
             max-height: 220px;
             overflow-y: auto;
@@ -292,11 +316,11 @@
             padding: 10px;
             border-radius: 12px;
             border: 1px solid var(--card-border);
+            will-change: scroll-position;
         }
 
         .ticket-cell {
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 10px 0;
             text-align: center;
@@ -305,7 +329,7 @@
             font-weight: 700;
             cursor: pointer;
             color: var(--text-muted);
-            transition: all 0.15s ease;
+            user-select: none;
         }
 
         .ticket-cell.selected {
@@ -326,9 +350,7 @@
         /* Barra Inferior Flotante */
         .bottom-floating-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(7, 9, 19, 0.95);
             backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border);
@@ -340,16 +362,8 @@
             z-index: 50;
         }
 
-        .selection-summary {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .selection-summary b {
-            display: block;
-            font-size: 15px;
-            color: #93c5fd;
-        }
+        .selection-summary { font-size: 12px; color: var(--text-muted); }
+        .selection-summary b { display: block; font-size: 15px; color: #93c5fd; }
 
         .apartar-btn {
             background: var(--accent-green);
@@ -361,13 +375,9 @@
             font-weight: 800;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            transition: transform 0.1s;
-        }
-        .apartar-btn:active {
-            transform: scale(0.96);
         }
 
-        /* Ventanas Flotantes / Modales */
+        /* Modales */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -391,116 +401,30 @@
             flex-direction: column;
             gap: 14px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            animation: modalPop 0.25s ease-out;
             max-height: 90vh;
             overflow-y: auto;
         }
 
-        @keyframes modalPop {
-            0% { transform: scale(0.9); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: #93c5fd;
-            text-align: center;
-            margin: 0;
-        }
-
-        .bank-box {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .bank-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 13px;
-        }
-
-        .copy-btn {
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .form-input {
-            width: 100%;
-            background: rgba(10, 15, 28, 0.9);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 11px;
-            color: white;
-            font-size: 13px;
-            box-sizing: border-box;
-            outline: none;
-        }
-        .form-input:focus {
-            border-color: var(--accent-blue);
-        }
-
-        .file-upload-box {
-            border: 2px dashed rgba(59, 130, 246, 0.4);
-            border-radius: 12px;
-            padding: 14px;
-            text-align: center;
-            font-size: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-            background: rgba(15, 23, 42, 0.4);
-        }
-
-        .modal-btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 4px;
-        }
-
-        .btn-modal-action {
-            flex: 1;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-cancel {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-        }
-
-        .btn-confirm {
-            background: var(--accent-green);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
+        .modal-title { font-size: 18px; font-weight: 800; color: #93c5fd; text-align: center; margin: 0; }
+        .bank-box { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--card-border); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.03); padding: 8px 10px; border-radius: 8px; font-size: 13px; }
+        .copy-btn { background: var(--accent-blue); color: white; border: none; padding: 5px 12px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .form-input { width: 100%; background: rgba(10, 15, 28, 0.9); border: 1px solid var(--card-border); border-radius: 10px; padding: 11px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
+        .file-upload-box { border: 2px dashed rgba(59, 130, 246, 0.4); border-radius: 12px; padding: 14px; text-align: center; font-size: 12px; color: var(--text-muted); cursor: pointer; background: rgba(15, 23, 42, 0.4); }
+        .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
+        .btn-modal-action { flex: 1; padding: 12px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
+        .btn-cancel { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
+        .btn-confirm { background: var(--accent-green); color: #fff; }
     </style>
 </head>
 <body>
 
 <div class="main-container">
 
-    <!-- Cabecera -->
+    <!-- Cabecera con Regalos Laterales -->
     <div class="header-section">
+        <div class="gift-left">🎁</div>
+        <div class="gift-right">🎁</div>
         <div class="badge-banner">✨ Gran Sorteo Exclusivo ✨</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
@@ -526,23 +450,20 @@
             👇 Elegir Manual
         </div>
         <div id="btnModoAzar" class="mode-btn" onclick="cambiarModo('azar')">
-            🎲 Elegir al Azar
+            🎲 Elegir al Azar (+)
         </div>
     </div>
 
     <!-- Panel Interactivo -->
     <div class="interactive-panel">
         
-        <!-- Contenedor Azar (Aparece al activar Elegir al Azar) -->
+        <!-- Contenedor Azar con el Botón + -->
         <div id="panelAzar" class="random-container">
-            <select id="cantidadAzar" class="random-select">
-                <option value="1">1 Ticket</option>
-                <option value="2">2 Tickets</option>
-                <option value="3">3 Tickets</option>
-                <option value="5">5 Tickets</option>
-                <option value="10">10 Tickets</option>
-            </select>
-            <button class="random-action-btn" onclick="seleccionarAlAzarYPagar()">¡Elegir y Pagar!</button>
+            <span class="random-info-text" id="textoAzarContador">Toca [+] para sumar azar (0)</span>
+            <div class="random-controls">
+                <button class="btn-plus" onclick="agregarAzarPlus()">+</button>
+                <button class="random-pay-btn" onclick="abrirModalPago()">Pagar Ahora</button>
+            </div>
         </div>
 
         <!-- Buscador Manual -->
@@ -562,7 +483,7 @@
 
         <div class="range-status-info">
             <span id="textoMostrando">Mostrando: 0001 al 0500</span>
-            <span id="totalActivosInfo">1500 activos</span>
+            <span>1500 activos</span>
         </div>
 
         <!-- Grid de Pastillas -->
@@ -584,22 +505,11 @@
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <h3 class="modal-title">🏦 Pago Móvil (Banco de Venezuela)</h3>
-        
         <div class="bank-box">
-            <div class="bank-row">
-                <span><b>Banco:</b> Banco de Venezuela</span>
-                <button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button>
-            </div>
-            <div class="bank-row">
-                <span><b>Cédula:</b> 18483754</span>
-                <button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button>
-            </div>
-            <div class="bank-row">
-                <span><b>Teléfono:</b> 04246737022</span>
-                <button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button>
-            </div>
+            <div class="bank-row"><span><b>Banco:</b> Banco de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
+            <div class="bank-row"><span><b>Cédula:</b> 18483754</span><button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button></div>
+            <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
-
         <div>
             <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">📸 Adjuntar Capture de Pago (*Obligatorio):</label>
             <label class="file-upload-box" id="fileLabel">
@@ -607,7 +517,6 @@
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             </label>
         </div>
-
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
             <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
@@ -619,17 +528,8 @@
 <div id="modalDatos" class="modal-overlay">
     <div class="modal-card">
         <h3 class="modal-title">📝 Tus Datos Personales</h3>
-
-        <div>
-            <label style="font-size: 11px; color: var(--text-muted);">Nombre y Apellido:</label>
-            <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez">
-        </div>
-
-        <div>
-            <label style="font-size: 11px; color: var(--text-muted);">Número de Teléfono:</label>
-            <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
-        </div>
-
+        <div><label style="font-size: 11px; color: var(--text-muted);">Nombre y Apellido:</label><input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez"></div>
+        <div><label style="font-size: 11px; color: var(--text-muted);">Número de Teléfono:</label><input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567"></div>
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalDatos')">Atrás</button>
             <button class="btn-modal-action btn-confirm" onclick="mostrarAdvertenciaWhatsApp()">Continuar</button>
@@ -644,7 +544,6 @@
         <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4; margin: 0;">
             Para poder verificar y asegurar tu pago, debes <b>enviar obligatoriamente el capture por el chat de WhatsApp</b> que se abrirá a continuación.
         </p>
-
         <div class="modal-btn-row" style="margin-top: 10px;">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalAdvertencia')">Revisar</button>
             <button class="btn-modal-action btn-confirm" onclick="enviarAWhatsApp()">Ir a WhatsApp</button>
@@ -652,14 +551,13 @@
     </div>
 </div>
 
-<!-- Script de Funcionalidad -->
+<!-- Script Optimizado -->
 <script>
     let inicioRango = 1;
     let finRango = 500;
     let seleccionados = [];
     let precioBoleto = 4000;
     let tieneCapture = false;
-
     let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
 
     function actualizarProgreso() {
@@ -671,7 +569,8 @@
 
     function generarBoletos(inicio, fin) {
         let grid = document.getElementById('gridBoletos');
-        grid.innerHTML = '';
+        let fragment = document.createDocumentFragment();
+        
         for (let i = inicio; i <= fin; i++) {
             let numStr = String(i).padStart(4, '0');
             let cell = document.createElement('div');
@@ -696,8 +595,10 @@
                     actualizarResumen();
                 };
             }
-            grid.appendChild(cell);
+            fragment.appendChild(cell);
         }
+        grid.innerHTML = '';
+        grid.appendChild(fragment);
         actualizarProgreso();
     }
 
@@ -737,6 +638,7 @@
         let total = cantidad * precioBoleto;
         document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
         document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
+        document.getElementById('textoAzarContador').innerText = `Toca [+] para sumar azar (${cantidad})`;
     }
 
     function filtrarNumero(query) {
@@ -745,7 +647,8 @@
             return;
         }
         let grid = document.getElementById('gridBoletos');
-        grid.innerHTML = '';
+        let fragment = document.createDocumentFragment();
+        
         for (let i = 1; i <= 1500; i++) {
             let numStr = String(i).padStart(4, '0');
             if (numStr.includes(query)) {
@@ -767,16 +670,16 @@
                         actualizarResumen();
                     };
                 }
-                grid.appendChild(cell);
+                fragment.appendChild(cell);
             }
         }
+        grid.innerHTML = '';
+        grid.appendChild(fragment);
     }
 
-    // Seleccionar al azar y llevar directo a pagar
-    function seleccionarAlAzarYPagar() {
-        let cuantos = parseInt(document.getElementById('cantidadAzar').value);
+    // Agregar número al azar con el botón de signo +
+    function agregarAzarPlus() {
         let disponibles = [];
-        
         for (let i = 1; i <= 1500; i++) {
             let numStr = String(i).padStart(4, '0');
             if (!vendidos.includes(numStr) && !seleccionados.includes(numStr)) {
@@ -784,20 +687,17 @@
             }
         }
 
-        if (disponibles.length < cuantos) {
-            alert("⚠️ No hay suficientes números disponibles para completar tu selección al azar.");
+        if (disponibles.length === 0) {
+            alert("⚠️ No quedan números disponibles.");
             return;
         }
 
-        for (let i = 0; i < cuantos; i++) {
-            let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
-            let elegido = disponibles.splice(indiceAleatorio, 1)[0];
-            seleccionados.push(elegido);
-        }
+        let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
+        let elegido = disponibles[indiceAleatorio];
+        seleccionados.push(elegido);
 
         actualizarResumen();
         generarBoletos(inicioRango, finRango);
-        abrirModalPago();
     }
 
     function copiarTexto(texto) {
