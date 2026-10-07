@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas J.A. - Sistema Único de Rifas</title>
+    <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
     <style>
         :root {
             --bg-base: #0b0f19;
@@ -11,10 +11,11 @@
             --card-border: #1e293b;
             --accent-green: #10b981;
             --accent-green-hover: #059669;
-            --accent-orange: #f59e0b;
+            --accent-blue: #3b82f6;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
             --input-bg: #0f172a;
+            --badge-red: #ef4444;
         }
 
         body {
@@ -22,7 +23,7 @@
             background-color: var(--bg-base);
             color: var(--text-main);
             margin: 0;
-            padding: 12px;
+            padding: 10px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
@@ -30,222 +31,153 @@
 
         .main-container {
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
+            padding-bottom: 70px;
         }
 
-        /* Header / Barra superior evento */
-        .event-header {
+        /* Cabecera Regalos y Título */
+        .header-section {
+            text-align: center;
+            position: relative;
+            padding-top: 10px;
+        }
+
+        .gift-box-left, .gift-box-right {
+            position: absolute;
+            top: 0;
+            font-size: 28px;
+        }
+        .gift-box-left { left: 10px; }
+        .gift-box-right { right: 10px; }
+
+        .gran-sorteo-badge {
+            background: linear-gradient(90deg, #1d4ed8, #2563eb, #3b82f6);
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 14px;
+            border-radius: 20px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+            margin-bottom: 6px;
+        }
+
+        .main-title {
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0;
+            background: linear-gradient(180deg, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Tarjeta de Progreso y Valor */
+        .progress-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
+            border-radius: 16px;
             padding: 14px;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
-        .event-top-row {
+        .progress-info {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-size: 12px;
+            font-weight: 700;
         }
 
-        .event-badge {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-green);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .event-details-btn {
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
             background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
+            border-radius: 4px;
+            overflow: hidden;
         }
 
-        .event-title {
-            font-size: 20px;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: -0.3px;
+        .progress-bar-fill {
+            width: 1%;
+            height: 100%;
+            background: var(--accent-green);
+            border-radius: 4px;
         }
 
-        /* Acordeón de detalles extra */
-        .event-info-box {
+        .ticket-value-box {
             background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 10px;
-            font-size: 12px;
-            color: var(--text-muted);
-            display: none;
-        }
-
-        /* Selector de pestaña Al Azar / Manual */
-        .selector-tabs {
-            display: flex;
-            background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 4px;
-            gap: 4px;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: #93c5fd;
+            letter-spacing: 0.3px;
         }
 
-        .tab-btn {
+        /* Botones principales de modo (Manual vs Azar) */
+        .mode-buttons-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .mode-btn {
             flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 10px;
-            background: transparent;
-            color: var(--text-muted);
-            font-weight: 700;
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
             font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
             transition: all 0.2s;
         }
 
-        .tab-btn.active {
+        .mode-btn.manual {
             background: var(--accent-green);
-            color: #000000;
+            color: #000;
+            border-color: var(--accent-green);
         }
 
-        /* Tarjeta principal de selección */
-        .selection-card {
+        .mode-btn.azar {
+            background: var(--card-bg);
+            color: var(--text-muted);
+        }
+
+        .mode-btn.azar.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        /* Contenedor del Buscador y Rangos */
+        .interactive-panel {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 16px;
+            border-radius: 16px;
+            padding: 14px;
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        /* Grid de paquetes de boletos (1, 2, 5, 10, 20, 50) */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .package-btn {
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 14px 8px;
-            text-align: center;
-            cursor: pointer;
-            color: var(--text-main);
-            position: relative;
-            transition: all 0.2s;
-        }
-
-        .package-btn.active {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border-color: var(--accent-orange);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
-        }
-
-        .package-number {
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .package-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 2px;
-        }
-
-        .popular-badge {
-            position: absolute;
-            top: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #f59e0b, #ef4444);
-            color: white;
-            font-size: 8px;
-            font-weight: 800;
-            padding: 2px 6px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-
-        /* Controles de cantidad manual (+ / -) */
-        .quantity-control-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .stepper-box {
-            display: flex;
-            align-items: center;
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 6px 12px;
-            flex: 1;
-            justify-content: space-between;
-        }
-
-        .stepper-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 0 8px;
-        }
-
-        .stepper-value {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        /* Botón gigante de Participar */
-        .participate-btn {
-            background: var(--accent-green);
-            color: #000000;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex: 1.2;
-            transition: background 0.2s;
-        }
-
-        .participate-btn:hover {
-            background: var(--accent-green-hover);
-        }
-
-        /* Sección Manual Grid (cuando se activa pestaña manual) */
-        .manual-grid-section {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .manual-search {
+        .search-input {
             width: 100%;
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -256,8 +188,71 @@
             box-sizing: border-box;
         }
 
-        .numbers-container {
-            max-height: 180px;
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* Pestañas de Rangos (0001 - 0500, etc.) */
+        .ranges-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .range-tab {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .range-tab.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        /* Leyenda de estados */
+        .status-legend {
+            display: flex;
+            justify-content: space-around;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 4px 0;
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .dot.available { background: var(--text-muted); }
+        .dot.selected { background: var(--accent-blue); }
+        .dot.sold { background: var(--badge-red); }
+
+        .range-status-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Grid de Boletos Numéricos */
+        .tickets-grid {
+            max-height: 220px;
             overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -268,295 +263,261 @@
             border: 1px solid var(--card-border);
         }
 
-        .num-cell {
+        .ticket-cell {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            padding: 8px 0;
+            padding: 10px 0;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            color: var(--text-main);
+            color: var(--text-muted);
         }
 
-        .num-cell.selected {
+        .ticket-cell.selected {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        /* Barra Inferior Flotante (Apartar) */
+        .bottom-floating-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(11, 15, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--card-border);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        .selection-summary {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .selection-summary b {
+            display: block;
+            font-size: 15px;
+            color: var(--accent-green);
+        }
+
+        .apartar-btn {
             background: var(--accent-green);
             color: #000;
-            border-color: var(--accent-green);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        /* Top Compradores */
-        .top-buyers-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .podium-row {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 16px;
-            margin-top: 14px;
-        }
-
-        .podium-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        .avatar-circle {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
-            border: 2px solid;
-            margin-bottom: 4px;
-        }
-
-        .avatar-1 { border-color: var(--accent-green); color: var(--accent-green); background: rgba(16,185,129,0.1); width: 54px; height: 54px; font-size: 20px; }
-        .avatar-2 { border-color: var(--text-muted); color: var(--text-muted); background: rgba(148,163,184,0.1); }
-        .avatar-3 { border-color: var(--accent-orange); color: var(--accent-orange); background: rgba(245,158,11,0.1); }
-
-        /* Footer institucional CONALOT */
-        .footer-conalot {
-            text-align: center;
-            padding: 16px 0;
-            font-size: 11px;
-            color: var(--text-muted);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .conalot-highlight {
-            color: var(--accent-green);
-            font-weight: 700;
+        .apartar-btn:hover {
+            background: var(--accent-green-hover);
         }
     </style>
 </head>
-<body onclick="registrarToqueAdmin()">
+<body>
 
 <div class="main-container">
 
-    <!-- Cabecera del Sorteo -->
-    <div class="event-header">
-        <div class="event-top-row">
-            <span class="event-badge">🟢 EVENTO #CNL-AUT-RF-2026</span>
-            <button class="event-details-btn" onclick="toggleDetalles()">Ver detalles ▼</button>
+    <!-- Cabecera exacta con regalos -->
+    <div class="header-section">
+        <div class="gift-box-left">🎁</div>
+        <div class="gift-box-right">🎁</div>
+        <div class="gran-sorteo-badge">✨ Gran Sorteo Exclusivo ✨</div>
+        <h1 class="main-title">Rifas J.A.</h1>
+        <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
+    </div>
+
+    <!-- Progreso del Sorteo y Valor -->
+    <div class="progress-card">
+        <div class="progress-info">
+            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
+            <span style="color: var(--accent-green);">1%</span>
         </div>
-        <h1 class="event-title">3.000 LECHUGAS FLASH! A LAS 4 PM 🎟️🔥</h1>
-        
-        <div id="detallesBox" class="event-info-box">
-            Resultado vinculado a lotería oficial. Sorteo transparente homologado por CONALOT. 10.000 números disponibles en total.
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill"></div>
+        </div>
+        <div class="ticket-value-box">
+            Valor del boleto: 4.000 Bs
         </div>
     </div>
 
-    <!-- Pestañas de Selección -->
-    <div class="selector-tabs">
-        <button id="tabAzar" class="tab-btn active" onclick="cambiarModo('azar')">⚡ AL AZAR</button>
-        <button id="tabManual" class="tab-btn" onclick="cambiarModo('manual')">✋ MANUAL</button>
-    </div>
-
-    <!-- Tarjeta Principal (Modo Al Azar / Paquetes) -->
-    <div id="cardAzar" class="selection-card">
-        <div class="packages-grid">
-            <div class="package-btn" onclick="seleccionarPaquete(1)">
-                <div class="package-number">1</div>
-                <div class="package-label">Boletos</div>
-            </div>
-            <div class="package-btn" onclick="seleccionarPaquete(2)">
-                <div class="package-number">2</div>
-                <div class="package-label">Boletos</div>
-            </div>
-            <div class="package-btn" onclick="seleccionarPaquete(5)">
-                <div class="package-number">5</div>
-                <div class="package-label">Boletos</div>
-            </div>
-            <div class="package-btn active" onclick="seleccionarPaquete(10)">
-                <span class="popular-badge">Popular</span>
-                <div class="package-number">10</div>
-                <div class="package-label">Boletos</div>
-            </div>
-            <div class="package-btn" onclick="seleccionarPaquete(20)">
-                <div class="package-number">20</div>
-                <div class="package-label">Boletos</div>
-            </div>
-            <div class="package-btn" onclick="seleccionarPaquete(50)">
-                <div class="package-number">50</div>
-                <div class="package-label">Boletos</div>
-            </div>
-        </div>
-
-        <div class="quantity-control-row">
-            <div class="stepper-box">
-                <button class="stepper-btn" onclick="cambiarCantidad(-1)">−</button>
-                <span id="cantidadBoletos" class="stepper-value">10</span>
-                <button class="stepper-btn" onclick="cambiarCantidad(1)">+</button>
-            </div>
-            <button class="participate-btn" onclick="enviarWhatsApp()">
-                <span>PARTICIPAR</span>
-                <span id="precioTotal">Bs 550</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Tarjeta Manual (Oculta por defecto) -->
-    <div id="cardManual" class="selection-card" style="display: none;">
-        <input type="text" class="manual-search" placeholder="🔍 Buscar tu número exacto..." onkeyup="filtrarManual(this.value)">
-        <div class="numbers-container" id="gridManual">
-            <!-- Generado por JS -->
-        </div>
-        <button class="participate-btn" style="width: 100%; justify-content: center;" onclick="enviarWhatsAppManual()">
-            Apartar manuales (<span id="cantManuales">0</span>) - <span id="precioManual">Bs 0</span>
+    <!-- Botones de Modo -->
+    <div class="mode-buttons-row">
+        <button id="btnManual" class="mode-btn manual" onclick="cambiarModo('manual')">
+            <span>👉</span> Elegir Manual
+        </button>
+        <button id="btnAzar" class="mode-btn azar" onclick="cambiarModo('azar')">
+            <span>🎲</span> Elegir al Azar
         </button>
     </div>
 
-    <!-- Sección Top Compradores -->
-    <div class="top-buyers-card">
-        <h3 style="margin: 0; font-size: 16px;">🏆 Top Compradores</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0 12px 0;">¡Gracias a nuestros mayores participantes!</p>
+    <!-- Panel Interactivo de Elección -->
+    <div class="interactive-panel">
+        <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
         
-        <div class="podium-row">
-            <div class="podium-item">
-                <div class="avatar-circle avatar-2">a</div>
-                <span>alexand...</span>
-                <b>20 T.</b>
-            </div>
-            <div class="podium-item" style="transform: translateY(-10px);">
-                <div class="avatar-circle avatar-1">J</div>
-                <span style="color: var(--accent-green); font-weight: bold;">Jesús uzca...</span>
-                <b style="color: var(--accent-green);">25 T.</b>
-            </div>
-            <div class="podium-item">
-                <div class="avatar-circle avatar-3">G</div>
-                <span>Guillerm...</span>
-                <b>10 T.</b>
-            </div>
+        <div class="ranges-row">
+            <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
+            <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501 - 1000</div>
+            <div id="range3" class="range-tab" onclick="seleccionarRango(1001, 1500)">1001 - 1500</div>
         </div>
-    </div>
 
-    <!-- Footer CONALOT -->
-    <div class="footer-conalot">
-        <div>Sistema homologado por <span class="conalot-highlight">CONALOT</span>.</div>
-        <div>© 2026 Rifas J.A. Todos los derechos reservados.</div>
+        <div class="status-legend">
+            <div class="legend-item"><span class="dot available"></span> Disponible</div>
+            <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
+            <div class="legend-item"><span class="dot sold"></span> Vendido</div>
+        </div>
+
+        <div class="range-status-info">
+            <span id="textoMostrando">Mostrando: 0001 al 0500</span>
+            <span>1500 activos</span>
+        </div>
+
+        <!-- Grid de Números -->
+        <div class="tickets-grid" id="gridBoletos">
+            <!-- Generado dinámicamente -->
+        </div>
     </div>
 
 </div>
 
-<!-- SCRIPT DE FUNCIONAMIENTO -->
+<!-- Barra Inferior Flotante -->
+<div class="bottom-floating-bar">
+    <div class="selection-summary">
+        <span id="cantSeleccionados">1 seleccionados</span>
+        <b id="totalPrecio">Total: 4.000 Bs</b>
+    </div>
+    <button class="apartar-btn" onclick="enviarWhatsApp()">Apartar</button>
+</div>
+
+<!-- Script de Funcionalidad Exacta -->
 <script>
-    let cantidadActual = 10;
-    let precioUnitario = 55; // Calculado de Bs 550 / 10 boletos
-    let numerosManualesSeleccionados = [];
-    let modoActual = 'azar';
+    let inicioRango = 1;
+    let finRango = 500;
+    let seleccionados = ["0011"]; // Inicializado con el 0011 como en tu captura
+    let precioBoleto = 4000;
 
-    function actualizarPrecio() {
-        let total = cantidadActual * precioUnitario;
-        document.getElementById('precioTotal').innerText = `Bs ${total.toLocaleString()}`;
-        document.getElementById('cantidadBoletos').innerText = cantidadActual;
-    }
-
-    function seleccionarPaquete(cant) {
-        cantidadActual = cant;
-        document.querySelectorAll('.package-btn').forEach(b => b.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        actualizarPrecio();
-    }
-
-    function cambiarCantidad(delta) {
-        cantidadActual += delta;
-        if (cantidadActual < 1) cantidadActual = 1;
-        actualizarPrecio();
-    }
-
-    function cambiarModo(modo) {
-        modoActual = modo;
-        if (modo === 'azar') {
-            document.getElementById('tabAzar').classList.add('active');
-            document.getElementById('tabManual').classList.remove('active');
-            document.getElementById('cardAzar').style.display = 'flex';
-            document.getElementById('cardManual').style.display = 'none';
-        } else {
-            document.getElementById('tabManual').classList.add('active');
-            document.getElementById('tabAzar').classList.remove('active');
-            document.getElementById('cardManual').style.display = 'flex';
-            document.getElementById('cardAzar').style.display = 'none';
-            generarGridManual();
-        }
-    }
-
-    function toggleDetalles() {
-        let box = document.getElementById('detallesBox');
-        box.style.display = box.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function generarGridManual() {
-        let grid = document.getElementById('gridManual');
-        if (grid.children.length > 0) return;
-        for (let i = 1; i <= 100; i++) {
+    function generarBoletos(inicio, fin) {
+        let grid = document.getElementById('gridBoletos');
+        grid.innerHTML = '';
+        for (let i = inicio; i <= fin; i++) {
             let numStr = String(i).padStart(4, '0');
             let cell = document.createElement('div');
-            cell.className = 'num-cell';
+            cell.className = 'ticket-cell';
             cell.innerText = numStr;
+            
+            if (seleccionados.includes(numStr)) {
+                cell.classList.add('selected');
+            }
+
             cell.onclick = function() {
-                if (numerosManualesSeleccionados.includes(numStr)) {
-                    numerosManualesSeleccionados = numerosManualesSeleccionados.filter(n => n !== numStr);
+                if (seleccionados.includes(numStr)) {
+                    seleccionados = seleccionados.filter(n => n !== numStr);
                     cell.classList.remove('selected');
                 } else {
-                    numerosManualesSeleccionados.push(numStr);
+                    seleccionados.push(numStr);
                     cell.classList.add('selected');
                 }
-                document.getElementById('cantManuales').innerText = numerosManualesSeleccionados.length;
-                document.getElementById('precioManual').innerText = `Bs ${numerosManualesSeleccionados.length * precioUnitario}`;
+                actualizarResumen();
             };
             grid.appendChild(cell);
         }
     }
 
-    function enviarWhatsApp() {
-        let telefonoPapa = "584246737022";
-        let total = cantidadActual * precioUnitario;
-        let mensaje = `Hola, quiero participar con ${cantidadActual} boletos al azar para la rifa. Total a pagar: Bs ${total}.`;
-        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    function seleccionarRango(inicio, fin) {
+        inicioRango = inicio;
+        finRango = fin;
+        document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
+        if(inicio === 1) document.getElementById('range1').classList.add('active');
+        if(inicio === 501) document.getElementById('range2').classList.add('active');
+        if(inicio === 1001) document.getElementById('range3').classList.add('active');
+
+        document.getElementById('textoMostrando').innerText = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
+        generarBoletos(inicio, fin);
     }
 
-    function enviarWhatsAppManual() {
-        if (numerosManualesSeleccionados.length === 0) {
-            alert("Selecciona al menos un número manual.");
+    function actualizarResumen() {
+        let cantidad = seleccionados.length;
+        let total = cantidad * precioBoleto;
+        document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
+        document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
+    }
+
+    function cambiarModo(modo) {
+        if(modo === 'azar') {
+            document.getElementById('btnAzar').classList.add('active');
+            document.getElementById('btnManual').classList.remove('manual');
+            document.getElementById('btnManual').style.background = 'var(--card-bg)';
+            document.getElementById('btnManual').style.color = 'var(--text-muted)';
+            
+            // Selección aleatoria rápida
+            let aleatorio = Math.floor(Math.random() * 1500) + 1;
+            let strRand = String(aleatorio).padStart(4, '0');
+            if(!seleccionados.includes(strRand)) seleccionados.push(strRand);
+            generarBoletos(inicioRango, finRango);
+            actualizarResumen();
+        } else {
+            document.getElementById('btnManual').classList.add('manual');
+            document.getElementById('btnManual').style.background = '';
+            document.getElementById('btnManual').style.color = '';
+            document.getElementById('btnAzar').classList.remove('active');
+        }
+    }
+
+    function filtrarNumero(query) {
+        if(!query) {
+            generarBoletos(inicioRango, finRango);
+            return;
+        }
+        let grid = document.getElementById('gridBoletos');
+        grid.innerHTML = '';
+        for (let i = 1; i <= 1500; i++) {
+            let numStr = String(i).padStart(4, '0');
+            if (numStr.includes(query)) {
+                let cell = document.createElement('div');
+                cell.className = 'ticket-cell';
+                cell.innerText = numStr;
+                if (seleccionados.includes(numStr)) cell.classList.add('selected');
+                cell.onclick = function() {
+                    if (seleccionados.includes(numStr)) {
+                        seleccionados = seleccionados.filter(n => n !== numStr);
+                        cell.classList.remove('selected');
+                    } else {
+                        seleccionados.push(numStr);
+                        cell.classList.add('selected');
+                    }
+                    actualizarResumen();
+                };
+                grid.appendChild(cell);
+            }
+        }
+    }
+
+    function enviarWhatsApp() {
+        if(seleccionados.length === 0) {
+            alert("Por favor selecciona al menos un boleto.");
             return;
         }
         let telefonoPapa = "584246737022";
-        let total = numerosManualesSeleccionados.length * precioUnitario;
-        let mensaje = `Hola, quiero apartar los números manuales: ${numerosManualesSeleccionados.join(', ')}. Total a pagar: Bs ${total}.`;
+        let total = seleccionados.length * precioBoleto;
+        let mensaje = `Hola, quiero apartar los números de la rifa J.A.: ${seleccionados.join(', ')}. Total a pagar: ${total.toLocaleString()} Bs.`;
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
     }
 
-    // Acceso secreto panel administrador (5 toques rápidos en la pantalla)
-    let toques = 0;
-    let ultimoToque = 0;
-    function registrarToqueAdmin() {
-        let ahora = new Date().getTime();
-        if (ahora - ultimoToque > 2000) toques = 1;
-        else toques++;
-        ultimoToque = ahora;
-        if (toques >= 5) {
-            toques = 0;
-            let clave = prompt("🛠️ Panel Admin - Ingresa la contraseña:");
-            if (clave === "1234") alert("¡Acceso concedido al panel de control de Rifas J.A.!");
-        }
-    }
+    // Inicializar al cargar
+    generarBoletos(1, 500);
+    actualizarResumen();
 </script>
 
 </body>
