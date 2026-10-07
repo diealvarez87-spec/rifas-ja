@@ -42,7 +42,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 110px;
+            padding-bottom: 120px;
             position: relative;
         }
 
@@ -323,44 +323,38 @@
             opacity: 0.7;
         }
 
-        .counter-participate-row {
-            display: grid;
-            grid-template-columns: 110px 1fr;
-            gap: 10px;
-            align-items: center;
-            margin-top: 4px;
-        }
-
-        .counter-box {
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
+        /* BARRA INFERIOR FLOTANTE RECUPERADA */
+        .bottom-floating-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(3, 7, 18, 0.96);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid var(--card-border);
+            padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 14px;
+            box-sizing: border-box;
+            z-index: 50;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
         }
 
-        .counter-btn { background: none; border: none; color: white; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .counter-val { font-size: 16px; font-weight: 800; color: white; }
+        .selection-summary { font-size: 13px; color: var(--text-muted); }
+        .selection-summary b { display: block; font-size: 16px; color: #38bdf8; }
 
-        .participate-btn {
+        .apartar-btn {
             background: linear-gradient(135deg, var(--accent-green), #059669);
             color: #fff;
             border: none;
             border-radius: 14px;
-            padding: 15px;
+            padding: 13px 28px;
             font-size: 15px;
             font-weight: 900;
             cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
-            letter-spacing: 0.5px;
             transition: 0.2s;
         }
-        .participate-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6); }
+        .apartar-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
         /* PODIO */
         .podium-card {
@@ -620,18 +614,6 @@
                 <div class="qty-box" onclick="seleccionarCantidadRapida(20, this)"><span>20</span><span>Boletos</span></div>
             </div>
         </div>
-
-        <div class="counter-participate-row">
-            <div class="counter-box">
-                <button class="counter-btn" onclick="cambiarCantidad(-1)">-</button>
-                <span class="counter-val" id="contadorVal">1</span>
-                <button class="counter-btn" onclick="cambiarCantidad(1)">+</button>
-            </div>
-            <button class="participate-btn" onclick="abrirModalPago()">
-                <span>PARTICIPAR</span>
-                <span id="totalPrecioBtn">Bs 4.000</span>
-            </button>
-        </div>
     </div>
 
     <!-- PODIO -->
@@ -643,6 +625,15 @@
         </div>
         <div class="podium-podiums-container" id="listaPodioRef"></div>
     </div>
+</div>
+
+<!-- BARRA INFERIOR FLOTANTE RECUPERADA -->
+<div class="bottom-floating-bar">
+    <div class="selection-summary">
+        <span id="cantSeleccionados">0 seleccionados</span>
+        <b id="totalPrecio">Total: 0 Bs</b>
+    </div>
+    <button class="apartar-btn" onclick="abrirModalPago()">Apartar Boletos</button>
 </div>
 
 <!-- MODAL 1: PAGO MÓVIL Y CAPTURE CORREGIDO -->
@@ -715,7 +706,7 @@
 
 <script>
     let modoActual = 'manual';
-    let cantidadDeseada = 1;
+    let cantidadDeseada = 3;
     let precioBoleto = 4000;
     let seleccionados = [];
     let inicioRango = 1;
@@ -730,34 +721,39 @@
         document.getElementById('tabAzar').classList.toggle('active', modo === 'azar');
         document.getElementById('manualSection').style.display = modo === 'manual' ? 'flex' : 'none';
         document.getElementById('azarSection').style.display = modo === 'azar' ? 'flex' : 'none';
-        if(modo === 'manual') generarBoletos(inicioRango, finRango);
-        actualizarPrecioTotal();
+        
+        if(modo === 'manual') {
+            generarBoletos(inicioRango, finRango);
+        } else {
+            seleccionados = []; // Limpiar manuales al pasar a azar
+            actualizarResumen();
+        }
     }
 
     function seleccionarCantidadRapida(cant, el) {
         document.querySelectorAll('.qty-box').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
         cantidadDeseada = cant;
-        document.getElementById('contadorVal').innerText = cant;
-        actualizarPrecioTotal();
+        actualizarResumen();
     }
 
-    function cambiarCantidad(cambio) {
-        if(modoActual === 'azar') {
-            cantidadDeseada += cambio;
-            if (cantidadDeseada < 1) cantidadDeseada = 1;
-            document.getElementById('contadorVal').innerText = cantidadDeseada;
+    function actualizarResumen() {
+        let cantidad = 0;
+        let total = 0;
+
+        if (modoActual === 'azar') {
+            cantidad = cantidadDeseada;
+            total = cantidad * precioBoleto;
+            document.getElementById('cantSeleccionados').innerText = `${cantidad} al azar`;
+        } else {
+            cantidad = seleccionados.length;
+            total = cantidad * precioBoleto;
+            document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
         }
-        actualizarPrecioTotal();
-    }
-
-    function actualizarPrecioTotal() {
-        let total = (modoActual === 'azar' ? cantidadDeseada : (seleccionados.length || 1)) * precioBoleto;
-        document.getElementById('totalPrecioBtn').innerText = `Bs ${total.toLocaleString()}`;
+        document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
     }
 
     function actualizarProgreso() {
-        // Sincronizar vendidos frescos desde localStorage
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
 
@@ -802,7 +798,6 @@
     }
 
     function generarBoletos(inicio, fin) {
-        // Sincronizar estado fresco de vendidos
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         
         let grid = document.getElementById('gridBoletos');
@@ -828,8 +823,7 @@
                         seleccionados.push(numStr);
                         cell.classList.add('selected');
                     }
-                    document.getElementById('contadorVal').innerText = seleccionados.length || 1;
-                    actualizarPrecioTotal();
+                    actualizarResumen();
                 };
             }
             fragment.appendChild(cell);
@@ -872,8 +866,7 @@
                             seleccionados.push(numStr);
                             cell.classList.add('selected');
                         }
-                        document.getElementById('contadorVal').innerText = seleccionados.length || 1;
-                        actualizarPrecioTotal();
+                        actualizarResumen();
                     };
                 }
                 fragment.appendChild(cell);
@@ -966,7 +959,6 @@
         let numerosFinales = seleccionados.sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
-        // Registrar inmediatamente en vendidos y guardar en localStorage de forma segura
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         seleccionados.forEach(num => { 
             if (!vendidos.includes(num)) vendidos.push(num); 
@@ -988,13 +980,11 @@
         document.getElementById('inputNombre').value = '';
         document.getElementById('inputTelefono').value = '';
         
-        // Refrescar cuadrícula y progreso al instante
         actualizarProgreso();
         generarBoletos(inicioRango, finRango);
-        actualizarPrecioTotal();
+        actualizarResumen();
     }
 
-    // Sincronizar automáticamente al volver a la pestaña (foco)
     window.addEventListener('focus', function() {
         actualizarProgreso();
         generarBoletos(inicioRango, finRango);
@@ -1003,7 +993,7 @@
     // Inicializar app
     generarBoletos(1, 500);
     actualizarProgreso();
-    actualizarPrecioTotal();
+    actualizarResumen();
 </script>
 
 </body>
