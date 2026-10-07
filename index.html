@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas Álvarez</title>
+    <title>Rifas J.A.</title>
     <style>
         :root {
-            --bg-base: #07090e;
-            --card-bg: rgba(19, 27, 46, 0.65);
+            --bg-base: #070913;
+            --card-bg: rgba(15, 22, 38, 0.75);
             --card-border: rgba(255, 255, 255, 0.08);
-            --accent-gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             --accent-green: #10b981;
             --accent-green-hover: #059669;
             --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.4);
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --input-bg: rgba(15, 23, 42, 0.7);
-            --badge-red: rgba(239, 68, 68, 0.2);
-            --badge-red-border: #ef4444;
+            --input-bg: rgba(10, 15, 28, 0.85);
+            --badge-red: rgba(239, 68, 68, 0.15);
+            --badge-red-border: rgba(239, 68, 68, 0.4);
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
-            background-image: radial-gradient(circle at 50% 0%, #1a1c29 0%, #07090e 70%);
+            background-image: radial-gradient(circle at 50% 0%, #172038 0%, #070913 70%);
             color: var(--text-main);
             margin: 0;
             padding: 12px;
@@ -37,42 +37,132 @@
             max-width: 420px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
             padding-bottom: 90px;
         }
 
-        /* Cabecera Casino & Dorado */
+        /* Cabecera */
         .header-section {
             text-align: center;
-            padding-top: 15px;
+            padding-top: 10px;
+            position: relative;
+        }
+
+        .badge-banner {
+            display: inline-block;
+            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #1e3a8a);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
         }
 
         .main-title {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 900;
             margin: 0;
-            background: var(--accent-gold);
+            background: linear-gradient(180deg, #ffffff 30%, #93c5fd 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            filter: drop-shadow(0 2px 8px rgba(191, 149, 63, 0.3));
+            letter-spacing: 0.5px;
+            filter: drop-shadow(0 2px 10px rgba(59, 130, 246, 0.4));
         }
 
         .subtitle {
-            font-size: 14px;
-            font-weight: 600;
-            color: #e2e8f0;
-            margin-top: 6px;
-            letter-spacing: 0.3px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
 
-        /* Panel Principal Buscador y Grid */
+        /* Tarjeta de Progreso y Valor */
+        .progress-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            width: 1%;
+            height: 100%;
+            background: var(--accent-green);
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        .price-badge-box {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: #93c5fd;
+        }
+
+        /* Botones de Modo (Elegir Manual vs Elegir al Azar Directo) */
+        .mode-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .mode-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .mode-btn.active {
+            background: var(--accent-green);
+            color: white;
+            border-color: #34d399;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Panel Interactivo Buscador + Rangos + Grid */
         .interactive-panel {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
+            border-radius: 18px;
             padding: 14px;
             display: flex;
             flex-direction: column;
@@ -80,12 +170,47 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
 
+        /* Contenedor del Selector Azar (Se muestra al presionar el botón Azar) */
+        .random-container {
+            display: none;
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 10px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .random-select {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: white;
+            padding: 9px;
+            border-radius: 10px;
+            font-size: 13px;
+            outline: none;
+            font-weight: bold;
+        }
+
+        .random-action-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
         .search-input {
             width: 100%;
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 12px 14px;
+            padding: 11px 14px;
             color: white;
             font-size: 13px;
             box-sizing: border-box;
@@ -93,46 +218,7 @@
             transition: border-color 0.2s;
         }
         .search-input:focus {
-            border-color: #bf953f;
-        }
-
-        /* Sección de Selección al Azar */
-        .random-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .random-select {
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            color: white;
-            padding: 8px 10px;
-            border-radius: 10px;
-            font-size: 13px;
-            outline: none;
-            font-weight: bold;
-        }
-
-        .random-btn {
-            flex: 1;
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 9px 12px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            transition: transform 0.1s;
-        }
-        .random-btn:active {
-            transform: scale(0.96);
+            border-color: var(--accent-blue);
         }
 
         /* Rangos (3 partes) */
@@ -156,10 +242,10 @@
         }
 
         .range-tab.active {
-            background: linear-gradient(135deg, #bf953f, #aa771c);
+            background: var(--accent-blue);
             color: #fff;
-            border-color: #fcf6ba;
-            box-shadow: 0 0 10px rgba(191, 149, 63, 0.4);
+            border-color: #93c5fd;
+            box-shadow: 0 0 10px var(--accent-blue-glow);
         }
 
         /* Leyenda de colores */
@@ -180,12 +266,12 @@
         }
 
         .dot {
-            width: 9px;
-            height: 9px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
         }
-        .dot.available { background: rgba(255, 255, 255, 0.2); }
-        .dot.selected { background: #bf953f; box-shadow: 0 0 6px #bf953f; }
+        .dot.available { background: var(--text-muted); }
+        .dot.selected { background: var(--accent-blue); box-shadow: 0 0 6px var(--accent-blue); }
         .dot.sold { background: #ef4444; }
 
         .range-status-info {
@@ -195,26 +281,26 @@
             color: var(--text-muted);
         }
 
-        /* Grid de Pastillas Liquid Glass */
+        /* Grid de Pastillas */
         .tickets-grid {
             max-height: 220px;
             overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            background: rgba(7, 9, 14, 0.4);
+            background: rgba(5, 8, 15, 0.5);
             padding: 10px;
             border-radius: 12px;
             border: 1px solid var(--card-border);
         }
 
         .ticket-cell {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 10px 0;
             text-align: center;
-            border-radius: 20px;
+            border-radius: 10px;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
@@ -223,10 +309,10 @@
         }
 
         .ticket-cell.selected {
-            background: linear-gradient(135deg, rgba(191, 149, 63, 0.4), rgba(170, 119, 28, 0.6));
+            background: var(--accent-blue);
             color: #fff;
-            border-color: #fcf6ba;
-            box-shadow: 0 0 10px rgba(191, 149, 63, 0.5);
+            border-color: #93c5fd;
+            box-shadow: 0 0 10px var(--accent-blue-glow);
         }
 
         .ticket-cell.sold {
@@ -243,7 +329,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(7, 9, 14, 0.92);
+            background: rgba(7, 9, 19, 0.95);
             backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border);
             padding: 12px 20px;
@@ -261,27 +347,27 @@
 
         .selection-summary b {
             display: block;
-            font-size: 16px;
-            color: #fcf6ba;
+            font-size: 15px;
+            color: #93c5fd;
         }
 
-        .comprar-btn {
-            background: linear-gradient(135deg, #bf953f, #aa771c);
+        .apartar-btn {
+            background: var(--accent-green);
             color: #fff;
-            border: 1px solid #fcf6ba;
-            border-radius: 14px;
-            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            padding: 11px 26px;
             font-size: 14px;
             font-weight: 800;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(191, 149, 63, 0.4);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
             transition: transform 0.1s;
         }
-        .comprar-btn:active {
+        .apartar-btn:active {
             transform: scale(0.96);
         }
 
-        /* Ventanas Flotantes / Modales Estilo Moderno */
+        /* Ventanas Flotantes / Modales */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -297,10 +383,9 @@
         .modal-card {
             width: 100%;
             max-width: 380px;
-            background: #131b2e;
-            background-image: radial-gradient(circle at 100% 100%, rgba(191, 149, 63, 0.1) 0%, transparent 50%);
-            border: 1px solid rgba(191, 149, 63, 0.3);
-            border-radius: 24px;
+            background: #111827;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -319,7 +404,7 @@
         .modal-title {
             font-size: 18px;
             font-weight: 800;
-            color: #fcf6ba;
+            color: #93c5fd;
             text-align: center;
             margin: 0;
         }
@@ -327,24 +412,11 @@
         .bank-box {
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 12px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .bank-box::after {
-            content: "BDV";
-            position: absolute;
-            right: -10px;
-            bottom: -20px;
-            font-size: 80px;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.02);
-            pointer-events: none;
         }
 
         .bank-row {
@@ -359,7 +431,7 @@
         }
 
         .copy-btn {
-            background: linear-gradient(135deg, #bf953f, #aa771c);
+            background: var(--accent-blue);
             color: white;
             border: none;
             padding: 5px 12px;
@@ -371,7 +443,7 @@
 
         .form-input {
             width: 100%;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(10, 15, 28, 0.9);
             border: 1px solid var(--card-border);
             border-radius: 10px;
             padding: 11px;
@@ -381,11 +453,11 @@
             outline: none;
         }
         .form-input:focus {
-            border-color: #bf953f;
+            border-color: var(--accent-blue);
         }
 
         .file-upload-box {
-            border: 2px dashed rgba(191, 149, 63, 0.4);
+            border: 2px dashed rgba(59, 130, 246, 0.4);
             border-radius: 12px;
             padding: 14px;
             text-align: center;
@@ -393,10 +465,6 @@
             color: var(--text-muted);
             cursor: pointer;
             background: rgba(15, 23, 42, 0.4);
-            transition: border-color 0.2s;
-        }
-        .file-upload-box:hover {
-            border-color: #bf953f;
         }
 
         .modal-btn-row {
@@ -421,9 +489,9 @@
         }
 
         .btn-confirm {
-            background: linear-gradient(135deg, #bf953f, #aa771c);
+            background: var(--accent-green);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(191, 149, 63, 0.3);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
     </style>
 </head>
@@ -431,18 +499,42 @@
 
 <div class="main-container">
 
-    <!-- Cabecera Casino & Dorado -->
+    <!-- Cabecera -->
     <div class="header-section">
-        <h1 class="main-title">Rifas Álvarez</h1>
-        <div class="subtitle">¡Participa y gana por tan solo 5.000 Bs el ticket!</div>
+        <div class="badge-banner">✨ Gran Sorteo Exclusivo ✨</div>
+        <h1 class="main-title">Rifas J.A.</h1>
+        <div class="subtitle">¡Elige tus números de la suerte y gana!</div>
     </div>
 
-    <!-- Panel Interactivo Buscador + Azar + Rangos + Grid -->
+    <!-- Progreso del Sorteo y Valor -->
+    <div class="progress-card">
+        <div class="progress-header">
+            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
+            <span id="porcentajeProgreso">1%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="barraProgresoFill"></div>
+        </div>
+        <div class="price-badge-box">
+            Valor del boleto: 4.000 Bs
+        </div>
+    </div>
+
+    <!-- Botones de Modo -->
+    <div class="mode-row">
+        <div id="btnModoManual" class="mode-btn active" onclick="cambiarModo('manual')">
+            👇 Elegir Manual
+        </div>
+        <div id="btnModoAzar" class="mode-btn" onclick="cambiarModo('azar')">
+            🎲 Elegir al Azar
+        </div>
+    </div>
+
+    <!-- Panel Interactivo -->
     <div class="interactive-panel">
-        <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
         
-        <!-- Opción de Elegir al Azar -->
-        <div class="random-box">
+        <!-- Contenedor Azar (Aparece al activar Elegir al Azar) -->
+        <div id="panelAzar" class="random-container">
             <select id="cantidadAzar" class="random-select">
                 <option value="1">1 Ticket</option>
                 <option value="2">2 Tickets</option>
@@ -450,8 +542,11 @@
                 <option value="5">5 Tickets</option>
                 <option value="10">10 Tickets</option>
             </select>
-            <button class="random-btn" onclick="seleccionarAlAzar()">🎲 Elegir al Azar</button>
+            <button class="random-action-btn" onclick="seleccionarAlAzarYPagar()">¡Elegir y Pagar!</button>
         </div>
+
+        <!-- Buscador Manual -->
+        <input type="text" id="inputBuscador" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
 
         <div class="ranges-row">
             <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
@@ -467,22 +562,22 @@
 
         <div class="range-status-info">
             <span id="textoMostrando">Mostrando: 0001 al 0500</span>
-            <span>1500 boletos</span>
+            <span id="totalActivosInfo">1500 activos</span>
         </div>
 
-        <!-- Grid de Pastillas Liquid Glass -->
+        <!-- Grid de Pastillas -->
         <div class="tickets-grid" id="gridBoletos"></div>
     </div>
 
 </div>
 
-<!-- Barra Inferior Flotante con Total Automático -->
+<!-- Barra Inferior Flotante -->
 <div class="bottom-floating-bar">
     <div class="selection-summary">
         <span id="cantSeleccionados">0 seleccionados</span>
-        <b id="totalPrecio">Total: 0 Bs</b>
+        <b id="totalPrecio">Total: 4.000 Bs</b>
     </div>
-    <button class="comprar-btn" onclick="abrirModalPago()">Comprar</button>
+    <button class="apartar-btn" onclick="abrirModalPago()">Apartar</button>
 </div>
 
 <!-- VENTANA FLOTANTE 1: DATOS DE PAGO Y CAPTURE -->
@@ -562,11 +657,17 @@
     let inicioRango = 1;
     let finRango = 500;
     let seleccionados = [];
-    let precioBoleto = 5000;
+    let precioBoleto = 4000;
     let tieneCapture = false;
 
-    // Cargar números vendidos guardados en el navegador
-    let vendidos = JSON.parse(localStorage.getItem('rifas_vendidos')) || [];
+    let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
+
+    function actualizarProgreso() {
+        let totalVendidos = vendidos.length;
+        let porcentaje = Math.max(1, Math.round((totalVendidos / 1500) * 100));
+        document.getElementById('porcentajeProgreso').innerText = porcentaje + '%';
+        document.getElementById('barraProgresoFill').style.width = porcentaje + '%';
+    }
 
     function generarBoletos(inicio, fin) {
         let grid = document.getElementById('gridBoletos');
@@ -596,6 +697,26 @@
                 };
             }
             grid.appendChild(cell);
+        }
+        actualizarProgreso();
+    }
+
+    function cambiarModo(modo) {
+        let btnManual = document.getElementById('btnModoManual');
+        let btnAzar = document.getElementById('btnModoAzar');
+        let panelAzar = document.getElementById('panelAzar');
+        let inputBuscador = document.getElementById('inputBuscador');
+
+        if (modo === 'manual') {
+            btnManual.classList.add('active');
+            btnAzar.classList.remove('active');
+            panelAzar.style.display = 'none';
+            inputBuscador.style.display = 'block';
+        } else {
+            btnAzar.classList.add('active');
+            btnManual.classList.remove('active');
+            panelAzar.style.display = 'flex';
+            inputBuscador.style.display = 'none';
         }
     }
 
@@ -651,12 +772,11 @@
         }
     }
 
-    // Función para elegir números al azar y llevar directo a pagar
-    function seleccionarAlAzar() {
+    // Seleccionar al azar y llevar directo a pagar
+    function seleccionarAlAzarYPagar() {
         let cuantos = parseInt(document.getElementById('cantidadAzar').value);
-        
-        // Buscar todos los números disponibles (del 1 al 1500 que no estén vendidos ni ya seleccionados)
         let disponibles = [];
+        
         for (let i = 1; i <= 1500; i++) {
             let numStr = String(i).padStart(4, '0');
             if (!vendidos.includes(numStr) && !seleccionados.includes(numStr)) {
@@ -669,14 +789,12 @@
             return;
         }
 
-        // Seleccionar aleatoriamente
         for (let i = 0; i < cuantos; i++) {
             let indiceAleatorio = Math.floor(Math.random() * disponibles.length);
             let elegido = disponibles.splice(indiceAleatorio, 1)[0];
             seleccionados.push(elegido);
         }
 
-        // Actualizar interfaz y llevar directamente al modal de pago
         actualizarResumen();
         generarBoletos(inicioRango, finRango);
         abrirModalPago();
@@ -689,7 +807,7 @@
 
     function abrirModalPago() {
         if (seleccionados.length === 0) {
-            alert("⚠️ Por favor selecciona al menos un número antes de comprar.");
+            alert("⚠️ Por favor selecciona al menos un número antes de apartar.");
             return;
         }
         document.getElementById('modalPago').style.display = 'flex';
@@ -736,32 +854,28 @@
         let numerosFinales = seleccionados.sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
-        // Guardar los números seleccionados como vendidos inmediatamente
         seleccionados.forEach(num => {
             if (!vendidos.includes(num)) {
                 vendidos.push(num);
             }
         });
-        localStorage.setItem('rifas_vendidos', JSON.stringify(vendidos));
+        localStorage.setItem('rifas_ja_vendidos', JSON.stringify(vendidos));
 
-        let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas Álvarez.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
+        let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
 
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
 
-        // Cerrar modales y limpiar selección actual al enviar
         cerrarModal('modalAdvertencia');
         seleccionados = [];
         actualizarResumen();
         generarBoletos(inicioRango, finRango);
     }
 
-    // Detectar cuando el usuario regresa a la pestaña/página desde WhatsApp para actualizar los colores
     window.addEventListener('focus', function() {
-        vendidos = JSON.parse(localStorage.getItem('rifas_vendidos')) || [];
+        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         generarBoletos(inicioRango, finRango);
     });
 
-    // Inicializar al cargar
     generarBoletos(1, 500);
     actualizarResumen();
 </script>
