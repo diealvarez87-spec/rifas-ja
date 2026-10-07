@@ -6,15 +6,16 @@
     <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
     <style>
         :root {
-            --bg-base: #070913;
-            --card-bg: rgba(15, 22, 38, 0.85);
-            --card-border: rgba(255, 255, 255, 0.12);
+            --bg-base: #030712;
+            --card-bg: rgba(13, 20, 36, 0.82);
+            --card-border: rgba(99, 102, 241, 0.25);
             --accent-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-blue-glow: rgba(59, 130, 246, 0.45);
-            --text-main: #ffffff;
+            --accent-green-glow: rgba(16, 185, 129, 0.5);
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --input-bg: rgba(10, 15, 28, 0.95);
+            --input-bg: rgba(7, 11, 20, 0.95);
             --badge-red: rgba(239, 68, 68, 0.15);
             --badge-red-border: rgba(239, 68, 68, 0.4);
         }
@@ -22,13 +23,17 @@
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
-            background-image: radial-gradient(circle at 50% 0%, #172038 0%, #070913 70%);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, #0b1329 0%, #030712 100%);
             color: var(--text-main);
             margin: 0;
             padding: 16px;
             box-sizing: border-box;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
 
         .main-container {
@@ -37,37 +42,56 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 100px;
+            padding-bottom: 110px;
+            position: relative;
         }
 
         .header-section {
             text-align: center;
-            padding-top: 14px;
+            padding-top: 16px;
+            position: relative;
+        }
+
+        .floating-gift-bg {
+            position: absolute;
+            font-size: 28px;
+            opacity: 0.6;
+            animation: floatDeco 4s ease-in-out infinite;
+        }
+        .gift-1 { top: 0; left: 15px; animation-delay: 0s; }
+        .gift-2 { top: 10px; right: 15px; animation-delay: 2s; }
+
+        @keyframes floatDeco {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(8deg); }
         }
 
         .badge-banner {
-            display: inline-block;
-            background: linear-gradient(90deg, #1e3a8a, #3b82f6, #1e3a8a);
-            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #c4b5fd;
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            padding: 5px 18px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.35);
+            padding: 6px 16px;
+            border-radius: 30px;
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
         }
 
         .main-title {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(180deg, #ffffff 20%, #93c5fd 100%);
+            background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #818cf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1px;
-            filter: drop-shadow(0 2px 12px rgba(59, 130, 246, 0.5));
+            letter-spacing: 1.5px;
+            filter: drop-shadow(0 4px 16px rgba(56, 189, 248, 0.35));
             text-transform: uppercase;
         }
 
@@ -76,18 +100,19 @@
             color: var(--text-muted);
             margin-top: 6px;
             font-weight: 500;
+            letter-spacing: 0.3px;
         }
 
         .progress-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 16px;
+            border-radius: 22px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            gap: 12px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
 
         .progress-header {
@@ -100,31 +125,33 @@
 
         .progress-bar-bg {
             width: 100%;
-            height: 7px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .progress-bar-fill {
             width: 1%;
             height: 100%;
-            background: var(--accent-green);
-            box-shadow: 0 0 10px var(--accent-green);
-            transition: width 0.3s ease;
+            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+            box-shadow: 0 0 12px var(--accent-green-glow);
+            transition: width 0.4s ease;
+            border-radius: 6px;
         }
 
         /* PANEL DE SELECCIÓN */
         .selection-panel {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 16px;
+            border-radius: 22px;
+            padding: 18px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            gap: 16px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
 
         .panel-heading-title {
@@ -132,18 +159,18 @@
             font-weight: 900;
             text-align: center;
             color: #fff;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        /* Pestañas Manual / Al Azar (Manual primero) */
         .mode-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: rgba(10, 15, 28, 0.95);
+            background: rgba(4, 7, 14, 0.95);
             border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 4px;
-            gap: 4px;
+            border-radius: 16px;
+            padding: 5px;
+            gap: 6px;
         }
 
         .mode-tab {
@@ -151,37 +178,29 @@
             padding: 12px;
             font-size: 13px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             color: var(--text-muted);
-            transition: 0.2s;
+            transition: 0.3s;
         }
 
         .mode-tab.active {
-            background: var(--accent-green);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
             color: #fff;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
         }
 
-        /* Sección Manual */
-        #manualSection {
+        #manualSection, #azarSection {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-
-        /* Sección Al Azar */
-        #azarSection {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
 
         .lucky-promo-box {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(15, 22, 38, 0.9));
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(6, 182, 212, 0.15));
+            border: 1px solid rgba(139, 92, 246, 0.35);
             border-radius: 16px;
-            padding: 14px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -190,9 +209,9 @@
 
         .lucky-promo-title {
             font-size: 13px;
-            font-weight: 800;
-            color: #93c5fd;
-            letter-spacing: 0.5px;
+            font-weight: 900;
+            color: #c4b5fd;
+            letter-spacing: 0.8px;
         }
 
         .qtys-grid {
@@ -208,7 +227,7 @@
             padding: 14px 0;
             text-align: center;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.25s;
             display: flex;
             flex-direction: column;
             gap: 2px;
@@ -217,9 +236,9 @@
         .qty-box span:first-child { font-size: 20px; font-weight: 900; color: var(--text-main); }
         .qty-box span:last-child { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .qty-box.active {
-            background: var(--accent-green);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
             border-color: #34d399;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
         }
         .qty-box.active span { color: #fff; }
 
@@ -228,12 +247,14 @@
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 13px 16px;
+            padding: 14px 16px;
             color: white;
             font-size: 14px;
             box-sizing: border-box;
             outline: none;
+            transition: 0.2s;
         }
+        .search-input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 10px rgba(6, 182, 212, 0.3); }
 
         .ranges-row {
             display: grid;
@@ -245,19 +266,20 @@
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 10px 6px;
+            padding: 11px 6px;
             text-align: center;
             font-size: 12px;
             font-weight: 700;
             color: var(--text-muted);
             cursor: pointer;
+            transition: 0.2s;
         }
 
         .range-tab.active {
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
             color: #fff;
-            border-color: #93c5fd;
-            box-shadow: 0 0 10px var(--accent-blue-glow);
+            border-color: #7dd3fc;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
         }
 
         .tickets-grid {
@@ -266,30 +288,31 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 9px;
-            background: rgba(5, 8, 15, 0.6);
+            background: rgba(3, 7, 18, 0.75);
             padding: 12px;
-            border-radius: 14px;
+            border-radius: 16px;
             border: 1px solid var(--card-border);
         }
 
         .ticket-cell {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 11px 0;
+            padding: 12px 0;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             color: var(--text-muted);
             user-select: none;
+            transition: 0.15s;
         }
 
         .ticket-cell.selected {
-            background: var(--accent-blue);
+            background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
             color: #fff;
-            border-color: #93c5fd;
-            box-shadow: 0 0 10px var(--accent-blue-glow);
+            border-color: #7dd3fc;
+            box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
         }
 
         .ticket-cell.sold {
@@ -300,7 +323,6 @@
             opacity: 0.6;
         }
 
-        /* Contador y botón participar */
         .counter-participate-row {
             display: grid;
             grid-template-columns: 110px 1fr;
@@ -316,56 +338,58 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 14px;
+            padding: 12px 14px;
         }
 
         .counter-btn { background: none; border: none; color: white; font-size: 18px; font-weight: bold; cursor: pointer; }
         .counter-val { font-size: 16px; font-weight: 800; color: white; }
 
         .participate-btn {
-            background: var(--accent-green);
+            background: linear-gradient(135deg, var(--accent-green), #059669);
             color: #fff;
             border: none;
             border-radius: 14px;
-            padding: 14px;
+            padding: 15px;
             font-size: 15px;
             font-weight: 900;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
             letter-spacing: 0.5px;
+            transition: 0.2s;
         }
+        .participate-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6); }
 
-        /* PODIO DE COMPRADORES */
+        /* PODIO */
         .podium-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 20px 16px;
+            border-radius: 22px;
+            padding: 22px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             gap: 14px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
 
         .podium-icon-top {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 18px;
         }
 
-        .podium-title-area h3 { font-size: 18px; font-weight: 800; color: var(--text-main); margin: 0 0 4px 0; }
+        .podium-title-area h3 { font-size: 18px; font-weight: 900; color: var(--text-main); margin: 0 0 4px 0; }
         .podium-title-area p { font-size: 12px; color: var(--text-muted); margin: 0; }
 
         .podium-podiums-container {
@@ -398,7 +422,7 @@
             border: 3px solid var(--accent-green);
             background: rgba(16, 185, 129, 0.1);
             color: var(--accent-green);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
             font-size: 20px;
         }
 
@@ -406,16 +430,16 @@
         .podium-item-ref.rank-3-wrapper .podium-avatar-ring { border: 2px solid #d97706; background: rgba(217, 119, 6, 0.1); color: #d97706; }
 
         .podium-crown { position: absolute; top: -16px; font-size: 16px; }
-        .podium-badge-tag { font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); }
+        .podium-badge-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.06); color: var(--text-muted); }
         .podium-name-txt { font-size: 12px; font-weight: 700; color: var(--text-main); max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
         .podium-tickets-txt { font-size: 11px; font-weight: 800; color: var(--accent-green); margin: 0; }
 
-        /* VENTANAS MODALES PROFESIONALES Y LIMPIAS */
+        /* VENTANAS MODALES PREMIUM */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(3, 7, 18, 0.88);
+            backdrop-filter: blur(10px);
             display: none;
             justify-content: center;
             align-items: center;
@@ -425,66 +449,128 @@
 
         .modal-card {
             width: 100%;
-            max-width: 390px;
-            background: #111827;
-            border: 1px solid rgba(59, 130, 246, 0.4);
-            border-radius: 24px;
+            max-width: 400px;
+            background: #0b1329;
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            border-radius: 26px;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+            gap: 18px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             max-height: 90vh;
             overflow-y: auto;
+            position: relative;
         }
 
         .bank-header-title {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
             color: white;
             text-align: center;
             padding: 14px;
             border-radius: 14px;
-            font-weight: 800;
+            font-weight: 900;
             font-size: 15px;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.35);
         }
 
-        .modal-title { font-size: 18px; font-weight: 900; color: #93c5fd; text-align: center; margin: 0; }
-        .bank-box { background: rgba(15, 23, 42, 0.9); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 14px; border-radius: 12px; font-size: 14px; }
-        .copy-btn { background: var(--accent-blue); color: white; border: none; padding: 6px 14px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; }
-        .form-input { width: 100%; background: rgba(10, 15, 28, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; color: white; font-size: 14px; box-sizing: border-box; outline: none; }
+        .modal-title { font-size: 19px; font-weight: 900; color: #f8fafc; text-align: center; margin: 0; }
+        .modal-subtitle { font-size: 13px; color: var(--text-muted); text-align: center; margin: -10px 0 0 0; }
         
-        /* Caja de subida de archivos arreglada y limpia */
+        .bank-box { 
+            background: rgba(4, 7, 14, 0.95); 
+            border: 1px solid var(--card-border); 
+            border-radius: 16px; 
+            padding: 16px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+        }
+        
+        .bank-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background: rgba(255, 255, 255, 0.03); 
+            padding: 12px 14px; 
+            border-radius: 12px; 
+            font-size: 14px; 
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        
+        .copy-btn { 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
+            color: white; 
+            border: none; 
+            padding: 7px 14px; 
+            border-radius: 8px; 
+            font-size: 12px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.4);
+            transition: 0.2s;
+        }
+        .copy-btn:hover { filter: brightness(1.1); }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #cbd5e1;
+        }
+
+        .form-input { 
+            width: 100%; 
+            background: rgba(4, 7, 14, 0.95); 
+            border: 1px solid var(--card-border); 
+            border-radius: 14px; 
+            padding: 14px 16px; 
+            color: white; 
+            font-size: 14px; 
+            box-sizing: border-box; 
+            outline: none; 
+            transition: 0.2s;
+        }
+        .form-input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(6, 182, 212, 0.3); }
+
         .file-upload-box {
-            border: 2px dashed rgba(59, 130, 246, 0.5);
-            border-radius: 14px;
-            padding: 16px;
+            border: 2px dashed rgba(139, 92, 246, 0.4);
+            border-radius: 16px;
+            padding: 20px 16px;
             text-align: center;
             font-size: 13px;
             color: var(--text-muted);
             cursor: pointer;
-            background: rgba(15, 23, 42, 0.5);
+            background: rgba(4, 7, 14, 0.6);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 6px;
-            transition: 0.2s;
+            gap: 8px;
+            transition: 0.25s;
         }
-        .file-upload-box:hover { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.05); }
+        .file-upload-box:hover { border-color: var(--accent-green); background: rgba(16, 185, 129, 0.06); }
 
-        .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
-        .btn-modal-action { flex: 1; padding: 14px; border-radius: 14px; font-size: 14px; font-weight: 800; cursor: pointer; border: none; }
+        .modal-btn-row { display: flex; gap: 12px; margin-top: 6px; }
+        .btn-modal-action { flex: 1; padding: 15px; border-radius: 16px; font-size: 14px; font-weight: 800; cursor: pointer; border: none; transition: 0.2s; }
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
-        .btn-confirm { background: var(--accent-green); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .btn-cancel:hover { background: rgba(255, 255, 255, 0.12); color: #fff; }
+        .btn-confirm { background: linear-gradient(135deg, var(--accent-green), #059669); color: #fff; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
+        .btn-confirm:hover { filter: brightness(1.08); }
     </style>
 </head>
 <body>
 
 <div class="main-container">
+    <div class="floating-gift-bg gift-1">🎁</div>
+    <div class="floating-gift-bg gift-2">✨</div>
 
     <div class="header-section">
-        <div class="badge-banner">✨ Gran Sorteo Exclusivo ✨</div>
+        <div class="badge-banner">🌟 Gran Sorteo Exclusivo 🌟</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="subtitle">¡Compra tu boleto y gana increíbles premios!</div>
     </div>
@@ -499,17 +585,16 @@
         </div>
     </div>
 
-    <!-- PANEL DE SELECCIÓN (Inicia en MANUAL) -->
+    <!-- PANEL DE SELECCIÓN -->
     <div class="selection-panel">
-        <div class="panel-heading-title">SELECCIONA TUS BOLETOS</div>
+        <div class="panel-heading-title">🎯 SELECCIONA TUS BOLETOS</div>
         
-        <!-- Pestañas (Manual primero) -->
         <div class="mode-tabs">
             <div id="tabManual" class="mode-tab active" onclick="cambiarModo('manual')">✋ MANUAL</div>
             <div id="tabAzar" class="mode-tab" onclick="cambiarModo('azar')">🔀 AL AZAR</div>
         </div>
 
-        <!-- SECCIÓN MANUAL (Predeterminada) -->
+        <!-- SECCIÓN MANUAL -->
         <div id="manualSection">
             <input type="text" id="inputBuscador" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
             <div class="ranges-row">
@@ -524,7 +609,7 @@
         <div id="azarSection">
             <div class="lucky-promo-box">
                 <span class="lucky-promo-title">🎁 PREMIOS EN JUEGO</span>
-                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">Smart TV 75" 4K y Nevera Condesa 4 Puertas</p>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.4;">Smart TV 75" 4K y Nevera Condesa 4 Puertas</p>
             </div>
             <div class="qtys-grid">
                 <div class="qty-box" onclick="seleccionarCantidadRapida(1, this)"><span>1</span><span>Boletos</span></div>
@@ -536,7 +621,6 @@
             </div>
         </div>
 
-        <!-- CONTADOR Y BOTÓN PARTICIPAR -->
         <div class="counter-participate-row">
             <div class="counter-box">
                 <button class="counter-btn" onclick="cambiarCantidad(-1)">-</button>
@@ -550,7 +634,7 @@
         </div>
     </div>
 
-    <!-- PODIO DE COMPRADORES -->
+    <!-- PODIO -->
     <div class="podium-card">
         <div class="podium-icon-top">🏆</div>
         <div class="podium-title-area">
@@ -559,27 +643,31 @@
         </div>
         <div class="podium-podiums-container" id="listaPodioRef"></div>
     </div>
-
 </div>
 
-<!-- MODAL DE PAGO LIMPIO Y CORREGIDO -->
+<!-- MODAL 1: PAGO MÓVIL Y CAPTURE CORREGIDO -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
-        <h3 class="modal-title">Pago Móvil</h3>
+        <h3 class="modal-title">Realiza tu Pago Móvil</h3>
+        <p class="modal-subtitle">Transfiere el monto exacto y adjunta tu comprobante</p>
+        
         <div class="bank-box">
-            <div class="bank-row"><span><b>Banco:</b> Banco de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
+            <div class="bank-row"><span><b>Banco:</b> B. de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
             <div class="bank-row"><span><b>Cédula:</b> 18483754</span><button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button></div>
             <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
-        <div>
-            <label style="font-size: 12px; color: var(--text-muted); display: block; margin-bottom: 6px; font-weight: 700;">📸 Adjuntar Capture de Pago (*Obligatorio):</label>
+
+        <div class="form-group">
+            <label class="form-label">📸 COMPROBANTE DE PAGO (*Obligatorio)</label>
             <label class="file-upload-box" id="fileLabel">
-                <span style="font-size: 20px;">📂</span>
-                <span>Toca para subir tu comprobante de pago</span>
+                <span style="font-size: 24px;">📂</span>
+                <span style="font-weight: 700; color: #f8fafc;">Toca aquí para seleccionar tu capture</span>
+                <span style="font-size: 11px; color: var(--text-muted);">Formatos aceptados: JPG, PNG</span>
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             </label>
         </div>
+
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
             <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
@@ -587,33 +675,46 @@
     </div>
 </div>
 
+<!-- MODAL 2: DATOS DEL CLIENTE REDISEÑADO -->
 <div id="modalDatos" class="modal-overlay">
     <div class="modal-card">
-        <h3 class="modal-title">📝 Tus Datos Personales</h3>
-        <div><label style="font-size: 12px; color: var(--text-muted);">Nombre y Apellido:</label><input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez"></div>
-        <div><label style="font-size: 12px; color: var(--text-muted);">Número de Teléfono:</label><input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567"></div>
-        <div class="modal-btn-row">
+        <h3 class="modal-title" style="margin-top: 5px;">📝 Tus Datos Personales</h3>
+        <p class="modal-subtitle">Para ponernos en contacto contigo si resultas ganador</p>
+        
+        <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">Nombre y Apellido</label>
+            <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Número de Teléfono / WhatsApp</label>
+            <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
+        </div>
+
+        <div class="modal-btn-row" style="margin-top: 10px;">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalDatos')">Atrás</button>
             <button class="btn-modal-action btn-confirm" onclick="mostrarAdvertenciaWhatsApp()">Continuar</button>
         </div>
     </div>
 </div>
 
+<!-- MODAL 3: ADVERTENCIA WHATSAPP REDISEÑADA -->
 <div id="modalAdvertencia" class="modal-overlay">
     <div class="modal-card" style="text-align: center;">
-        <h3 class="modal-title">⚠️ ¡ATENCIÓN!</h3>
-        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin: 0;">
-            Para poder verificar y asegurar tu pago, debes <b>enviar obligatoriamente el capture por el chat de WhatsApp</b> que se abrirá a continuación.
+        <div style="font-size: 40px; margin-bottom: -5px;">⚠️</div>
+        <h3 class="modal-title">¡ÚLTIMO PASO IMPORTANTE!</h3>
+        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0;">
+            Para validar tu boleto y asegurar tus números con éxito, es <b>obligatorio enviar el comprobante de pago</b> a través del chat de WhatsApp que se abrirá a continuación.
         </p>
-        <div class="modal-btn-row" style="margin-top: 12px;">
+        <div class="modal-btn-row" style="margin-top: 10px;">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalAdvertencia')">Revisar</button>
-            <button class="btn-modal-action btn-confirm" onclick="enviarAWhatsApp()">Ir a WhatsApp</button>
+            <button class="btn-modal-action btn-confirm" onclick="enviarAWhatsApp()">Ir a WhatsApp 🚀</button>
         </div>
     </div>
 </div>
 
 <script>
-    let modoActual = 'manual'; // Inicia en manual
+    let modoActual = 'manual';
     let cantidadDeseada = 1;
     let precioBoleto = 4000;
     let seleccionados = [];
@@ -630,6 +731,7 @@
         document.getElementById('manualSection').style.display = modo === 'manual' ? 'flex' : 'none';
         document.getElementById('azarSection').style.display = modo === 'azar' ? 'flex' : 'none';
         if(modo === 'manual') generarBoletos(inicioRango, finRango);
+        actualizarPrecioTotal();
     }
 
     function seleccionarCantidadRapida(cant, el) {
@@ -645,14 +747,12 @@
             cantidadDeseada += cambio;
             if (cantidadDeseada < 1) cantidadDeseada = 1;
             document.getElementById('contadorVal').innerText = cantidadDeseada;
-        } else {
-            // En modo manual, el contador refleja los números seleccionados en la cuadrícula
         }
         actualizarPrecioTotal();
     }
 
     function actualizarPrecioTotal() {
-        let total = (modoActual === 'azar' ? cantidadDeseada : seleccionados.length || 1) * precioBoleto;
+        let total = (modoActual === 'azar' ? cantidadDeseada : (seleccionados.length || 1)) * precioBoleto;
         document.getElementById('totalPrecioBtn').innerText = `Bs ${total.toLocaleString()}`;
     }
 
@@ -792,22 +892,44 @@
             alert("⚠️ Por favor selecciona o indica al menos un boleto.");
             return;
         }
+
+        // Limpiar capture anterior al abrir el modal de nuevo
+        resetearCapture();
         document.getElementById('modalPago').style.display = 'flex';
     }
 
     function cerrarModal(id) { document.getElementById(id).style.display = 'none'; }
-    function copiarTexto(txt) { navigator.clipboard.writeText(txt); alert("¡Copiado: " + txt + "!"); }
+    function copiarTexto(txt) { navigator.clipboard.writeText(txt); alert("¡Copiado al portapapeles: " + txt + "!"); }
     
     function verificarCapture(input) {
         if (input.files && input.files[0]) {
             tieneCapture = true;
             document.getElementById('fileLabel').style.borderColor = '#10b981';
-            document.getElementById('fileLabel').innerHTML = `✅ <span style="color:#10b981; font-weight:bold;">Capture cargado con éxito</span><br><span style="font-size:11px; color:#fff;">${input.files[0].name}</span>`;
+            document.getElementById('fileLabel').style.background = 'rgba(16, 185, 129, 0.08)';
+            document.getElementById('fileLabel').innerHTML = `
+                <span style="font-size: 24px;">✅</span>
+                <span style="color:#34d399; font-weight:800; font-size:14px;">¡Capture cargado con éxito!</span>
+                <span style="font-size:11px; color:#f8fafc; background: rgba(255,255,255,0.08); padding: 3px 8px; border-radius: 6px;">${input.files[0].name}</span>
+            `;
         }
     }
 
+    function resetearCapture() {
+        tieneCapture = false;
+        document.getElementById('inputCapture').value = '';
+        let label = document.getElementById('fileLabel');
+        label.style.borderColor = 'rgba(139, 92, 246, 0.4)';
+        label.style.background = 'rgba(4, 7, 14, 0.6)';
+        label.innerHTML = `
+            <span style="font-size: 24px;">📂</span>
+            <span style="font-weight: 700; color: #f8fafc;">Toca aquí para seleccionar tu capture</span>
+            <span style="font-size: 11px; color: var(--text-muted);">Formatos aceptados: JPG, PNG</span>
+            <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
+        `;
+    }
+
     function siguientePasoDatos() {
-        if (!tieneCapture) { alert("⚠️ Debes adjuntar el comprobante de pago."); return; }
+        if (!tieneCapture) { alert("⚠️ Debes adjuntar el comprobante de pago obligatoriamente."); return; }
         document.getElementById('modalPago').style.display = 'none';
         document.getElementById('modalDatos').style.display = 'flex';
     }
@@ -815,7 +937,7 @@
     function mostrarAdvertenciaWhatsApp() {
         let nombre = document.getElementById('inputNombre').value.trim();
         let telefono = document.getElementById('inputTelefono').value.trim();
-        if (!nombre || !telefono) { alert("⚠️ Completa tu nombre y teléfono."); return; }
+        if (!nombre || !telefono) { alert("⚠️ Por favor completa tu nombre y número de teléfono."); return; }
         document.getElementById('modalDatos').style.display = 'none';
         document.getElementById('modalAdvertencia').style.display = 'flex';
     }
@@ -840,13 +962,16 @@
         
         cerrarModal('modalAdvertencia');
         seleccionados = [];
-        tieneCapture = false;
+        resetearCapture();
+        document.getElementById('inputNombre').value = '';
+        document.getElementById('inputTelefono').value = '';
+        
         actualizarProgreso();
         generarBoletos(inicioRango, finRango);
         actualizarPrecioTotal();
     }
 
-    // Inicializar app en Modo Manual
+    // Inicializar app
     generarBoletos(1, 500);
     actualizarProgreso();
     actualizarPrecioTotal();
