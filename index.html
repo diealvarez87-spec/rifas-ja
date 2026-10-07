@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas J.A. - Prueba Móvil</title>
+    <title>Rifas J.A.</title>
     <style>
         :root {
-            --bg-dark: #121212;
-            --surface-dark: #1e1e1e;
-            --surface-card: #252525;
-            --border-color: #333333;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
-            --accent-green: #28a745;
-            --whatsapp-green: #25d366;
-            --accent-blue: #007bff;
-            --accent-gold: #d4af37;
+            --bg-dark: #0f1016;
+            --surface: #191b24;
+            --surface-card: #222532;
+            --border: #2f344a;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --whatsapp: #25d366;
+            --danger: #ef4444;
         }
 
         body {
@@ -28,21 +29,28 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
-            background: var(--surface-dark);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            background: var(--surface);
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--border);
         }
 
         header {
             text-align: center;
             margin-bottom: 15px;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            cursor: pointer; /* Para indicar que se puede tocar */
+            user-select: none;
         }
 
         header h1 {
-            color: #ffffff;
+            color: #f8fafc;
             margin: 0 0 5px 0;
             font-size: 24px;
         }
@@ -55,46 +63,96 @@
 
         .stats-banner {
             background: var(--surface-card);
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            border-radius: 8px;
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             font-size: 14px;
-            color: #ffffff;
         }
 
         .stats-banner b {
             color: var(--accent-gold);
         }
 
-        .section-title {
+        .price-box {
+            background: #1e293b;
+            border: 1px solid var(--border);
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 8px;
-            display: block;
-            color: #ffffff;
+            color: #38bdf8;
+            margin-bottom: 12px;
+        }
+
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .btn-mode {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 13px;
+            color: white;
+            background: #334155;
+        }
+
+        .btn-mode.active {
+            background: var(--accent-blue);
         }
 
         .search-box {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #161616;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
             box-sizing: border-box;
             font-size: 14px;
-            color: var(--text-main);
+            color: white;
+        }
+
+        .ranges-container {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .btn-range {
+            flex: 1;
+            padding: 8px 4px;
+            background: #1e293b;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn-range.active {
+            background: var(--accent-gold);
+            color: #000;
+            border-color: var(--accent-gold);
         }
 
         .grid-wrapper {
-            max-height: 250px;
+            max-height: 240px;
             overflow-y: auto;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border);
             padding: 8px;
-            border-radius: 8px;
-            background: #161616;
+            border-radius: 10px;
+            background: #0f172a;
             margin-bottom: 12px;
         }
 
@@ -106,135 +164,196 @@
 
         .num-btn {
             padding: 10px 0;
-            background: #2d2d2d;
-            border: none;
+            background: #1e293b;
+            border: 1px solid var(--border);
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-main);
         }
 
         .num-btn.selected {
             background: var(--accent-green);
             color: white;
+            border-color: var(--accent-green);
         }
 
         .selection-card {
-            background: #2c2516;
-            border: 1px solid #5a4a1a;
+            background: #1e293b;
+            border: 1px solid var(--border);
             padding: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
             font-size: 14px;
             margin-bottom: 12px;
-            color: #ffd700;
+            color: var(--accent-gold);
         }
 
         .btn-whatsapp {
             display: block;
             width: 100%;
-            background: var(--whatsapp-green);
+            background: var(--whatsapp);
             color: white;
             text-align: center;
             padding: 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
             text-decoration: none;
             font-size: 15px;
             box-sizing: border-box;
         }
 
-        .divider {
-            border: 0;
-            border-top: 1px solid var(--border-color);
-            margin: 25px 0;
+        /* --- PANEL DE ADMINISTRACIÓN SECRETO (AMPLIADO) --- */
+        #adminModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
         }
 
-        .admin-panel {
-            background: var(--surface-card);
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px dashed #444444;
+        .admin-content-large {
+            background: var(--surface);
+            width: 100%;
+            max-width: 500px;
+            height: 85vh;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 16px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.9);
         }
 
-        .admin-panel h3 {
-            margin-top: 0;
-            text-align: center;
-            color: #ffffff;
-            font-size: 15px;
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
             margin-bottom: 12px;
         }
 
-        .form-row {
-            margin-bottom: 10px;
+        .admin-header h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 18px;
         }
 
-        .form-row label {
-            display: block;
-            font-weight: 600;
-            font-size: 12px;
-            margin-bottom: 3px;
-            color: #cccccc;
-        }
-
-        .form-row input {
-            width: 100%;
-            padding: 9px;
-            background: #161616;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-size: 14px;
-            color: var(--text-main);
-        }
-
-        .btn-generate {
-            width: 100%;
-            background: var(--accent-blue);
+        .btn-close-modal {
+            background: var(--danger);
             color: white;
             border: none;
-            padding: 11px;
+            padding: 6px 12px;
             border-radius: 6px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 14px;
-            margin-top: 5px;
+            font-size: 13px;
         }
 
-        #ticketPreview {
-            display: none;
+        .admin-search {
             width: 100%;
-            max-width: 360px;
-            background: #ffffff;
-            color: #000000;
-            border: 3px solid #d9534f;
-            padding: 15px;
-            margin: 20px auto 0 auto;
-            text-align: center;
-            border-radius: 8px;
+            padding: 12px;
+            background: #0f172a;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            font-size: 14px;
             box-sizing: border-box;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
+        }
+
+        .admin-list-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #0f172a;
+            padding: 8px;
+        }
+
+        .admin-item {
+            background: #1e293b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border);
+        }
+
+        .admin-item-info b {
+            color: var(--accent-gold);
+            font-size: 14px;
+        }
+
+        .admin-item-info p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .btn-ticket-action {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 12px;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>🎟️ Rifas J.A.</h1>
-        <p>¡Participa y gana con nosotros!</p>
+    <!-- HEADER CON EL TRUCO SECRETO DE LOS 5 TOQUES -->
+    <header onclick="registrarToqueAdmin()">
+        <h1>🎁 Rifas J.A.</h1>
+        <p>¡Elige tus números de la suerte y gana!</p>
     </header>
-   
+    
     <div class="stats-banner">
-        <b>Total:</b> 1500 Boletos &nbsp;|&nbsp; <b>Estado:</b> En marcha 🔥
+        🔥 Avance del Sorteo: <b>0%</b> / 1500 Boletos
     </div>
 
-    <span class="section-title">Elige tu número de la suerte:</span>
-    <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 150)..." onkeyup="filtrarNumeros()">
-   
-    <div class="grid-wrapper">
-        <div class="numbers-grid" id="gridNumeros"></div>
+    <div class="price-box">
+        Valor del boleto: 4.000 Bs
+    </div>
+
+    <div class="mode-buttons">
+        <button class="btn-mode active" id="btnManual" onclick="cambiarModo('manual')">✨ Elegir Manual</button>
+        <button class="btn-mode" id="btnAzar" onclick="cambiarModo('azar')">🎲 Elegir al Azar</button>
+    </div>
+
+    <div id="seccionManual">
+        <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumeros()">
+        
+        <div class="ranges-container">
+            <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001-0500</button>
+            <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501-1000</button>
+            <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001-1500</button>
+        </div>
+
+        <div class="grid-wrapper">
+            <div class="numbers-grid" id="gridNumeros"></div>
+        </div>
+    </div>
+
+    <div id="seccionAzar" style="display: none; text-align: center; padding: 20px;">
+        <p style="color: var(--text-muted); font-size: 14px;">¡Deja que la suerte decida por ti!</p>
+        <button class="btn-mode active" style="padding: 12px 20px; font-size: 15px; width: 100%; margin-top: 10px;" onclick="elegirAlAzar()">¡Sortear Número al Azar! 🎲</button>
     </div>
 
     <div class="selection-card">
@@ -242,71 +361,108 @@
     </div>
 
     <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
+</div>
 
-    <hr class="divider">
-
-    <div class="admin-panel">
-        <h3>🔐 Panel (Generar Ticket)</h3>
-       
-        <div class="form-row">
-            <label>Número de Boleto:</label>
-            <input type="text" id="ticketNum" placeholder="Ej. 3151">
+<!-- MODAL DE ADMINISTRACIÓN SECRETO (GRANDE Y CÓMODO) -->
+<div id="adminModal">
+    <div class="admin-content-large">
+        <div class="admin-header">
+            <h3>🛠️ Administración de Boletos</h3>
+            <button class="btn-close-modal" onclick="cerrarAdmin()">Cerrar ✕</button>
         </div>
 
-        <div class="form-row">
-            <label>Nombre Completo:</label>
-            <input type="text" id="ticketNombre" placeholder="Ej. Jose Alvarez">
-        </div>
+        <input type="text" id="adminSearchInput" class="admin-search" placeholder="🔍 Buscar cliente por nombre o número..." onkeyup="filtrarAdminLista()">
 
-        <div class="form-row">
-            <label>Cédula:</label>
-            <input type="text" id="ticketCedula" placeholder="Ej. V-18483754">
-        </div>
-
-        <div class="form-row">
-            <label>Teléfono:</label>
-            <input type="text" id="ticketTelef" placeholder="Ej. 04246737022">
-        </div>
-
-        <button class="btn-generate" onclick="generarTicketVisual()">Generar Ticket 🎫</button>
-    </div>
-
-    <div id="ticketPreview">
-        <h2 style="color: #000; margin: 0 0 8px 0; border-bottom: 2px solid #ccc; padding-bottom: 6px; font-size: 18px;">Boleto: <span id="outBoleto">3151</span></h2>
-        <div style="text-align: left; font-size: 12px; line-height: 1.4; color: #111;">
-            <p><b>Nombre:</b> <span id="outNombre">Jose Alvarez</span></p>
-            <p><b>Cedula:</b> <span id="outCedula">V-18483754</span></p>
-            <p><b>Telef.:</b> <span id="outTelef">04246737022</span></p>
-            <p><b>Dir1:</b> Edo Zulia</p>
-            <hr style="border: 0; border-top: 1px solid #ccc; margin: 6px 0;">
-            <p style="font-size: 10px; color: #333;">
-                <b>Fecha:</b> <span id="outFecha">30-09-2026</span><br>
-                <b>Sorteo:</b> RIFAS J.A.<br>
-                <b>Valor:</b> 10 , <b>Pagado:</b> 10
-            </p>
-        </div>
-        <div style="font-size: 8px; color: #555; border-top: 1px solid #ccc; margin-top: 6px; padding-top: 4px;">
-            8a6b8187a5e337e0a7f4d8ecaa7de8615574908
+        <div class="admin-list-container" id="adminListContainer">
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1421</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1442</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="alert('Generando ticket...')">Ticket 🎫</button>
+            </div>
         </div>
     </div>
-
 </div>
 
 <script>
     let numeroElegido = null;
+    let modoActual = 'manual';
     const grid = document.getElementById('gridNumeros');
 
-    for (let i = 1; i <= 1500; i++) {
-        let btn = document.createElement('button');
-        btn.className = 'num-btn';
-        btn.innerText = i;
-        btn.onclick = function() {
-            document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            numeroElegido = i;
-            document.getElementById('numeroSeleccionado').innerText = i;
-        };
-        grid.appendChild(btn);
+    // Contador para el panel secreto con 5 toques en el título
+    let toquesAdmin = 0;
+    let tiempoUltimoToque = 0;
+
+    function registrarToqueAdmin() {
+        let ahora = new Date().getTime();
+        if (ahora - tiempoUltimoToque > 2000) {
+            toquesAdmin = 1;
+        } else {
+            toquesAdmin++;
+        }
+        tiempoUltimoToque = ahora;
+
+        if (toquesAdmin >= 5) {
+            toquesAdmin = 0;
+            abrirAdmin();
+        }
+    }
+
+    function generarGrid(inicio, fin) {
+        grid.innerHTML = '';
+        for (let i = inicio; i <= fin; i++) {
+            let numStr = String(i).padStart(4, '0');
+            let btn = document.createElement('button');
+            btn.className = 'num-btn';
+            btn.innerText = numStr;
+            if (numeroElegido === numStr) btn.classList.add('selected');
+            
+            btn.onclick = function() {
+                document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                numeroElegido = numStr;
+                document.getElementById('numeroSeleccionado').innerText = numStr;
+            };
+            grid.appendChild(btn);
+        }
+    }
+
+    generarGrid(1, 500);
+
+    function cambiarRango(inicio, fin, elemento) {
+        document.querySelectorAll('.btn-range').forEach(b => b.classList.remove('active'));
+        elemento.classList.add('active');
+        generarGrid(inicio, fin);
+    }
+
+    function cambiarModo(modo) {
+        modoActual = modo;
+        if (modo === 'manual') {
+            document.getElementById('btnManual').classList.add('active');
+            document.getElementById('btnAzar').classList.remove('active');
+            document.getElementById('seccionManual').style.display = 'block';
+            document.getElementById('seccionAzar').style.display = 'none';
+        } else {
+            document.getElementById('btnAzar').classList.add('active');
+            document.getElementById('btnManual').classList.remove('active');
+            document.getElementById('seccionAzar').style.display = 'block';
+            document.getElementById('seccionManual').style.display = 'none';
+        }
+    }
+
+    function elegirAlAzar() {
+        let randomNum = Math.floor(Math.random() * 1500) + 1;
+        numeroElegido = String(randomNum).padStart(4, '0');
+        document.getElementById('numeroSeleccionado').innerText = numeroElegido;
+        alert(`¡Número al azar seleccionado: ${numeroElegido}!`);
     }
 
     function filtrarNumeros() {
@@ -328,33 +484,32 @@
             alert("Por favor selecciona un número primero.");
             return;
         }
-        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A. Aquí adjunto mi pago.`;
+        let mensaje = `Hola, quiero apartar el número ${numeroElegido} para la rifa de Rifas J.A.`;
         let telefonoPapa = "584246737022";
-        this.href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
+        document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
     }
 
-    function generarTicketVisual() {
-        let num = document.getElementById('ticketNum').value || "000";
-        let nombre = document.getElementById('ticketNombre').value || "Cliente";
-        let cedula = document.getElementById('ticketCedula').value || "V-0000000";
-        let telef = document.getElementById('ticketTelef').value || "04246737022";
+    function abrirAdmin() {
+        document.getElementById('adminModal').style.display = 'flex';
+    }
 
-        document.getElementById('outBoleto').innerText = num;
-        document.getElementById('outNombre').innerText = nombre;
-        document.getElementById('outCedula').innerText = cedula;
-        document.getElementById('outTelef').innerText = telef;
+    function cerrarAdmin() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
 
-        let d = new Date();
-        let fechaStr = d.toLocaleDateString() + " / " + d.toLocaleTimeString();
-        document.getElementById('outFecha').innerText = fechaStr;
-
-        let cuadro = document.getElementById('ticketPreview');
-        cuadro.style.display = 'block';
-        cuadro.scrollIntoView({ behavior: 'smooth' });
+    function filtrarAdminLista() {
+        let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
+        let items = document.getElementsByClassName('admin-item');
+        for (let i = 0; i < items.length; i++) {
+            let texto = items[i].innerText.toLowerCase();
+            if (texto.includes(filtro)) {
+                items[i].style.display = "flex";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
     }
 </script>
 
 </body>
 </html>
-
- 
