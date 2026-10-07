@@ -3,603 +3,559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas J.A.</title>
+    <title>Rifas J.A. - Sistema Único de Rifas</title>
     <style>
         :root {
-            --bg-dark: #0a0b10;
-            --surface: #13151f;
-            --surface-card: #1b1e2e;
-            --border: #2a2f45;
+            --bg-base: #0b0f19;
+            --card-bg: #131b2e;
+            --card-border: #1e293b;
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --accent-orange: #f59e0b;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --accent-gold: #fbbf24;
-            --accent-blue: #3b82f6;
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
-            --whatsapp: #25d366;
+            --input-bg: #0f172a;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-dark);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-base);
             color: var(--text-main);
             margin: 0;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            background: var(--surface);
-            padding: 14px;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--border);
-        }
-
-        /* Header exacto con los regalos a los lados */
-        header {
-            text-align: center;
-            margin-bottom: 12px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
             padding: 12px;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Header / Barra superior evento */
+        .event-header {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 14px;
-            border: 1px solid var(--border);
-            position: relative;
-            cursor: pointer;
-            user-select: none;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .gift-left, .gift-right {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 26px;
-        }
-        .gift-left { left: 12px; }
-        .gift-right { right: 12px; }
-
-        header h2 {
-            color: #38bdf8;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0 0 2px 0;
-        }
-
-        header h1 {
-            color: #f8fafc;
-            margin: 0;
-            font-size: 24px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 12px;
-            margin: 3px 0 0 0;
-        }
-
-        /* Progreso del sorteo */
-        .progress-box {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 10px 12px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        .progress-info {
+        .event-top-row {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
-            font-weight: bold;
-            margin-bottom: 6px;
+            align-items: center;
+            font-size: 12px;
         }
 
-        .progress-info span:last-child {
+        .event-badge {
+            background: rgba(16, 185, 129, 0.15);
             color: var(--accent-green);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        .progress-bar-bg {
-            background: #0f172a;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid var(--border);
+        .event-details-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
         }
 
-        .progress-bar-fill {
-            background: var(--accent-green);
-            width: 1%;
-            height: 100%;
-            border-radius: 4px;
+        .event-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: -0.3px;
         }
 
-        /* Valor del boleto */
-        .price-box {
-            background: #1e293b;
-            border: 1px solid var(--border);
-            text-align: center;
-            padding: 10px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #38bdf8;
-            margin-bottom: 10px;
-        }
-
-        /* Botones de modo */
-        .mode-buttons {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .btn-mode {
-            flex: 1;
-            padding: 10px;
+        /* Acordeón de detalles extra */
+        .event-info-box {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
             border-radius: 10px;
-            border: 1px solid var(--border);
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 13px;
-            color: white;
-            background: var(--surface-card);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-mode.active {
-            background: var(--accent-green);
-            border-color: var(--accent-green);
-        }
-
-        /* Panel de selección manual */
-        .manual-panel {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
             padding: 10px;
+            font-size: 12px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Selector de pestaña Al Azar / Manual */
+        .selector-tabs {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 8px;
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 13px;
-            color: white;
-        }
-
-        .ranges-container {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 8px;
-        }
-
-        .btn-range {
-            flex: 1;
-            padding: 7px 2px;
-            background: #1e293b;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn-range.active {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-        }
-
-        /* Leyenda de estados */
-        .legend-box {
-            display: flex;
-            justify-content: space-around;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            padding: 4px 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
+            padding: 4px;
             gap: 4px;
         }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
         }
-        .dot.available { background: #64748b; }
-        .dot.selected { background: var(--accent-blue); }
-        .dot.sold { background: var(--accent-red); }
 
-        .grid-status-info {
+        .tab-btn.active {
+            background: var(--accent-green);
+            color: #000000;
+        }
+
+        /* Tarjeta principal de selección */
+        .selection-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Grid de paquetes de boletos (1, 2, 5, 10, 20, 50) */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .package-btn {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 8px;
+            text-align: center;
+            cursor: pointer;
+            color: var(--text-main);
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .package-btn.active {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-color: var(--accent-orange);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+        }
+
+        .package-number {
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .package-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+            color: white;
+            font-size: 8px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Controles de cantidad manual (+ / -) */
+        .quantity-control-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .stepper-box {
+            display: flex;
+            align-items: center;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 6px 12px;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .stepper-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 0 8px;
+        }
+
+        .stepper-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Botón gigante de Participar */
+        .participate-btn {
+            background: var(--accent-green);
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            align-items: center;
+            flex: 1.2;
+            transition: background 0.2s;
         }
 
-        /* Grid de números (4 columnas exactas) */
-        .grid-wrapper {
-            max-height: 200px;
+        .participate-btn:hover {
+            background: var(--accent-green-hover);
+        }
+
+        /* Sección Manual Grid (cuando se activa pestaña manual) */
+        .manual-grid-section {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .manual-search {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: white;
+            font-size: 13px;
+            box-sizing: border-box;
+        }
+
+        .numbers-container {
+            max-height: 180px;
             overflow-y: auto;
-            border: 1px solid var(--border);
-            padding: 6px;
-            border-radius: 8px;
-            background: #0f172a;
-        }
-
-        .numbers-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 6px;
+            background: var(--input-bg);
+            padding: 8px;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
         }
 
-        .num-btn {
-            padding: 10px 0;
-            background: #1e293b;
-            border: 1px solid var(--border);
+        .num-cell {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 8px 0;
+            text-align: center;
             border-radius: 6px;
-            font-weight: bold;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
-            font-size: 13px;
             color: var(--text-main);
+        }
+
+        .num-cell.selected {
+            background: var(--accent-green);
+            color: #000;
+            border-color: var(--accent-green);
+        }
+
+        /* Top Compradores */
+        .top-buyers-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 16px;
             text-align: center;
         }
 
-        .num-btn.selected {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-        }
-
-        .num-btn.sold {
-            background: #7f1d1d;
-            color: #fca5a5;
-            border-color: #991b1b;
-            cursor: not-allowed;
-        }
-
-        /* Barra inferior de apartado */
-        .footer-action {
-            background: var(--surface-card);
-            border: 1px solid var(--border);
-            padding: 10px 12px;
-            border-radius: 12px;
+        .podium-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 16px;
+            margin-top: 14px;
         }
 
-        .selection-summary div:first-child {
-            font-size: 12px;
+        .podium-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
             color: var(--text-muted);
         }
 
-        .selection-summary div:last-child {
-            font-size: 15px;
-            font-weight: bold;
-            color: var(--accent-green);
-        }
-
-        .btn-apartar {
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-        }
-
-        /* Modal de contraseña y admin */
-        #passwordModal, #adminModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        .modal-box {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            width: 100%;
-            max-width: 320px;
-            text-align: center;
-        }
-
-        .modal-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #0f172a;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: white;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 16px;
-        }
-
-        .modal-buttons {
+        .avatar-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
             display: flex;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .modal-buttons button {
-            flex: 1;
-            padding: 9px;
-            border-radius: 8px;
-            border: none;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            cursor: pointer;
+            font-size: 16px;
+            border: 2px solid;
+            margin-bottom: 4px;
         }
 
-        .btn-accept { background: var(--accent-green); color: white; }
-        .btn-cancel { background: var(--accent-red); color: white; }
+        .avatar-1 { border-color: var(--accent-green); color: var(--accent-green); background: rgba(16,185,129,0.1); width: 54px; height: 54px; font-size: 20px; }
+        .avatar-2 { border-color: var(--text-muted); color: var(--text-muted); background: rgba(148,163,184,0.1); }
+        .avatar-3 { border-color: var(--accent-orange); color: var(--accent-orange); background: rgba(245,158,11,0.1); }
+
+        /* Footer institucional CONALOT */
+        .footer-conalot {
+            text-align: center;
+            padding: 16px 0;
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .conalot-highlight {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
     </style>
 </head>
-<body>
+<body onclick="registrarToqueAdmin()">
 
-<div class="container">
-    <header onclick="registrarToqueAdmin()">
-        <span class="gift-left">🎁</span>
-        <span class="gift-right">🎁</span>
-        <h2>✨ Gran Sorteo Exclusivo</h2>
-        <h1>Rifas J.A.</h1>
-        <p>¡Elige tus números de la suerte y gana!</p>
-    </header>
-    
-    <div class="progress-box">
-        <div class="progress-info">
-            <span>🔥 Progreso del Sorteo (1500 Boletos)</span>
-            <span>1%</span>
+<div class="main-container">
+
+    <!-- Cabecera del Sorteo -->
+    <div class="event-header">
+        <div class="event-top-row">
+            <span class="event-badge">🟢 EVENTO #CNL-AUT-RF-2026</span>
+            <button class="event-details-btn" onclick="toggleDetalles()">Ver detalles ▼</button>
         </div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill"></div>
-        </div>
-    </div>
-
-    <div class="price-box">
-        Valor del boleto: 4.000 Bs
-    </div>
-
-    <div class="mode-buttons">
-        <button class="btn-mode active" id="btnManual" onclick="cambiarModo('manual')">👇 Elegir Manual</button>
-        <button class="btn-mode" id="btnAzar" onclick="cambiarModo('azar')">🎲 Elegir al Azar</button>
-    </div>
-
-    <!-- Sección Manual -->
-    <div id="seccionManual" class="manual-panel">
-        <input type="text" id="buscadorNumeros" class="search-box" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumeros()">
+        <h1 class="event-title">3.000 LECHUGAS FLASH! A LAS 4 PM 🎟️🔥</h1>
         
-        <div class="ranges-container">
-            <button class="btn-range active" onclick="cambiarRango(1, 500, this)">0001 - 0500</button>
-            <button class="btn-range" onclick="cambiarRango(501, 1000, this)">0501 - 1000</button>
-            <button class="btn-range" onclick="cambiarRango(1001, 1500, this)">1001 - 1500</button>
-        </div>
-
-        <div class="legend-box">
-            <div class="legend-item"><span class="dot available"></span> Disponible</div>
-            <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
-            <div class="legend-item"><span class="dot sold"></span> Vendido</div>
-        </div>
-
-        <div class="grid-status-info">
-            <span id="infoRangoTexto">Mostrando: 0001 al 0500</span>
-            <span>1500 activos</span>
-        </div>
-
-        <div class="grid-wrapper">
-            <div class="numbers-grid" id="gridNumeros"></div>
+        <div id="detallesBox" class="event-info-box">
+            Resultado vinculado a lotería oficial. Sorteo transparente homologado por CONALOT. 10.000 números disponibles en total.
         </div>
     </div>
 
-    <!-- Sección Azar -->
-    <div id="seccionAzar" class="manual-panel" style="display: none; text-align: center; padding: 20px;">
-        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 12px;">¡Deja que el sistema escoja tu número de la suerte!</p>
-        <button class="btn-mode active" style="width: 100%; justify-content: center; padding: 12px;" onclick="elegirAlAzar()">🎲 Sortear Número Automático</button>
+    <!-- Pestañas de Selección -->
+    <div class="selector-tabs">
+        <button id="tabAzar" class="tab-btn active" onclick="cambiarModo('azar')">⚡ AL AZAR</button>
+        <button id="tabManual" class="tab-btn" onclick="cambiarModo('manual')">✋ MANUAL</button>
     </div>
 
-    <!-- Barra inferior -->
-    <div class="footer-action">
-        <div class="selection-summary">
-            <div id="textoCantSeleccionados">0 seleccionados</div>
-            <div id="totalPagar">Total: 0 Bs</div>
+    <!-- Tarjeta Principal (Modo Al Azar / Paquetes) -->
+    <div id="cardAzar" class="selection-card">
+        <div class="packages-grid">
+            <div class="package-btn" onclick="seleccionarPaquete(1)">
+                <div class="package-number">1</div>
+                <div class="package-label">Boletos</div>
+            </div>
+            <div class="package-btn" onclick="seleccionarPaquete(2)">
+                <div class="package-number">2</div>
+                <div class="package-label">Boletos</div>
+            </div>
+            <div class="package-btn" onclick="seleccionarPaquete(5)">
+                <div class="package-number">5</div>
+                <div class="package-label">Boletos</div>
+            </div>
+            <div class="package-btn active" onclick="seleccionarPaquete(10)">
+                <span class="popular-badge">Popular</span>
+                <div class="package-number">10</div>
+                <div class="package-label">Boletos</div>
+            </div>
+            <div class="package-btn" onclick="seleccionarPaquete(20)">
+                <div class="package-number">20</div>
+                <div class="package-label">Boletos</div>
+            </div>
+            <div class="package-btn" onclick="seleccionarPaquete(50)">
+                <div class="package-number">50</div>
+                <div class="package-label">Boletos</div>
+            </div>
         </div>
-        <a href="#" id="whatsappBtn" class="btn-apartar" onclick="enviarWhatsApp(event)">Apartar</a>
+
+        <div class="quantity-control-row">
+            <div class="stepper-box">
+                <button class="stepper-btn" onclick="cambiarCantidad(-1)">−</button>
+                <span id="cantidadBoletos" class="stepper-value">10</span>
+                <button class="stepper-btn" onclick="cambiarCantidad(1)">+</button>
+            </div>
+            <button class="participate-btn" onclick="enviarWhatsApp()">
+                <span>PARTICIPAR</span>
+                <span id="precioTotal">Bs 550</span>
+            </button>
+        </div>
     </div>
+
+    <!-- Tarjeta Manual (Oculta por defecto) -->
+    <div id="cardManual" class="selection-card" style="display: none;">
+        <input type="text" class="manual-search" placeholder="🔍 Buscar tu número exacto..." onkeyup="filtrarManual(this.value)">
+        <div class="numbers-container" id="gridManual">
+            <!-- Generado por JS -->
+        </div>
+        <button class="participate-btn" style="width: 100%; justify-content: center;" onclick="enviarWhatsAppManual()">
+            Apartar manuales (<span id="cantManuales">0</span>) - <span id="precioManual">Bs 0</span>
+        </button>
+    </div>
+
+    <!-- Sección Top Compradores -->
+    <div class="top-buyers-card">
+        <h3 style="margin: 0; font-size: 16px;">🏆 Top Compradores</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin: 4px 0 12px 0;">¡Gracias a nuestros mayores participantes!</p>
+        
+        <div class="podium-row">
+            <div class="podium-item">
+                <div class="avatar-circle avatar-2">a</div>
+                <span>alexand...</span>
+                <b>20 T.</b>
+            </div>
+            <div class="podium-item" style="transform: translateY(-10px);">
+                <div class="avatar-circle avatar-1">J</div>
+                <span style="color: var(--accent-green); font-weight: bold;">Jesús uzca...</span>
+                <b style="color: var(--accent-green);">25 T.</b>
+            </div>
+            <div class="podium-item">
+                <div class="avatar-circle avatar-3">G</div>
+                <span>Guillerm...</span>
+                <b>10 T.</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer CONALOT -->
+    <div class="footer-conalot">
+        <div>Sistema homologado por <span class="conalot-highlight">CONALOT</span>.</div>
+        <div>© 2026 Rifas J.A. Todos los derechos reservados.</div>
+    </div>
+
 </div>
 
-<!-- MODAL DE CONTRASEÑA -->
-<div id="passwordModal">
-    <div class="modal-box">
-        <h3>🔒 Acceso de Administrador</h3>
-        <p style="font-size: 12px; color: var(--text-muted);">Ingresa la contraseña secreta:</p>
-        <input type="password" id="inputPassword" placeholder="Contraseña...">
-        <div class="modal-buttons">
-            <button class="btn-cancel" onclick="cerrarPasswordModal()">Cancelar</button>
-            <button class="btn-accept" onclick="verificarPassword()">Entrar</button>
-        </div>
-    </div>
-</div>
-
-<!-- PANEL DE ADMINISTRACIÓN -->
-<div id="adminModal">
-    <div class="modal-box" style="max-width: 400px; height: 75vh; display: flex; flex-direction: column;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px;">
-            <h3 style="margin:0; font-size: 16px;">🛠️ Panel Admin</h3>
-            <button onclick="cerrarAdmin()" style="background: var(--accent-red); color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor:pointer;">X</button>
-        </div>
-        <div style="flex: 1; overflow-y: auto; text-align: left; font-size: 13px; color: var(--text-muted);">
-            <p>Panel de administración activo.</p>
-        </div>
-    </div>
-</div>
-
+<!-- SCRIPT DE FUNCIONAMIENTO -->
 <script>
-    let numerosSeleccionados = [];
-    let precioBoleto = 4000;
-    const grid = document.getElementById('gridNumeros');
+    let cantidadActual = 10;
+    let precioUnitario = 55; // Calculado de Bs 550 / 10 boletos
+    let numerosManualesSeleccionados = [];
+    let modoActual = 'azar';
 
-    let toquesAdmin = 0;
-    let tiempoUltimoToque = 0;
-
-    function registrarToqueAdmin() {
-        let ahora = new Date().getTime();
-        if (ahora - tiempoUltimoToque > 2000) {
-            toquesAdmin = 1;
-        } else {
-            toquesAdmin++;
-        }
-        tiempoUltimoToque = ahora;
-
-        if (toquesAdmin >= 5) {
-            toquesAdmin = 0;
-            document.getElementById('passwordModal').style.display = 'flex';
-        }
+    function actualizarPrecio() {
+        let total = cantidadActual * precioUnitario;
+        document.getElementById('precioTotal').innerText = `Bs ${total.toLocaleString()}`;
+        document.getElementById('cantidadBoletos').innerText = cantidadActual;
     }
 
-    function cerrarPasswordModal() {
-        document.getElementById('passwordModal').style.display = 'none';
-        document.getElementById('inputPassword').value = '';
+    function seleccionarPaquete(cant) {
+        cantidadActual = cant;
+        document.querySelectorAll('.package-btn').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        actualizarPrecio();
     }
 
-    function verificarPassword() {
-        let pass = document.getElementById('inputPassword').value;
-        if (pass === "1234" || pass === "admin") { 
-            cerrarPasswordModal();
-            document.getElementById('adminModal').style.display = 'flex';
-        } else {
-            alert("Contraseña incorrecta ❌");
-        }
-    }
-
-    function cerrarAdmin() {
-        document.getElementById('adminModal').style.display = 'none';
-    }
-
-    function generarGrid(inicio, fin, rangoTexto) {
-        grid.innerHTML = '';
-        document.getElementById('infoRangoTexto').innerText = rangoTexto;
-        
-        for (let i = inicio; i <= fin; i++) {
-            let numStr = String(i).padStart(4, '0');
-            let btn = document.createElement('button');
-            btn.className = 'num-btn';
-            btn.innerText = numStr;
-            
-            if (numerosSeleccionados.includes(numStr)) {
-                btn.classList.add('selected');
-            }
-            
-            btn.onclick = function() {
-                if (numerosSeleccionados.includes(numStr)) {
-                    numerosSeleccionados = numerosSeleccionados.filter(n => n !== numStr);
-                    btn.classList.remove('selected');
-                } else {
-                    numerosSeleccionados.push(numStr);
-                    btn.classList.add('selected');
-                }
-                actualizarResumen();
-            };
-            grid.appendChild(btn);
-        }
-    }
-
-    generarGrid(1, 500, "Mostrando: 0001 al 0500");
-
-    function cambiarRango(inicio, fin, elemento) {
-        document.querySelectorAll('.btn-range').forEach(b => b.classList.remove('active'));
-        elemento.classList.add('active');
-        let textoRango = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
-        generarGrid(inicio, fin, textoRango);
-    }
-
-    function actualizarResumen() {
-        let cant = numerosSeleccionados.length;
-        let total = cant * precioBoleto;
-        document.getElementById('textoCantSeleccionados').innerText = `${cant} seleccionados`;
-        document.getElementById('totalPagar').innerText = `Total: ${total.toLocaleString()} Bs`;
+    function cambiarCantidad(delta) {
+        cantidadActual += delta;
+        if (cantidadActual < 1) cantidadActual = 1;
+        actualizarPrecio();
     }
 
     function cambiarModo(modo) {
-        if (modo === 'manual') {
-            document.getElementById('btnManual').classList.add('active');
-            document.getElementById('btnAzar').classList.remove('active');
-            document.getElementById('seccionManual').style.display = 'block';
-            document.getElementById('seccionAzar').style.display = 'none';
+        modoActual = modo;
+        if (modo === 'azar') {
+            document.getElementById('tabAzar').classList.add('active');
+            document.getElementById('tabManual').classList.remove('active');
+            document.getElementById('cardAzar').style.display = 'flex';
+            document.getElementById('cardManual').style.display = 'none';
         } else {
-            document.getElementById('btnAzar').classList.add('active');
-            document.getElementById('btnManual').classList.remove('active');
-            document.getElementById('seccionAzar').style.display = 'block';
-            document.getElementById('seccionManual').style.display = 'none';
+            document.getElementById('tabManual').classList.add('active');
+            document.getElementById('tabAzar').classList.remove('active');
+            document.getElementById('cardManual').style.display = 'flex';
+            document.getElementById('cardAzar').style.display = 'none';
+            generarGridManual();
         }
     }
 
-    function elegirAlAzar() {
-        let randomNum = Math.floor(Math.random() * 1500) + 1;
-        let numStr = String(randomNum).padStart(4, '0');
-        if (!numerosSeleccionados.includes(numStr)) {
-            numerosSeleccionados.push(numStr);
-            actualizarResumen();
-            generarGrid(1, 500, "Mostrando: 0001 al 0500");
-        }
-        alert(`¡Número al azar agregado: ${numStr}!`);
+    function toggleDetalles() {
+        let box = document.getElementById('detallesBox');
+        box.style.display = box.style.display === 'block' ? 'none' : 'block';
     }
 
-    function filtrarNumeros() {
-        let filtro = document.getElementById('buscadorNumeros').value.toLowerCase();
-        let botones = grid.getElementsByClassName('num-btn');
-        for (let i = 0; i < botones.length; i++) {
-            let texto = botones[i].innerText;
-            if (texto.includes(filtro)) {
-                botones[i].style.display = "";
-            } else {
-                botones[i].style.display = "none";
-            }
+    function generarGridManual() {
+        let grid = document.getElementById('gridManual');
+        if (grid.children.length > 0) return;
+        for (let i = 1; i <= 100; i++) {
+            let numStr = String(i).padStart(4, '0');
+            let cell = document.createElement('div');
+            cell.className = 'num-cell';
+            cell.innerText = numStr;
+            cell.onclick = function() {
+                if (numerosManualesSeleccionados.includes(numStr)) {
+                    numerosManualesSeleccionados = numerosManualesSeleccionados.filter(n => n !== numStr);
+                    cell.classList.remove('selected');
+                } else {
+                    numerosManualesSeleccionados.push(numStr);
+                    cell.classList.add('selected');
+                }
+                document.getElementById('cantManuales').innerText = numerosManualesSeleccionados.length;
+                document.getElementById('precioManual').innerText = `Bs ${numerosManualesSeleccionados.length * precioUnitario}`;
+            };
+            grid.appendChild(cell);
         }
     }
 
-    function enviarWhatsApp(e) {
-        if (numerosSeleccionados.length === 0) {
-            e.preventDefault();
-            alert("Por favor selecciona al menos un número.");
+    function enviarWhatsApp() {
+        let telefonoPapa = "584246737022";
+        let total = cantidadActual * precioUnitario;
+        let mensaje = `Hola, quiero participar con ${cantidadActual} boletos al azar para la rifa. Total a pagar: Bs ${total}.`;
+        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+
+    function enviarWhatsAppManual() {
+        if (numerosManualesSeleccionados.length === 0) {
+            alert("Selecciona al menos un número manual.");
             return;
         }
-        let mensaje = `Hola, quiero apartar los números: ${numerosSeleccionados.join(', ')} para la rifa de Rifas J.A. Total a pagar: ${numerosSeleccionados.length * precioBoleto} Bs.`;
         let telefonoPapa = "584246737022";
-        document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
+        let total = numerosManualesSeleccionados.length * precioUnitario;
+        let mensaje = `Hola, quiero apartar los números manuales: ${numerosManualesSeleccionados.join(', ')}. Total a pagar: Bs ${total}.`;
+        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+
+    // Acceso secreto panel administrador (5 toques rápidos en la pantalla)
+    let toques = 0;
+    let ultimoToque = 0;
+    function registrarToqueAdmin() {
+        let ahora = new Date().getTime();
+        if (ahora - ultimoToque > 2000) toques = 1;
+        else toques++;
+        ultimoToque = ahora;
+        if (toques >= 5) {
+            toques = 0;
+            let clave = prompt("🛠️ Panel Admin - Ingresa la contraseña:");
+            if (clave === "1234") alert("¡Acceso concedido al panel de control de Rifas J.A.!");
+        }
     }
 </script>
 
