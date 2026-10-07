@@ -3,42 +3,667 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Limpia</title>
+    <title>Rifas Álvarez</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-base: #07090e;
+            --card-bg: rgba(19, 27, 46, 0.65);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-gold: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --accent-green: #10b981;
+            --accent-green-hover: #059669;
+            --accent-blue: #3b82f6;
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+            --input-bg: rgba(15, 23, 42, 0.7);
+            --badge-red: rgba(239, 68, 68, 0.2);
+            --badge-red-border: #ef4444;
         }
 
         body {
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-base);
+            background-image: radial-gradient(circle at 50% 0%, #1a1c29 0%, #07090e 70%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 12px;
+            box-sizing: border-box;
             display: flex;
             justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff;
         }
 
-        .contenedor {
+        .main-container {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            padding-bottom: 90px;
+        }
+
+        /* Cabecera Casino & Dorado */
+        .header-section {
             text-align: center;
+            padding-top: 15px;
         }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 500;
+        .main-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin: 0;
+            background: var(--accent-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
+            text-transform: uppercase;
+            filter: drop-shadow(0 2px 8px rgba(191, 149, 63, 0.3));
+        }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: 600;
             color: #e2e8f0;
+            margin-top: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Panel Principal Buscador y Grid */
+        .interactive-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: white;
+            font-size: 13px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input:focus {
+            border-color: #bf953f;
+        }
+
+        /* Rangos (3 partes) */
+        .ranges-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+        }
+
+        .range-tab {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 9px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .range-tab.active {
+            background: linear-gradient(135deg, #bf953f, #aa771c);
+            color: #fff;
+            border-color: #fcf6ba;
+            box-shadow: 0 0 10px rgba(191, 149, 63, 0.4);
+        }
+
+        /* Leyenda de colores */
+        .status-legend {
+            display: flex;
+            justify-content: space-around;
+            font-size: 11px;
+            color: var(--text-muted);
+            padding: 6px 0;
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+        }
+        .dot.available { background: rgba(255, 255, 255, 0.2); }
+        .dot.selected { background: #bf953f; box-shadow: 0 0 6px #bf953f; }
+        .dot.sold { background: #ef4444; }
+
+        .range-status-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        /* Grid de Pastillas Liquid Glass */
+        .tickets-grid {
+            max-height: 240px;
+            overflow-y: auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            background: rgba(7, 9, 14, 0.4);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+        }
+
+        .ticket-cell {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 20px; /* Forma de pastilla larga */
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.15s ease;
+        }
+
+        .ticket-cell.selected {
+            background: linear-gradient(135deg, rgba(191, 149, 63, 0.4), rgba(170, 119, 28, 0.6));
+            color: #fff;
+            border-color: #fcf6ba;
+            box-shadow: 0 0 10px rgba(191, 149, 63, 0.5);
+        }
+
+        .ticket-cell.sold {
+            background: var(--badge-red);
+            color: #ef4444;
+            border-color: var(--badge-red-border);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        /* Barra Inferior Flotante */
+        .bottom-floating-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(7, 9, 14, 0.92);
+            backdrop-filter: blur(16px);
+            border-top: 1px solid var(--card-border);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            z-index: 50;
+        }
+
+        .selection-summary {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .selection-summary b {
+            display: block;
+            font-size: 16px;
+            color: #fcf6ba;
+        }
+
+        .comprar-btn {
+            background: linear-gradient(135deg, #bf953f, #aa771c);
+            color: #fff;
+            border: 1px solid #fcf6ba;
+            border-radius: 14px;
+            padding: 12px 28px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(191, 149, 63, 0.4);
+            transition: transform 0.1s;
+        }
+        .comprar-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Ventanas Flotantes / Modales Estilo Moderno */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 16px;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 380px;
+            background: #131b2e;
+            background-image: radial-gradient(circle at 100% 100%, rgba(191, 149, 63, 0.1) 0%, transparent 50%);
+            border: 1px solid rgba(191, 149, 63, 0.3);
+            border-radius: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            animation: modalPop 0.25s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes modalPop {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #fcf6ba;
+            text-align: center;
+            margin: 0;
+        }
+
+        .bank-box {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Sutil marca de agua simulando fondo de banco */
+        .bank-box::after {
+            content: "BDV";
+            position: absolute;
+            right: -10px;
+            bottom: -20px;
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .bank-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #bf953f, #aa771c);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 11px;
+            color: white;
+            font-size: 13px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        .form-input:focus {
+            border-color: #bf953f;
+        }
+
+        .file-upload-box {
+            border: 2px dashed rgba(191, 149, 63, 0.4);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            background: rgba(15, 23, 42, 0.4);
+            transition: border-color 0.2s;
+        }
+        .file-upload-box:hover {
+            border-color: #bf953f;
+        }
+
+        .modal-btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .btn-modal-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #bf953f, #aa771c);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(191, 149, 63, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <div class="contenedor">
-        <h1>Todo listo para empezar</h1>
+<div class="main-container">
+
+    <!-- Cabecera Casino & Dorado -->
+    <div class="header-section">
+        <h1 class="main-title">Rifas Álvarez</h1>
+        <div class="subtitle">¡Participa y gana por tan solo 5.000 Bs el ticket!</div>
     </div>
+
+    <!-- Panel Interactivo Buscador + Rangos + Grid -->
+    <div class="interactive-panel">
+        <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
+        
+        <div class="ranges-row">
+            <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
+            <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501 - 1000</div>
+            <div id="range3" class="range-tab" onclick="seleccionarRango(1001, 1500)">1001 - 1500</div>
+        </div>
+
+        <div class="status-legend">
+            <div class="legend-item"><span class="dot available"></span> Disponible</div>
+            <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
+            <div class="legend-item"><span class="dot sold"></span> Vendido</div>
+        </div>
+
+        <div class="range-status-info">
+            <span id="textoMostrando">Mostrando: 0001 al 0500</span>
+            <span>1500 boletos</span>
+        </div>
+
+        <!-- Grid de Pastillas Liquid Glass -->
+        <div class="tickets-grid" id="gridBoletos"></div>
+    </div>
+
+</div>
+
+<!-- Barra Inferior Flotante con Total Automático -->
+<div class="bottom-floating-bar">
+    <div class="selection-summary">
+        <span id="cantSeleccionados">0 seleccionados</span>
+        <b id="totalPrecio">Total: 0 Bs</b>
+    </div>
+    <button class="comprar-btn" onclick="abrirModalPago()">Comprar</button>
+</div>
+
+<!-- VENTANA FLOTANTE 1: DATOS DE PAGO Y CAPTURE -->
+<div id="modalPago" class="modal-overlay">
+    <div class="modal-card">
+        <h3 class="modal-title">🏦 Pago Móvil (Banco de Venezuela)</h3>
+        
+        <div class="bank-box">
+            <div class="bank-row">
+                <span><b>Banco:</b> Banco de Venezuela</span>
+                <button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button>
+            </div>
+            <div class="bank-row">
+                <span><b>Cédula:</b> 18483754</span>
+                <button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button>
+            </div>
+            <div class="bank-row">
+                <span><b>Teléfono:</b> 04246737022</span>
+                <button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button>
+            </div>
+        </div>
+
+        <div>
+            <label style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px;">📸 Adjuntar Capture de Pago (*Obligatorio):</label>
+            <label class="file-upload-box" id="fileLabel">
+                📂 Toca para subir tu comprobante de pago
+                <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
+            </label>
+        </div>
+
+        <div class="modal-btn-row">
+            <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
+            <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
+        </div>
+    </div>
+</div>
+
+<!-- VENTANA FLOTANTE 2: DATOS DEL CLIENTE -->
+<div id="modalDatos" class="modal-overlay">
+    <div class="modal-card">
+        <h3 class="modal-title">📝 Tus Datos Personales</h3>
+
+        <div>
+            <label style="font-size: 11px; color: var(--text-muted);">Nombre y Apellido:</label>
+            <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez">
+        </div>
+
+        <div>
+            <label style="font-size: 11px; color: var(--text-muted);">Número de Teléfono:</label>
+            <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
+        </div>
+
+        <div class="modal-btn-row">
+            <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalDatos')">Atrás</button>
+            <button class="btn-modal-action btn-confirm" onclick="mostrarAdvertenciaWhatsApp()">Continuar</button>
+        </div>
+    </div>
+</div>
+
+<!-- VENTANA FLOTANTE 3: ADVERTENCIA Y ENVÍO A WHATSAPP -->
+<div id="modalAdvertencia" class="modal-overlay">
+    <div class="modal-card" style="text-align: center;">
+        <h3 class="modal-title">⚠️ ¡ATENCIÓN!</h3>
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4; margin: 0;">
+            Para poder verificar y asegurar tu pago, debes <b>enviar obligatoriamente el capture por el chat de WhatsApp</b> que se abrirá a continuación.
+        </p>
+
+        <div class="modal-btn-row" style="margin-top: 10px;">
+            <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalAdvertencia')">Revisar</button>
+            <button class="btn-modal-action btn-confirm" onclick="enviarAWhatsApp()">Ir a WhatsApp</button>
+        </div>
+    </div>
+</div>
+
+<!-- Script de Funcionalidad -->
+<script>
+    let inicioRango = 1;
+    let finRango = 500;
+    let seleccionados = [];
+    let precioBoleto = 5000;
+    let tieneCapture = false;
+
+    // Simulación de algunos vendidos para que se vea real
+    let vendidos = ["0005", "0012", "0100"];
+
+    function generarBoletos(inicio, fin) {
+        let grid = document.getElementById('gridBoletos');
+        grid.innerHTML = '';
+        for (let i = inicio; i <= fin; i++) {
+            let numStr = String(i).padStart(4, '0');
+            let cell = document.createElement('div');
+            cell.className = 'ticket-cell';
+            cell.innerText = numStr;
+            
+            if (vendidos.includes(numStr)) {
+                cell.classList.add('sold');
+            } else if (seleccionados.includes(numStr)) {
+                cell.classList.add('selected');
+            }
+
+            if (!vendidos.includes(numStr)) {
+                cell.onclick = function() {
+                    if (seleccionados.includes(numStr)) {
+                        seleccionados = seleccionados.filter(n => n !== numStr);
+                        cell.classList.remove('selected');
+                    } else {
+                        seleccionados.push(numStr);
+                        cell.classList.add('selected');
+                    }
+                    actualizarResumen();
+                };
+            }
+            grid.appendChild(cell);
+        }
+    }
+
+    function seleccionarRango(inicio, fin) {
+        inicioRango = inicio;
+        finRango = fin;
+        document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
+        if(inicio === 1) document.getElementById('range1').classList.add('active');
+        if(inicio === 501) document.getElementById('range2').classList.add('active');
+        if(inicio === 1001) document.getElementById('range3').classList.add('active');
+
+        document.getElementById('textoMostrando').innerText = `Mostrando: ${String(inicio).padStart(4, '0')} al ${String(fin).padStart(4, '0')}`;
+        generarBoletos(inicio, fin);
+    }
+
+    function actualizarResumen() {
+        let cantidad = seleccionados.length;
+        let total = cantidad * precioBoleto;
+        document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
+        document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
+    }
+
+    function filtrarNumero(query) {
+        if(!query) {
+            generarBoletos(inicioRango, finRango);
+            return;
+        }
+        let grid = document.getElementById('gridBoletos');
+        grid.innerHTML = '';
+        for (let i = 1; i <= 1500; i++) {
+            let numStr = String(i).padStart(4, '0');
+            if (numStr.includes(query)) {
+                let cell = document.createElement('div');
+                cell.className = 'ticket-cell';
+                cell.innerText = numStr;
+                if (vendidos.includes(numStr)) cell.classList.add('sold');
+                else if (seleccionados.includes(numStr)) cell.classList.add('selected');
+
+                if (!vendidos.includes(numStr)) {
+                    cell.onclick = function() {
+                        if (seleccionados.includes(numStr)) {
+                            seleccionados = seleccionados.filter(n => n !== numStr);
+                            cell.classList.remove('selected');
+                        } else {
+                            seleccionados.push(numStr);
+                            cell.classList.add('selected');
+                        }
+                        actualizarResumen();
+                    };
+                }
+                grid.appendChild(cell);
+            }
+        }
+    }
+
+    function copiarTexto(texto) {
+        navigator.clipboard.writeText(texto);
+        alert("¡Copiado: " + texto + "!");
+    }
+
+    function abrirModalPago() {
+        if (seleccionados.length === 0) {
+            alert("⚠️ Por favor selecciona al menos un número antes de comprar.");
+            return;
+        }
+        document.getElementById('modalPago').style.display = 'flex';
+    }
+
+    function cerrarModal(idModal) {
+        document.getElementById(idModal).style.display = 'none';
+    }
+
+    function verificarCapture(input) {
+        if (input.files && input.files[0]) {
+            tieneCapture = true;
+            document.getElementById('fileLabel').style.borderColor = '#10b981';
+            document.getElementById('fileLabel').innerHTML = `✅ Capture cargado: <br><b style="color:#10b981;">${input.files[0].name}</b>`;
+        }
+    }
+
+    function siguientePasoDatos() {
+        if (!tieneCapture) {
+            alert("⚠️ Debes adjuntar el capture del pago obligatoriamente para poder avanzar.");
+            return;
+        }
+        document.getElementById('modalPago').style.display = 'none';
+        document.getElementById('modalDatos').style.display = 'flex';
+    }
+
+    function mostrarAdvertenciaWhatsApp() {
+        let nombre = document.getElementById('inputNombre').value.trim();
+        let telefono = document.getElementById('inputTelefono').value.trim();
+
+        if (!nombre || !telefono) {
+            alert("⚠️ Por favor completa tu nombre y número de teléfono.");
+            return;
+        }
+
+        document.getElementById('modalDatos').style.display = 'none';
+        document.getElementById('modalAdvertencia').style.display = 'flex';
+    }
+
+    function enviarAWhatsApp() {
+        let nombre = document.getElementById('inputNombre').value.trim();
+        let telefono = document.getElementById('inputTelefono').value.trim();
+        let telefonoPapa = "584246737022";
+        let numerosFinales = seleccionados.sort().join(', ');
+        let totalPagar = seleccionados.length * precioBoleto;
+
+        let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas Álvarez.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
+
+        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    }
+
+    // Inicializar al cargar
+    generarBoletos(1, 500);
+    actualizarResumen();
+</script>
 
 </body>
 </html>
