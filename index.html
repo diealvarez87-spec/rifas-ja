@@ -158,7 +158,7 @@
         }
 
         /* Paneles de Secciones */
-        .interactive-panel, .azar-panel, .payment-panel {
+        .interactive-panel, .azar-panel, .checkout-modal {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
@@ -275,7 +275,7 @@
             gap: 12px;
             align-items: center;
             text-align: center;
-            padding: 10px 0;
+            padding: 15px 0;
         }
 
         .stepper-box-large {
@@ -303,7 +303,11 @@
             color: var(--accent-green);
         }
 
-        /* Panel de Datos de Pago y Comprador */
+        /* Checkout (Formulario y Datos de Pago) oculto por defecto */
+        #seccionCheckout {
+            display: none;
+        }
+
         .payment-box {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
@@ -338,7 +342,7 @@
 
         .form-input {
             width: 100%;
-            background: var(--card-bg);
+            background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 8px;
             padding: 10px;
@@ -350,7 +354,7 @@
 
         .file-upload-label {
             display: block;
-            background: var(--card-bg);
+            background: var(--input-bg);
             border: 1px dashed var(--accent-blue);
             border-radius: 8px;
             padding: 10px;
@@ -358,6 +362,17 @@
             font-size: 12px;
             color: var(--text-muted);
             cursor: pointer;
+        }
+
+        .back-selection-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
         }
 
         /* Barra Inferior Flotante */
@@ -432,55 +447,60 @@
         </div>
     </div>
 
-    <!-- Botones de Modo -->
-    <div class="mode-buttons-row">
-        <button id="btnManual" class="mode-btn active" onclick="cambiarModo('manual')">
-            <span>👉</span> Elegir Manual
-        </button>
-        <button id="btnAzar" class="mode-btn" onclick="cambiarModo('azar')">
-            <span>🎲</span> Elegir al Azar
-        </button>
-    </div>
-
-    <!-- PANEL MANUAL (Grid de números) -->
-    <div id="panelManual" class="interactive-panel">
-        <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
-        
-        <div class="ranges-row">
-            <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
-            <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501 - 1000</div>
-            <div id="range3" class="range-tab" onclick="seleccionarRango(1001, 1500)">1001 - 1500</div>
+    <!-- SECCIÓN DE SELECCIÓN (Paso 1) -->
+    <div id="seccionSeleccion">
+        <!-- Botones de Modo -->
+        <div class="mode-buttons-row" style="margin-bottom: 12px;">
+            <button id="btnManual" class="mode-btn active" onclick="cambiarModo('manual')">
+                <span>👉</span> Elegir Manual
+            </button>
+            <button id="btnAzar" class="mode-btn" onclick="cambiarModo('azar')">
+                <span>🎲</span> Elegir al Azar
+            </button>
         </div>
 
-        <div class="status-legend">
-            <div class="legend-item"><span class="dot available"></span> Disponible</div>
-            <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
-            <div class="legend-item"><span class="dot sold"></span> Vendido</div>
-        </div>
-
-        <div class="range-status-info">
-            <span id="textoMostrando">Mostrando: 0001 al 0500</span>
-            <span>1500 activos</span>
-        </div>
-
-        <div class="tickets-grid" id="gridBoletos"></div>
-    </div>
-
-    <!-- PANEL AL AZAR (Con cantidad configurable) -->
-    <div id="panelAzar" class="azar-panel" style="display: none;">
-        <div class="azar-content">
-            <p style="margin: 0; font-size: 13px; color: var(--text-muted);">¿Cuántos boletos al azar deseas comprar?</p>
-            <div class="stepper-box-large">
-                <button class="stepper-btn-lg" onclick="cambiarCantidadAzar(-1)">−</button>
-                <span id="azarCantidadVal" class="stepper-val-lg">5</span>
-                <button class="stepper-btn-lg" onclick="cambiarCantidadAzar(1)">+</button>
+        <!-- PANEL MANUAL -->
+        <div id="panelManual" class="interactive-panel">
+            <input type="text" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
+            
+            <div class="ranges-row">
+                <div id="range1" class="range-tab active" onclick="seleccionarRango(1, 500)">0001 - 0500</div>
+                <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501 - 1000</div>
+                <div id="range3" class="range-tab" onclick="seleccionarRango(1001, 1500)">1001 - 1500</div>
             </div>
-            <p style="font-size: 11px; color: var(--accent-blue); margin: 0;">El sistema elegirá los números disponibles automáticamente al dar clic en Apartar.</p>
+
+            <div class="status-legend">
+                <div class="legend-item"><span class="dot available"></span> Disponible</div>
+                <div class="legend-item"><span class="dot selected"></span> Seleccionado</div>
+                <div class="legend-item"><span class="dot sold"></span> Vendido</div>
+            </div>
+
+            <div class="range-status-info">
+                <span id="textoMostrando">Mostrando: 0001 al 0500</span>
+                <span>1500 activos</span>
+            </div>
+
+            <div class="tickets-grid" id="gridBoletos"></div>
+        </div>
+
+        <!-- PANEL AL AZAR -->
+        <div id="panelAzar" class="azar-panel" style="display: none;">
+            <div class="azar-content">
+                <p style="margin: 0; font-size: 13px; color: var(--text-muted);">¿Cuántos boletos al azar deseas comprar?</p>
+                <div class="stepper-box-large">
+                    <button class="stepper-btn-lg" onclick="cambiarCantidadAzar(-1)">−</button>
+                    <span id="azarCantidadVal" class="stepper-val-lg">1</span>
+                    <button class="stepper-btn-lg" onclick="cambiarCantidadAzar(1)">+</button>
+                </div>
+                <p style="font-size: 11px; color: var(--accent-blue); margin: 0;">El sistema elegirá los números al presionar Comprar.</p>
+            </div>
         </div>
     </div>
 
-    <!-- PANEL DE DATOS DE PAGO Y CLIENTE -->
-    <div class="payment-panel">
+    <!-- SECCIÓN DE CHECKOUT / DATOS DE PAGO Y CLIENTE (Paso 2) -->
+    <div id="seccionCheckout" class="checkout-modal">
+        <button class="back-selection-btn" onclick="volverASeleccion()">← Volver a elegir números</button>
+        
         <b style="font-size: 13px; color: #93c5fd;">🏦 Datos de Pago Móvil (Papá):</b>
         <div class="payment-box">
             <div class="bank-detail-row">
@@ -499,12 +519,12 @@
 
         <b style="font-size: 13px; color: #93c5fd; margin-top: 4px;">📝 Tus Datos para Registrar la Compra:</b>
         <div>
-            <label style="font-size: 11px; color: var(--text-muted);">Nombre y Apellido:</label>
-            <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez">
+            <label style="font-size: 11px; color: var(--text-muted);">Nombre y Apellido (*):</label>
+            <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Diego Álvarez">
         </div>
         <div>
-            <label style="font-size: 11px; color: var(--text-muted);">Número de Teléfono:</label>
-            <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
+            <label style="font-size: 11px; color: var(--text-muted);">Número de Teléfono (*):</label>
+            <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04220025814">
         </div>
         <div>
             <label style="font-size: 11px; color: var(--text-muted);">Adjuntar Capture del Pago:</label>
@@ -519,21 +539,23 @@
 
 <!-- Barra Inferior Flotante -->
 <div class="bottom-floating-bar">
-    <div class="selection-summary">
+    <div class="selection-summary" id="resumenBarra">
         <span id="cantSeleccionados">1 seleccionados</span>
         <b id="totalPrecio">Total: 4.000 Bs</b>
     </div>
-    <button class="apartar-btn" onclick="procesarApartar()">Apartar</button>
+    <button class="apartar-btn" id="btnAccion" onclick="manejarBotonPrincipal()">Comprar</button>
 </div>
 
 <!-- Script de Funcionalidad -->
 <script>
     let modoActual = 'manual';
+    let pasoActual = 'seleccion'; // 'seleccion' o 'checkout'
     let inicioRango = 1;
     let finRango = 500;
-    let seleccionados = ["0011"];
-    let cantidadAzar = 5;
+    let seleccionados = ["0007"];
+    let cantidadAzar = 1;
     let precioBoleto = 4000;
+    let numerosFinalesListos = "";
 
     function generarBoletos(inicio, fin) {
         let grid = document.getElementById('gridBoletos');
@@ -581,14 +603,13 @@
             document.getElementById('btnAzar').classList.remove('active');
             document.getElementById('panelManual').style.display = 'flex';
             document.getElementById('panelAzar').style.display = 'none';
-            actualizarResumen();
         } else {
             document.getElementById('btnAzar').classList.add('active');
             document.getElementById('btnManual').classList.remove('active');
             document.getElementById('panelAzar').style.display = 'flex';
             document.getElementById('panelManual').style.display = 'none';
-            actualizarResumenAzar();
         }
+        actualizarResumen();
     }
 
     function cambiarCantidadAzar(delta) {
@@ -596,21 +617,19 @@
         if (cantidadAzar < 1) cantidadAzar = 1;
         if (cantidadAzar > 50) cantidadAzar = 50;
         document.getElementById('azarCantidadVal').innerText = cantidadAzar;
-        actualizarResumenAzar();
-    }
-
-    function actualizarResumenAzar() {
-        let total = cantidadAzar * precioBoleto;
-        document.getElementById('cantSeleccionados').innerText = `${cantidadAzar} al azar`;
-        document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
+        actualizarResumen();
     }
 
     function actualizarResumen() {
-        if(modoActual === 'manual') {
+        if (modoActual === 'manual') {
             let cantidad = seleccionados.length;
             let total = cantidad * precioBoleto;
-            document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
-            document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
+            document.getElementById('cantSeleccionados').innerText = `${cantidad} número(s)`;
+            document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs.`;
+        } else {
+            let total = cantidadAzar * precioBoleto;
+            document.getElementById('cantSeleccionados').innerText = `${cantidadAzar} número(s) al azar`;
+            document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs.`;
         }
     }
 
@@ -654,56 +673,58 @@
         }
     }
 
-    function procesarApartar() {
-        let nombre = document.getElementById('inputNombre').value.trim();
-        let telefono = document.getElementById('inputTelefono').value.trim();
-        let captureInput = document.getElementById('inputCapture');
-
-        if(!nombre || !telefono) {
-            alert("Por favor ingresa tu nombre, apellido y número de teléfono.");
-            return;
-        }
-
-        if(modoActual === 'manual' && seleccionados.length === 0) {
-            alert("Por favor selecciona al menos un boleto manual.");
-            return;
-        }
-
-        if(captureInput.files.length === 0) {
-            let confirmarSinCapture = confirm("⚠️ ATENCIÓN: No has adjuntado el capture del pago. ¿Deseas continuar de todas formas?");
-            if(!confirmarSinCapture) return;
-        }
-
-        // Advertencia obligatoria antes de enviar al chat
-        alert("⚠️ ¡IMPORTANTE! Recuerda enviar obligatoriamente tu capture de pago por el chat de WhatsApp para validar tus boletos.");
-
-        let telefonoPapa = "584246737022";
-        let numerosFinales = "";
-        let totalPagar = 0;
-
-        if(modoActual === 'manual') {
-            numerosFinales = seleccionados.join(', ');
-            totalPagar = seleccionados.length * precioBoleto;
-        } else {
-            // Generar números aleatorios para el modo azar
-            let generados = [];
-            while(generados.length < cantidadAzar) {
-                let rand = Math.floor(Math.random() * 1500) + 1;
-                let strR = String(rand).padStart(4, '0');
-                if(!generados.includes(strR)) generados.push(strR);
+    function manejarBotonPrincipal() {
+        if (pasoActual === 'seleccion') {
+            // Validar si hay selección antes de pasar al checkout
+            if (modoActual === 'manual' && seleccionados.length === 0) {
+                alert("Por favor selecciona al menos un número.");
+                return;
             }
-            numerosFinales = generados.join(', ');
-            totalPagar = cantidadAzar * precioBoleto;
+
+            if (modoActual === 'azar') {
+                let generados = [];
+                while(generados.length < cantidadAzar) {
+                    let rand = Math.floor(Math.random() * 1500) + 1;
+                    let strR = String(rand).padStart(4, '0');
+                    if(!generados.includes(strR)) generados.push(strR);
+                }
+                seleccionados = generados;
+            }
+
+            numerosFinalesListos = seleccionados.join(', ');
+
+            // Cambiar a la pantalla de pago/datos
+            document.getElementById('seccionSeleccion').style.display = 'none';
+            document.getElementById('seccionCheckout').style.display = 'flex';
+            document.getElementById('btnAccion').innerText = "Enviar a WhatsApp";
+            pasoActual = 'checkout';
+        } else {
+            // Validar que complete los datos obligatorios
+            let nombre = document.getElementById('inputNombre').value.trim();
+            let telefono = document.getElementById('inputTelefono').value.trim();
+
+            if (!nombre || !telefono) {
+                alert("⚠️ Debes rellenar tu Nombre, Apellido y Número de Teléfono para continuar.");
+                return;
+            }
+
+            // Advertencia obligatoria e ir a WhatsApp con formato exacto
+            alert("⚠️ ¡IMPORTANTE! Recuerda enviar obligatoriamente tu capture de pago por el chat de WhatsApp.");
+
+            let telefonoPapa = "584246737022";
+            let totalPagar = seleccionados.length * precioBoleto;
+
+            let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ Números elegidos: ${numerosFinalesListos}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
+
+            window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
+    }
 
-        let mensaje = `Hola, quiero apartar mis números para la rifa J.A.
-👤 Nombre: ${nombre}
-📞 Teléfono: ${telefono}
-🎟️ Números: ${numerosFinales}
-💰 Total a pagar: ${totalPagar.toLocaleString()} Bs
-📸 (Ya envié mi capture de pago por aquí).`;
-
-        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+    function volverASeleccion() {
+        document.getElementById('seccionCheckout').style.display = 'none';
+        document.getElementById('seccionSeleccion').style.display = 'block';
+        document.getElementById('btnAccion').innerText = "Comprar";
+        pasoActual = 'seleccion';
     }
 
     // Inicializar
