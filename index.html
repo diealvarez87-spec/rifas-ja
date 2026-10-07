@@ -46,29 +46,32 @@
             position: relative;
         }
 
-        /* Acceso secreto arriba */
+        /* Barra superior con acceso de admin libre de estorbos */
+        .top-bar-admin {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 5px;
+        }
+
         .admin-trigger {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: #c4b5fd;
+            border-radius: 12px;
+            padding: 6px 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
             cursor: pointer;
-            font-size: 14px;
-            z-index: 10;
+            font-size: 12px;
+            font-weight: 700;
             transition: 0.2s;
         }
-        .admin-trigger:hover { background: rgba(139, 92, 246, 0.2); }
+        .admin-trigger:hover { background: rgba(139, 92, 246, 0.3); }
 
         .header-section {
             text-align: center;
-            padding-top: 16px;
+            padding-top: 4px;
             position: relative;
         }
 
@@ -78,8 +81,8 @@
             opacity: 0.6;
             animation: floatDeco 4s ease-in-out infinite;
         }
-        .gift-1 { top: 0; left: 15px; animation-delay: 0s; }
-        .gift-2 { top: 10px; right: 15px; animation-delay: 2s; }
+        .gift-1 { top: 25px; left: 10px; animation-delay: 0s; }
+        .gift-2 { top: 35px; right: 10px; animation-delay: 2s; }
 
         @keyframes floatDeco {
             0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -99,7 +102,7 @@
             padding: 6px 16px;
             border-radius: 30px;
             letter-spacing: 1.2px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
         }
 
@@ -121,6 +124,61 @@
             margin-top: 6px;
             font-weight: 500;
             letter-spacing: 0.3px;
+        }
+
+        /* GUÍA / INSTRUCCIONES PARA CLIENTES */
+        .instructions-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .instructions-title {
+            font-size: 13px;
+            font-weight: 900;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .instruction-steps {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+            padding-left: 16px;
+        }
+
+        .legend-row {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 4px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
         }
 
         .progress-card {
@@ -505,7 +563,6 @@
             white-space: nowrap;
         }
 
-        /* DISEÑO DE LA TARJETA DE COMPROBANTE PARA DESCARGAR (OCULTA) */
         #ticketCanvasContainer {
             position: absolute;
             left: -9999px;
@@ -523,7 +580,7 @@
             text-align: center;
         }
 
-        /* VENTANAS MODALES PREMIUM */
+        /* MODALES */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -632,13 +689,18 @@
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
         .btn-confirm { background: linear-gradient(135deg, var(--accent-green), #059669); color: #fff; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
     </style>
-    <!-- Librería para generar la imagen descargable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
 <div class="main-container">
-    <div class="admin-trigger" onclick="pedirPasswordAdmin()" title="Panel de Control">🔐</div>
+    <!-- Botón de Administrador Libre y Visible arriba -->
+    <div class="top-bar-admin">
+        <div class="admin-trigger" onclick="pedirPasswordAdmin()">
+            🔐 Admin
+        </div>
+    </div>
+
     <div class="floating-gift-bg gift-1">🎁</div>
     <div class="floating-gift-bg gift-2">✨</div>
 
@@ -646,6 +708,21 @@
         <div class="badge-banner">🌟 Gran Sorteo Exclusivo 🌟</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="subtitle">¡Compra tu boleto y gana increíbles premios!</div>
+    </div>
+
+    <!-- GUÍA RÁPIDA PARA CLIENTES -->
+    <div class="instructions-card">
+        <div class="instructions-title">💡 ¿Cómo participar?</div>
+        <ol class="instruction-steps">
+            <li>Elige tus números favoritos tocándolos en la cuadrícula o usa la opción al azar.</li>
+            <li>Haz clic en <b>Comprar Boletos</b> y realiza tu Pago Móvil.</li>
+            <li>Adjunta tu capture, llena tus datos y envíalos por WhatsApp para asegurar tus números.</li>
+        </ol>
+        <div class="legend-row">
+            <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.2);"></div> Disponible</div>
+            <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan);"></div> Seleccionado</div>
+            <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.4);"></div> Vendido</div>
+        </div>
     </div>
 
     <div class="progress-card">
@@ -725,9 +802,7 @@
         
         <input type="text" id="adminSearchInput" class="search-input" placeholder="🔍 Buscar por nombre de cliente..." onkeyup="filtrarClientesAdmin(this.value)">
         
-        <div id="adminClientsList" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-            <!-- Se llena dinámicamente -->
-        </div>
+        <div id="adminClientsList" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"></div>
     </div>
 </div>
 
@@ -1079,7 +1154,6 @@
         if (comprador) comprador.cantidad += seleccionados.length;
         else podioCompradores.push({ nombre: nombre, cantidad: seleccionados.length });
 
-        // Guardar en el registro de clientes para el panel admin
         registroClientes.push({ nombre: nombre, telefono: telefono, numeros: numerosFinales });
 
         localStorage.setItem('rifas_ja_vendidos', JSON.stringify(vendidos));
@@ -1100,10 +1174,9 @@
         actualizarResumen();
     }
 
-    // --- PANEL DE CONTROL ADMIN Y DESCARGA DE IMAGEN ---
     function pedirPasswordAdmin() {
         let pass = prompt("🔐 Ingresa la contraseña de administrador:");
-        if (pass === "admin123") { // Puedes cambiar "admin123" por la contraseña que quieras
+        if (pass === "admin123") {
             abrirAdminPanel();
         } else if (pass !== null) {
             alert("❌ Contraseña incorrecta.");
@@ -1126,7 +1199,7 @@
             return;
         }
 
-        container.innerHTML = lista.map((cli, index) => `
+        container.innerHTML = lista.map((cli) => `
             <div class="client-admin-card">
                 <div class="client-info">
                     <b>${cli.nombre}</b>
@@ -1163,7 +1236,6 @@
         generarBoletos(inicioRango, finRango);
     });
 
-    // Inicializar app
     generarBoletos(1, 500);
     actualizarProgreso();
     actualizarResumen();
