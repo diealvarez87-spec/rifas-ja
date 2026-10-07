@@ -16,6 +16,7 @@
             --whatsapp-green: #25d366;
             --accent-blue: #007bff;
             --accent-gold: #d4af37;
+            --accent-red: #dc3545;
         }
 
         body {
@@ -143,66 +144,141 @@
             text-decoration: none;
             font-size: 16px;
             box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .btn-open-admin {
+            display: block;
+            width: 100%;
+            background: #444;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
         }
 
         .divider {
             border: 0;
             border-top: 1px solid var(--border-color);
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
-        /* Panel de Administrador Ampliado y Cómodo */
-        .admin-panel {
-            background: var(--surface-card);
-            padding: 20px;
-            border-radius: 12px;
-            border: 2px solid #444444;
-        }
-
-        .admin-panel h3 {
-            margin-top: 0;
-            text-align: center;
-            color: #ffffff;
-            font-size: 18px;
-            margin-bottom: 18px;
-        }
-
-        .form-row {
-            margin-bottom: 14px;
-        }
-
-        .form-row label {
-            display: block;
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 6px;
-            color: #dddddd;
-        }
-
-        .form-row input {
+        /* --- MODAL DE ADMINISTRACIÓN AMPLIADO A PANTALLA COMPLETA EN MÓVIL --- */
+        #adminModal {
+            display: none; /* Cambiar a flex para mostrar */
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 12px;
-            background: #161616;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
             box-sizing: border-box;
-            font-size: 16px; /* Evita zoom automático molesto en iPhone/Android */
-            color: var(--text-main);
         }
 
-        .btn-generate {
+        .admin-content-large {
+            background: var(--surface-card);
             width: 100%;
-            background: var(--accent-blue);
+            max-width: 550px;
+            height: 90vh; /* Ocupa casi toda la altura de la pantalla */
+            max-height: 700px;
+            border-radius: 16px;
+            border: 2px solid #555;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .admin-header h3 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .btn-close-modal {
+            background: var(--accent-red);
             color: white;
             border: none;
-            padding: 14px;
+            padding: 8px 14px;
             border-radius: 8px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: 10px;
+            font-size: 14px;
         }
 
+        .admin-search {
+            width: 100%;
+            padding: 14px;
+            background: #161616;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .admin-list-container {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: #161616;
+            padding: 10px;
+        }
+
+        .admin-item {
+            background: #222;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #333;
+        }
+
+        .admin-item-info b {
+            color: var(--accent-gold);
+            font-size: 16px;
+        }
+
+        .admin-item-info p {
+            margin: 4px 0 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .btn-ticket-action {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Vista previa de ticket */
         #ticketPreview {
             display: none;
             width: 100%;
@@ -244,34 +320,8 @@
 
     <a href="#" id="whatsappBtn" class="btn-whatsapp" onclick="enviarWhatsApp(event)">Apartar por WhatsApp 📱</a>
 
-    <hr class="divider">
-
-    <!-- Panel de Administrador Ampliado -->
-    <div class="admin-panel">
-        <h3>🔐 Panel de Control (Generar Ticket)</h3>
-        
-        <div class="form-row">
-            <label>Número de Boleto:</label>
-            <input type="text" id="ticketNum" placeholder="Ej. 3151">
-        </div>
-
-        <div class="form-row">
-            <label>Nombre Completo:</label>
-            <input type="text" id="ticketNombre" placeholder="Ej. Jose Alvarez">
-        </div>
-
-        <div class="form-row">
-            <label>Cédula:</label>
-            <input type="text" id="ticketCedula" placeholder="Ej. V-18483754">
-        </div>
-
-        <div class="form-row">
-            <label>Teléfono:</label>
-            <input type="text" id="ticketTelef" placeholder="Ej. 04246737022">
-        </div>
-
-        <button class="btn-generate" onclick="generarTicketVisual()">Generar Ticket 🎫</button>
-    </div>
+    <!-- Botón para abrir el panel de administración grande -->
+    <button class="btn-open-admin" onclick="abrirAdmin()">🛠️ Abrir Panel de Administración</button>
 
     <div id="ticketPreview">
         <h2 style="color: #000; margin: 0 0 10px 0; border-bottom: 2px solid #ccc; padding-bottom: 8px; font-size: 20px;">Boleto: <span id="outBoleto">3151</span></h2>
@@ -291,7 +341,50 @@
             8a6b8187a5e337e0a7f4d8ecaa7de8615574908
         </div>
     </div>
+</div>
 
+<!-- MODAL GRANDE DE ADMINISTRACIÓN -->
+<div id="adminModal">
+    <div class="admin-content-large">
+        <div class="admin-header">
+            <h3>🛠️ Administración de Boletos</h3>
+            <button class="btn-close-modal" onclick="cerrarAdmin()">Cerrar ✕</button>
+        </div>
+
+        <input type="text" id="adminSearchInput" class="admin-search" placeholder="🔍 Busca por nombre, teléfono o número..." onkeyup="filtrarAdminLista()">
+
+        <div class="admin-list-container" id="adminListContainer">
+            <!-- Ejemplo de elementos (puedes conectar con tus datos reales) -->
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1421</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="verTicket('1421', 'Yelimar Partidas', '04140663373')">Ticket 🎫</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 1442</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="verTicket('1442', 'Yelimar Partidas', '04140663373')">Ticket 🎫</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 0069</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="verTicket('0069', 'Yelimar Partidas', '04140663373')">Ticket 🎫</button>
+            </div>
+            <div class="admin-item">
+                <div class="admin-item-info">
+                    <b>N° 0096</b> — Yelimar Partidas
+                    <p>📞 04140663373</p>
+                </div>
+                <button class="btn-ticket-action" onclick="verTicket('0096', 'Yelimar Partidas', '04140663373')">Ticket 🎫</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -335,15 +428,32 @@
         document.getElementById('whatsappBtn').href = `https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`;
     }
 
-    function generarTicketVisual() {
-        let num = document.getElementById('ticketNum').value || "000";
-        let nombre = document.getElementById('ticketNombre').value || "Cliente";
-        let cedula = document.getElementById('ticketCedula').value || "V-0000000";
-        let telef = document.getElementById('ticketTelef').value || "04246737022";
+    // Funciones del Modal de Admin Grande
+    function abrirAdmin() {
+        document.getElementById('adminModal').style.display = 'flex';
+    }
 
+    function cerrarAdmin() {
+        document.getElementById('adminModal').style.display = 'none';
+    }
+
+    function filtrarAdminLista() {
+        let filtro = document.getElementById('adminSearchInput').value.toLowerCase();
+        let items = document.getElementsByClassName('admin-item');
+        for (let i = 0; i < items.length; i++) {
+            let texto = items[i].innerText.toLowerCase();
+            if (texto.includes(filtro)) {
+                items[i].style.display = "flex";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+
+    function verTicket(num, nombre, telef) {
+        cerrarAdmin();
         document.getElementById('outBoleto').innerText = num;
         document.getElementById('outNombre').innerText = nombre;
-        document.getElementById('outCedula').innerText = cedula;
         document.getElementById('outTelef').innerText = telef;
 
         let d = new Date();
