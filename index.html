@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
+    <!-- Firebase SDK Compat -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         :root {
             --bg-base: #060919;
@@ -47,14 +51,9 @@
 
         .top-bar {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-bottom: -6px;
-        }
-
-        .top-actions {
-            display: flex;
-            gap: 8px;
         }
 
         .icon-btn {
@@ -516,17 +515,12 @@
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: #fff; }
         .btn-confirm { background: linear-gradient(135deg, var(--accent-green-bright), #047857); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
 <div class="main-container">
     <div class="top-bar">
-        <!-- Botón de recarga manual instantánea -->
-        <button class="icon-btn" onclick="sincronizarDatos()" title="Sincronizar ahora">🔄</button>
-        <div class="top-actions">
-            <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
-        </div>
+        <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
     <div class="header-section">
@@ -703,6 +697,20 @@
 </div>
 
 <script>
+    // Configuración de Firebase conectada a tu consola
+    const firebaseConfig = {
+        apiKey: "AIzaSyArfoxBaXLenQCr5byFQL-HoT7XWN-pkUU",
+        authDomain: "rifasja-7606f.firebaseapp.com",
+        databaseURL: "https://rifasja-7606f-default-rtdb.firebaseio.com",
+        projectId: "rifasja-7606f",
+        storageBucket: "rifasja-7606f.firebasestorage.app",
+        messagingSenderId: "543622013602",
+        appId: "1:543622013602:web:7b2e0d25d94c3e9eab2dfb"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
     let modoActual = 'manual';
     let cantidadDeseada = 3;
     let precioBoleto = 4000;
@@ -710,21 +718,30 @@
     let inicioRango = 1;
     let finRango = 500;
     let tieneCapture = false;
-    let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-    let podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
-    let registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
+    let vendidos = [];
+    let podioCompradores = [];
+    let registroClientes = [];
 
-    function sincronizarDatos() {
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
-        registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
-        
-        if(modoActual === 'manual') {
+    // ESCUCHAR CAMBIOS EN TIEMPO REAL CONECTADO AL NODO 'vendidos'
+    db.ref('vendidos').on('value', (snapshot) => {
+        let data = snapshot.val();
+        vendidos = data ? Object.values(data) : [];
+        if (modoActual === 'manual') {
             generarBoletos(inicioRango, finRango);
         }
         actualizarProgreso();
-        actualizarResumen();
-    }
+    });
+
+    db.ref('rifas_ja_podio').on('value', (snapshot) => {
+        let data = snapshot.val();
+        podioCompradores = data ? Object.values(data) : [];
+        actualizarPodioUI();
+    });
+
+    db.ref('rifas_ja_clientes').on('value', (snapshot) => {
+        let data = snapshot.val();
+        registroClientes = data ? Object.values(data) : [];
+    });
 
     function toggleInstrucciones() {
         let content = document.getElementById('infoContentBox');
@@ -768,14 +785,10 @@
     }
 
     function actualizarProgreso() {
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
-
         let totalVendidos = vendidos.length;
         let porcentaje = Math.max(1, Math.round((totalVendidos / 1500) * 100));
         document.getElementById('porcentajeProgreso').innerText = porcentaje + '%';
         document.getElementById('barraProgresoFill').style.width = porcentaje + '%';
-        actualizarPodioUI();
     }
 
     function actualizarPodioUI() {
@@ -812,7 +825,6 @@
     }
 
     function generarBoletos(inicio, fin) {
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         let grid = document.getElementById('gridBoletos');
         let fragment = document.createDocumentFragment();
         for (let i = inicio; i <= fin; i++) {
@@ -840,7 +852,6 @@
         }
         grid.innerHTML = '';
         grid.appendChild(fragment);
-        actualizarProgreso();
     }
 
     function seleccionarRango(inicio, fin) {
@@ -854,7 +865,6 @@
     }
 
     function filtrarNumero(query) {
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         if(!query) { generarBoletos(inicioRango, finRango); return; }
         let grid = document.getElementById('gridBoletos');
         let fragment = document.createDocumentFragment();
@@ -887,7 +897,6 @@
     }
 
     function abrirModalPago() {
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
         if (modoActual === 'azar') {
             seleccionados = [];
             let disponibles = [];
@@ -966,18 +975,23 @@
         let numerosFinales = [...seleccionados].sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
-        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        seleccionados.forEach(num => { if (!vendidos.includes(num)) vendidos.png = vendidos.push(num); });
+        // GUARDAR DIRECTO EN FIREBASE
+        seleccionados.forEach(num => {
+            if (!vendidos.includes(num)) vendidos.push(num);
+        });
 
         let comprador = podioCompradores.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
-        if (comprador) comprador.cantidad += seleccionados.length;
-        else podioCompradores.push({ nombre: nombre, cantidad: seleccionados.length });
+        if (comprador) {
+            comprador.cantidad += seleccionados.length;
+        } else {
+            podioCompradores.push({ nombre: nombre, cantidad: seleccionados.length });
+        }
 
         registroClientes.push({ nombre: nombre, telefono: telefono, numeros: numerosFinales });
 
-        localStorage.setItem('rifas_ja_vendidos', JSON.stringify(vendidos));
-        localStorage.setItem('rifas_ja_podio', JSON.stringify(podioCompradores));
-        localStorage.setItem('rifas_ja_clientes', JSON.stringify(registroClientes));
+        db.ref('vendidos').set(vendidos);
+        db.ref('rifas_ja_podio').set(podioCompradores);
+        db.ref('rifas_ja_clientes').set(registroClientes);
 
         let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
         window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
@@ -987,8 +1001,8 @@
         resetearCapture();
         document.getElementById('inputNombre').value = '';
         document.getElementById('inputTelefono').value = '';
-        
-        sincronizarDatos();
+        actualizarResumen();
+        generarBoletos(inicioRango, finRango);
     }
 
     function pedirPasswordAdmin() {
@@ -1006,7 +1020,7 @@
 
     function renderizarClientesAdmin(lista) {
         let container = document.getElementById('adminClientsList');
-        if (lista.length === 0) {
+        if (!lista || lista.length === 0) {
             container.innerHTML = `<p style="text-align:center; color: var(--text-muted);">No hay compradores registrados todavía.</p>`;
             return;
         }
@@ -1023,7 +1037,6 @@
     }
 
     function filtrarClientesAdmin(query) {
-        registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
         let filtrados = registroClientes.filter(c => c.nombre.toLowerCase().includes(query.toLowerCase()) || c.numeros.includes(query));
         renderizarClientesAdmin(filtrados);
     }
@@ -1042,15 +1055,8 @@
         });
     }
 
-    // Sincronización automática cada 3 segundos
-    setInterval(sincronizarDatos, 3000);
-
-    window.addEventListener('focus', function() {
-        sincronizarDatos();
-    });
-
+    // Inicializar visualización base
     generarBoletos(1, 500);
-    actualizarProgreso();
     actualizarResumen();
 </script>
 
