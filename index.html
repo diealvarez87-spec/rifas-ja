@@ -45,7 +45,6 @@
             position: relative;
         }
 
-        /* Cabecera superior */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -53,7 +52,12 @@
             margin-bottom: -6px;
         }
 
-        .admin-trigger {
+        .top-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.12);
             color: #fff;
@@ -68,7 +72,7 @@
             transition: 0.2s;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .admin-trigger:hover { background: rgba(139, 92, 246, 0.25); border-color: #8b5cf6; }
+        .icon-btn:hover { background: rgba(139, 92, 246, 0.25); border-color: #8b5cf6; }
 
         .header-section {
             text-align: center;
@@ -112,7 +116,6 @@
             letter-spacing: 0.3px;
         }
 
-        /* SECCIÓN DESPLEGABLE DE INSTRUCCIONES (ACORDEÓN) */
         .info-dropdown-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -159,7 +162,6 @@
         .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #cbd5e1; }
         .legend-dot { width: 10px; height: 10px; border-radius: 4px; }
 
-        /* TARJETA DE PROGRESO */
         .progress-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -176,7 +178,6 @@
         .progress-bar-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.06); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.04); }
         .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--accent-green-bright), var(--accent-cyan)); box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); transition: width 0.4s ease; border-radius: 6px; }
 
-        /* PANEL DE SELECCIÓN */
         .selection-panel {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -220,7 +221,6 @@
 
         #manualSection, #azarSection { display: flex; flex-direction: column; gap: 14px; }
 
-        /* BOTÓN DE RETORNO EN MODO AL AZAR */
         .back-to-manual-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
@@ -311,7 +311,6 @@
             box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
         }
 
-        /* CUADRÍCULA DE NÚMEROS LIMPIA Y MODERNA */
         .tickets-grid {
             max-height: 220px;
             overflow-y: auto;
@@ -354,7 +353,6 @@
             opacity: 0.75;
         }
 
-        /* BARRA INFERIOR FLOTANTE */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -388,7 +386,6 @@
         }
         .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-        /* PODIO */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -443,7 +440,6 @@
         .podium-name-txt { font-size: 12px; font-weight: 800; color: #fff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
         .podium-tickets-txt { font-size: 11px; font-weight: 900; color: var(--accent-green-bright); margin: 0; }
 
-        /* PANEL ADMIN */
         #adminPanelScreen {
             display: none;
             position: fixed;
@@ -483,7 +479,6 @@
             color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
-        /* MODALES */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(3, 7, 18, 0.88); backdrop-filter: blur(10px);
@@ -526,10 +521,12 @@
 <body>
 
 <div class="main-container">
-    <!-- BARRA SUPERIOR CON EL CANDADO ADMIN -->
     <div class="top-bar">
-        <div></div>
-        <div class="admin-trigger" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
+        <!-- Botón de recarga manual instantánea -->
+        <button class="icon-btn" onclick="sincronizarDatos()" title="Sincronizar ahora">🔄</button>
+        <div class="top-actions">
+            <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
+        </div>
     </div>
 
     <div class="header-section">
@@ -538,7 +535,6 @@
         <div class="subtitle">¡Compra tu boleto y gana increíbles premios!</div>
     </div>
 
-    <!-- INSTRUCCIONES EN MENÚ DESPLEGABLE (ACORDEÓN) -->
     <div class="info-dropdown-card">
         <button class="info-dropdown-btn" onclick="toggleInstrucciones()">
             <span>📖 ¿Cómo participar? (Toca para ver)</span>
@@ -568,7 +564,6 @@
         </div>
     </div>
 
-    <!-- PANEL DE SELECCIÓN -->
     <div class="selection-panel">
         <div class="panel-heading-title">🎯 SELECCIONA TUS BOLETOS</div>
         
@@ -577,7 +572,6 @@
             <div id="tabAzar" class="mode-tab" onclick="cambiarModo('azar')">🔀 AL AZAR</div>
         </div>
 
-        <!-- SECCIÓN MANUAL -->
         <div id="manualSection">
             <input type="text" id="inputBuscador" class="search-input" placeholder="🔍 Buscar número (ej. 0145)..." onkeyup="filtrarNumero(this.value)">
             <div class="ranges-row">
@@ -588,7 +582,6 @@
             <div class="tickets-grid" id="gridBoletos"></div>
         </div>
 
-        <!-- SECCIÓN AL AZAR -->
         <div id="azarSection">
             <button class="back-to-manual-btn" onclick="cambiarModo('manual')">← Volver / Elegir Manualmente</button>
             <div class="lucky-promo-box">
@@ -606,7 +599,6 @@
         </div>
     </div>
 
-    <!-- PODIO -->
     <div class="podium-card">
         <div class="podium-icon-top">🏆</div>
         <div class="podium-title-area">
@@ -617,7 +609,6 @@
     </div>
 </div>
 
-<!-- BARRA INFERIOR FLOTANTE -->
 <div class="bottom-floating-bar">
     <div class="selection-summary">
         <span id="cantSeleccionados">0 seleccionados</span>
@@ -626,7 +617,6 @@
     <button class="buy-btn" onclick="abrirModalPago()">Comprar Boletos</button>
 </div>
 
-<!-- PANTALLA COMPLETA PANEL ADMIN -->
 <div id="adminPanelScreen">
     <div class="admin-table-container">
         <div class="admin-header">
@@ -638,7 +628,6 @@
     </div>
 </div>
 
-<!-- TICKET OCULTO PARA DESCARGA -->
 <div id="ticketCanvasContainer">
     <div id="ticketReceiptCard" class="ticket-receipt-card">
         <h2 style="color: #38bdf8; margin: 0 0 5px 0;">RIFAS J.A.</h2>
@@ -655,7 +644,6 @@
     </div>
 </div>
 
-<!-- MODALES DE PAGO -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
@@ -725,6 +713,18 @@
     let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
     let podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
     let registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
+
+    function sincronizarDatos() {
+        vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
+        podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
+        registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
+        
+        if(modoActual === 'manual') {
+            generarBoletos(inicioRango, finRango);
+        }
+        actualizarProgreso();
+        actualizarResumen();
+    }
 
     function toggleInstrucciones() {
         let content = document.getElementById('infoContentBox');
@@ -967,7 +967,7 @@
         let totalPagar = seleccionados.length * precioBoleto;
 
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        seleccionados.forEach(num => { if (!vendidos.includes(num)) vendidos.push(num); });
+        seleccionados.forEach(num => { if (!vendidos.includes(num)) vendidos.png = vendidos.push(num); });
 
         let comprador = podioCompradores.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
         if (comprador) comprador.cantidad += seleccionados.length;
@@ -988,9 +988,7 @@
         document.getElementById('inputNombre').value = '';
         document.getElementById('inputTelefono').value = '';
         
-        actualizarProgreso();
-        generarBoletos(inicioRango, finRango);
-        actualizarResumen();
+        sincronizarDatos();
     }
 
     function pedirPasswordAdmin() {
@@ -1044,9 +1042,11 @@
         });
     }
 
+    // Sincronización automática cada 3 segundos
+    setInterval(sincronizarDatos, 3000);
+
     window.addEventListener('focus', function() {
-        actualizarProgreso();
-        generarBoletos(inicioRango, finRango);
+        sincronizarDatos();
     });
 
     generarBoletos(1, 500);
