@@ -6,25 +6,26 @@
     <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
     <style>
         :root {
-            --bg-base: #030712;
-            --card-bg: rgba(13, 20, 36, 0.85);
-            --card-border: rgba(99, 102, 241, 0.3);
-            --accent-green: #10b981;
+            --bg-base: #060919;
+            --card-bg: rgba(18, 27, 51, 0.75);
+            --card-border: rgba(99, 102, 241, 0.22);
+            --accent-green: #059669;
+            --accent-green-bright: #10b981;
             --accent-cyan: #06b6d4;
             --text-main: #ffffff;
-            --text-muted: #cbd5e1;
-            --input-bg: rgba(7, 11, 20, 0.95);
-            --badge-red: rgba(239, 68, 68, 0.2);
-            --badge-red-border: rgba(239, 68, 68, 0.5);
+            --text-muted: #94a3b8;
+            --input-bg: rgba(10, 15, 30, 0.9);
+            --badge-red: rgba(239, 68, 68, 0.15);
+            --badge-red-border: rgba(239, 68, 68, 0.4);
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, #0b1329 0%, #030712 100%);
+                radial-gradient(circle at 15% 10%, rgba(139, 92, 246, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 85% 90%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+                linear-gradient(135deg, #030712 0%, #080d21 100%);
             color: var(--text-main);
             margin: 0;
             padding: 16px;
@@ -36,7 +37,7 @@
 
         .main-container {
             width: 100%;
-            max-width: 430px;
+            max-width: 420px;
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -44,239 +45,202 @@
             position: relative;
         }
 
-        /* Barra superior minimalista solo con el candado */
-        .top-bar-admin {
+        /* Cabecera superior */
+        .top-bar {
             display: flex;
-            justify-content: flex-end;
-            margin-bottom: -10px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: -6px;
         }
 
         .admin-trigger {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--card-border);
-            color: #ffffff;
-            border-radius: 50%;
-            width: 38px;
-            height: 38px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border-radius: 12px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             font-size: 16px;
             transition: 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
-        .admin-trigger:hover { background: rgba(139, 92, 246, 0.3); border-color: #8b5cf6; }
+        .admin-trigger:hover { background: rgba(139, 92, 246, 0.25); border-color: #8b5cf6; }
 
         .header-section {
             text-align: center;
-            padding-top: 2px;
             position: relative;
-        }
-
-        .floating-gift-bg {
-            position: absolute;
-            font-size: 28px;
-            opacity: 0.8;
-            animation: floatDeco 4s ease-in-out infinite;
-        }
-        .gift-1 { top: 5px; left: 10px; animation-delay: 0s; }
-        .gift-2 { top: 15px; right: 10px; animation-delay: 2s; }
-
-        @keyframes floatDeco {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-8px) rotate(8deg); }
         }
 
         .badge-banner {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(6, 182, 212, 0.25));
-            border: 1px solid rgba(139, 92, 246, 0.5);
-            color: #ffffff;
-            font-size: 12px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(6, 182, 212, 0.25));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #34d399;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            padding: 7px 18px;
+            padding: 6px 16px;
             border-radius: 30px;
             letter-spacing: 1.2px;
             margin-bottom: 10px;
-            box-shadow: 0 0 20px rgba(139, 92, 246, 0.25);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
         }
 
         .main-title {
-            font-size: 42px;
+            font-size: 40px;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(135deg, #ffffff 20%, #38bdf8 60%, #818cf8 100%);
+            background: linear-gradient(135deg, #ffffff 20%, #34d399 60%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px;
-            filter: drop-shadow(0 4px 16px rgba(56, 189, 248, 0.4));
+            letter-spacing: 1.2px;
+            filter: drop-shadow(0 4px 16px rgba(16, 185, 129, 0.3));
             text-transform: uppercase;
         }
 
         .subtitle {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
             margin-top: 6px;
             font-weight: 600;
-            letter-spacing: 0.4px;
+            letter-spacing: 0.3px;
         }
 
-        /* GUÍA PARA CLIENTES MEJORADA */
-        .instructions-card {
+        /* SECCIÓN DESPLEGABLE DE INSTRUCCIONES (ACORDEÓN) */
+        .info-dropdown-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            border-radius: 18px;
+            overflow: hidden;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
 
-        .instructions-title {
-            font-size: 14px;
-            font-weight: 900;
+        .info-dropdown-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 14px 18px;
             color: #38bdf8;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             letter-spacing: 0.5px;
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        .instruction-steps {
-            font-size: 13px;
-            color: #e2e8f0;
-            line-height: 1.5;
-            margin: 0;
-            padding-left: 18px;
-            font-weight: 500;
+        .info-content {
+            display: none;
+            padding: 0 18px 16px 18px;
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.6;
         }
+        .info-content ol { margin: 0; padding-left: 16px; font-weight: 500; }
 
         .legend-row {
             display: flex;
             justify-content: space-around;
-            margin-top: 4px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.06);
             padding-top: 10px;
         }
 
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #ffffff;
-        }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #cbd5e1; }
+        .legend-dot { width: 10px; height: 10px; border-radius: 4px; }
 
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 4px;
-        }
-
+        /* TARJETA DE PROGRESO */
         .progress-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 22px;
+            border-radius: 20px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            font-weight: 800;
-            color: #ffffff;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 9px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 6px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .progress-bar-fill {
-            width: 1%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-            transition: width 0.4s ease;
-            border-radius: 6px;
-        }
+        .progress-header { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #fff; }
+        .progress-bar-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.06); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.04); }
+        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--accent-green-bright), var(--accent-cyan)); box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); transition: width 0.4s ease; border-radius: 6px; }
 
         /* PANEL DE SELECCIÓN */
         .selection-panel {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 22px;
+            border-radius: 20px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
-        .panel-heading-title {
-            font-size: 16px;
-            font-weight: 900;
-            text-align: center;
-            color: #ffffff;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
+        .panel-heading-title { font-size: 14px; font-weight: 900; text-align: center; color: #fff; letter-spacing: 0.8px; text-transform: uppercase; }
 
         .mode-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: rgba(4, 7, 14, 0.95);
+            background: rgba(5, 8, 18, 0.95);
             border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 5px;
-            gap: 6px;
+            border-radius: 14px;
+            padding: 4px;
+            gap: 4px;
         }
 
         .mode-tab {
             text-align: center;
-            padding: 12px;
-            font-size: 14px;
+            padding: 11px;
+            font-size: 12px;
             font-weight: 800;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            color: #94a3b8;
+            color: var(--text-muted);
             transition: 0.3s;
         }
 
         .mode-tab.active {
-            background: linear-gradient(135deg, var(--accent-green), #059669);
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             color: #fff;
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
+            box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
         }
 
-        #manualSection, #azarSection {
+        #manualSection, #azarSection { display: flex; flex-direction: column; gap: 14px; }
+
+        /* BOTÓN DE RETORNO EN MODO AL AZAR */
+        .back-to-manual-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #38bdf8;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
             display: flex;
-            flex-direction: column;
-            gap: 14px;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: 0.2s;
         }
+        .back-to-manual-btn:hover { background: rgba(56, 189, 248, 0.15); border-color: #38bdf8; }
 
         .lucky-promo-box {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid rgba(139, 92, 246, 0.4);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.12));
+            border: 1px solid rgba(16, 185, 129, 0.3);
             border-radius: 16px;
             padding: 16px;
             display: flex;
@@ -285,21 +249,12 @@
             text-align: center;
         }
 
-        .lucky-promo-title {
-            font-size: 14px;
-            font-weight: 900;
-            color: #ffffff;
-            letter-spacing: 0.8px;
-        }
+        .lucky-promo-title { font-size: 13px; font-weight: 900; color: #34d399; letter-spacing: 0.8px; }
 
-        .qtys-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
+        .qtys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
         .qty-box {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--card-border);
             border-radius: 14px;
             padding: 14px 0;
@@ -311,10 +266,10 @@
             gap: 2px;
         }
 
-        .qty-box span:first-child { font-size: 20px; font-weight: 900; color: #ffffff; }
-        .qty-box span:last-child { font-size: 11px; font-weight: 700; color: #e2e8f0; text-transform: uppercase; }
+        .qty-box span:first-child { font-size: 18px; font-weight: 900; color: #fff; }
+        .qty-box span:last-child { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .qty-box.active {
-            background: linear-gradient(135deg, var(--accent-green), #059669);
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             border-color: #34d399;
             box-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
         }
@@ -325,30 +280,26 @@
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 13px 16px;
             color: white;
-            font-size: 14px;
+            font-size: 13px;
             box-sizing: border-box;
             outline: none;
             transition: 0.2s;
         }
         .search-input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(6, 182, 212, 0.3); }
 
-        .ranges-row {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
+        .ranges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
         .range-tab {
             background: var(--input-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 11px 6px;
+            padding: 10px 6px;
             text-align: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
-            color: #cbd5e1;
+            color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
         }
@@ -360,31 +311,33 @@
             box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
         }
 
+        /* CUADRÍCULA DE NÚMEROS LIMPIA Y MODERNA */
         .tickets-grid {
             max-height: 220px;
             overflow-y: auto;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 9px;
-            background: rgba(3, 7, 18, 0.75);
+            gap: 8px;
+            background: rgba(3, 5, 12, 0.85);
             padding: 12px;
             border-radius: 16px;
-            border: 1px solid var(--card-border);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .ticket-cell {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 12px 0;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 11px 0;
             text-align: center;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
-            color: #ffffff;
+            color: #cbd5e1;
             user-select: none;
             transition: 0.15s;
         }
+        .ticket-cell:hover { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.2); }
 
         .ticket-cell.selected {
             background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
@@ -398,14 +351,14 @@
             color: #f87171;
             border-color: var(--badge-red-border);
             cursor: not-allowed;
-            opacity: 0.8;
+            opacity: 0.75;
         }
 
         /* BARRA INFERIOR FLOTANTE */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(3, 7, 18, 0.96);
+            background: rgba(4, 7, 17, 0.96);
             backdrop-filter: blur(16px);
             border-top: 1px solid var(--card-border);
             padding: 14px 20px;
@@ -417,94 +370,78 @@
             box-shadow: 0 -10px 30px rgba(0,0,0,0.6);
         }
 
-        .selection-summary { font-size: 13px; color: #cbd5e1; font-weight: 600; }
-        .selection-summary b { display: block; font-size: 16px; color: #38bdf8; }
+        .selection-summary { font-size: 12px; color: var(--text-muted); font-weight: 600; }
+        .selection-summary b { display: block; font-size: 15px; color: #38bdf8; }
 
-        .apartar-btn {
-            background: linear-gradient(135deg, var(--accent-green), #059669);
+        .buy-btn {
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             color: #fff;
             border: none;
             border-radius: 14px;
-            padding: 13px 28px;
-            font-size: 15px;
+            padding: 13px 26px;
+            font-size: 14px;
             font-weight: 900;
             cursor: pointer;
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
             transition: 0.2s;
+            letter-spacing: 0.5px;
         }
-        .apartar-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
         /* PODIO */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            border-radius: 22px;
-            padding: 22px 16px;
+            border-radius: 20px;
+            padding: 20px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             gap: 14px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .podium-icon-top {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid rgba(16, 185, 129, 0.35);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             font-size: 18px;
         }
 
-        .podium-title-area h3 { font-size: 18px; font-weight: 900; color: #ffffff; margin: 0 0 4px 0; }
-        .podium-title-area p { font-size: 13px; color: #cbd5e1; margin: 0; font-weight: 500; }
+        .podium-title-area h3 { font-size: 17px; font-weight: 900; color: #fff; margin: 0 0 4px 0; }
+        .podium-title-area p { font-size: 12px; color: var(--text-muted); margin: 0; font-weight: 500; }
 
-        .podium-podiums-container {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 18px;
-            width: 100%;
-            margin-top: 10px;
-        }
-
+        .podium-podiums-container { display: flex; justify-content: center; align-items: flex-end; gap: 18px; width: 100%; margin-top: 10px; }
         .podium-item-ref { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 
         .podium-avatar-ring {
-            width: 55px;
-            height: 55px;
+            width: 52px; height: 52px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 16px;
-            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 15px; position: relative;
         }
 
-        .podium-item-ref.rank-1-wrapper { transform: translateY(-12px); }
+        .podium-item-ref.rank-1-wrapper { transform: translateY(-10px); }
         .podium-item-ref.rank-1-wrapper .podium-avatar-ring {
-            width: 68px;
-            height: 68px;
-            border: 3px solid var(--accent-green);
+            width: 64px; height: 64px;
+            border: 3px solid var(--accent-green-bright);
             background: rgba(16, 185, 129, 0.1);
-            color: var(--accent-green);
-            box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
-            font-size: 20px;
+            color: var(--accent-green-bright);
+            box-shadow: 0 0 18px rgba(16, 185, 129, 0.4);
+            font-size: 18px;
         }
 
         .podium-item-ref.rank-2-wrapper .podium-avatar-ring { border: 2px solid #cbd5e1; background: rgba(203, 213, 225, 0.1); color: #cbd5e1; }
         .podium-item-ref.rank-3-wrapper .podium-avatar-ring { border: 2px solid #d97706; background: rgba(217, 119, 6, 0.1); color: #d97706; }
 
-        .podium-crown { position: absolute; top: -16px; font-size: 16px; }
-        .podium-badge-tag { font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.1); color: #ffffff; }
-        .podium-name-txt { font-size: 13px; font-weight: 800; color: #ffffff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
-        .podium-tickets-txt { font-size: 12px; font-weight: 900; color: var(--accent-green); margin: 0; }
+        .podium-crown { position: absolute; top: -16px; font-size: 15px; }
+        .podium-badge-tag { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.08); color: #fff; }
+        .podium-name-txt { font-size: 12px; font-weight: 800; color: #fff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
+        .podium-tickets-txt { font-size: 11px; font-weight: 900; color: var(--accent-green-bright); margin: 0; }
 
         /* PANEL ADMIN */
         #adminPanelScreen {
@@ -518,193 +455,82 @@
             box-sizing: border-box;
         }
 
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 14px;
-        }
-
-        .admin-table-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; }
+        .admin-table-container { width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 
         .client-admin-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
+            display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-
-        .client-info b { color: #38bdf8; font-size: 15px; display: block; margin-bottom: 4px; }
-        .client-info span { font-size: 13px; color: #cbd5e1; display: block; font-weight: 500; }
+        .client-info b { color: #38bdf8; font-size: 14px; display: block; margin-bottom: 4px; }
+        .client-info span { font-size: 12px; color: var(--text-muted); display: block; font-weight: 500; }
 
         .download-img-btn {
             background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 12px;
-            cursor: pointer;
+            color: white; border: none; padding: 10px 16px; border-radius: 12px;
+            font-weight: 800; font-size: 12px; cursor: pointer; white-space: nowrap;
             box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
-            white-space: nowrap;
         }
 
-        #ticketCanvasContainer {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-        }
+        #ticketCanvasContainer { position: absolute; left: -9999px; top: -9999px; }
         .ticket-receipt-card {
             width: 500px;
             background: linear-gradient(135deg, #0b1329, #030712);
-            border: 3px solid #38bdf8;
-            border-radius: 24px;
-            padding: 30px;
-            color: white;
-            font-family: sans-serif;
-            box-sizing: border-box;
-            text-align: center;
+            border: 3px solid #38bdf8; border-radius: 24px; padding: 30px;
+            color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
         /* MODALES */
         .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(3, 7, 18, 0.88);
-            backdrop-filter: blur(10px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            padding: 16px;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(3, 7, 18, 0.88); backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px;
         }
-
         .modal-card {
-            width: 100%;
-            max-width: 400px;
-            background: #0b1329;
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            border-radius: 26px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.8);
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
+            width: 100%; max-width: 400px; background: #0b1329;
+            border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 26px; padding: 24px;
+            display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            max-height: 90vh; overflow-y: auto; position: relative;
         }
-
         .bank-header-title {
-            background: linear-gradient(135deg, #4f46e5, #06b6d4);
-            color: white;
-            text-align: center;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 900;
-            font-size: 15px;
-            letter-spacing: 0.8px;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white;
+            text-align: center; padding: 14px; border-radius: 14px; font-weight: 900; font-size: 14px;
         }
-
-        .modal-title { font-size: 19px; font-weight: 900; color: #ffffff; text-align: center; margin: 0; }
-        .modal-subtitle { font-size: 13px; color: #cbd5e1; text-align: center; margin: -10px 0 0 0; font-weight: 500; }
+        .modal-title { font-size: 18px; font-weight: 900; color: #fff; text-align: center; margin: 0; }
+        .modal-subtitle { font-size: 12px; color: var(--text-muted); text-align: center; margin: -10px 0 0 0; font-weight: 500; }
         
-        .bank-box { 
-            background: rgba(4, 7, 14, 0.95); 
-            border: 1px solid var(--card-border); 
-            border-radius: 16px; 
-            padding: 16px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-        }
+        .bank-box { background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
         
-        .bank-row { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background: rgba(255, 255, 255, 0.05); 
-            padding: 12px 14px; 
-            border-radius: 12px; 
-            font-size: 14px; 
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .copy-btn { 
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8); 
-            color: white; 
-            border: none; 
-            padding: 7px 14px; 
-            border-radius: 8px; 
-            font-size: 12px; 
-            font-weight: bold; 
-            cursor: pointer; 
-        }
-
+        .copy-btn { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-label { font-size: 12px; font-weight: 800; color: #ffffff; }
-        .form-input { 
-            width: 100%; 
-            background: rgba(4, 7, 14, 0.95); 
-            border: 1px solid var(--card-border); 
-            border-radius: 14px; 
-            padding: 14px 16px; 
-            color: white; 
-            font-size: 14px; 
-            box-sizing: border-box; 
-            outline: none; 
-        }
+        .form-label { font-size: 12px; font-weight: 800; color: #fff; }
+        .form-input { width: 100%; background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
 
         .file-upload-box {
-            border: 2px dashed rgba(139, 92, 246, 0.5);
-            border-radius: 16px;
-            padding: 20px 16px;
-            text-align: center;
-            font-size: 13px;
-            color: #ffffff;
-            cursor: pointer;
-            background: rgba(4, 7, 14, 0.6);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
+            border: 2px dashed rgba(16, 185, 129, 0.4); border-radius: 14px; padding: 18px 14px;
+            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(5, 8, 18, 0.6);
+            display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600;
         }
 
-        .modal-btn-row { display: flex; gap: 12px; margin-top: 6px; }
-        .btn-modal-action { flex: 1; padding: 15px; border-radius: 16px; font-size: 14px; font-weight: 800; cursor: pointer; border: none; }
-        .btn-cancel { background: rgba(255, 255, 255, 0.1); color: #ffffff; }
-        .btn-confirm { background: linear-gradient(135deg, var(--accent-green), #059669); color: #fff; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
+        .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
+        .btn-modal-action { flex: 1; padding: 14px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; border: none; }
+        .btn-cancel { background: rgba(255, 255, 255, 0.08); color: #fff; }
+        .btn-confirm { background: linear-gradient(135deg, var(--accent-green-bright), #047857); color: #fff; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 
 <div class="main-container">
-    <!-- Botón de Administrador Minimalista Arriba -->
-    <div class="top-bar-admin">
-        <div class="admin-trigger" onclick="pedirPasswordAdmin()" title="Panel de Administrador">
-            🔐
-        </div>
+    <!-- BARRA SUPERIOR CON EL CANDADO ADMIN -->
+    <div class="top-bar">
+        <div></div>
+        <div class="admin-trigger" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
-
-    <div class="floating-gift-bg gift-1">🎁</div>
-    <div class="floating-gift-bg gift-2">✨</div>
 
     <div class="header-section">
         <div class="badge-banner">🌟 Gran Sorteo Exclusivo 🌟</div>
@@ -712,18 +538,23 @@
         <div class="subtitle">¡Compra tu boleto y gana increíbles premios!</div>
     </div>
 
-    <!-- GUÍA PARA CLIENTES TEXTOS CLAROS Y BRILLANTES -->
-    <div class="instructions-card">
-        <div class="instructions-title">💡 ¿Cómo participar?</div>
-        <ol class="instruction-steps">
-            <li>Elige tus números favoritos en la cuadrícula o usa la opción al azar.</li>
-            <li>Haz clic en <b>Comprar Boletos</b> y realiza tu Pago Móvil.</li>
-            <li>Adjunta tu capture, llena tus datos y envíalos por WhatsApp para asegurar tus números.</li>
-        </ol>
-        <div class="legend-row">
-            <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);"></div> Disponible</div>
-            <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan);"></div> Seleccionado</div>
-            <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.6);"></div> Vendido</div>
+    <!-- INSTRUCCIONES EN MENÚ DESPLEGABLE (ACORDEÓN) -->
+    <div class="info-dropdown-card">
+        <button class="info-dropdown-btn" onclick="toggleInstrucciones()">
+            <span>📖 ¿Cómo participar? (Toca para ver)</span>
+            <span id="arrowIcon">▼</span>
+        </button>
+        <div class="info-content" id="infoContentBox">
+            <ol>
+                <li>Elige tus números favoritos en la cuadrícula o usa la opción al azar.</li>
+                <li>Haz clic en <b>Comprar Boletos</b> y realiza tu Pago Móvil.</li>
+                <li>Adjunta tu capture, llena tus datos y envíalos por WhatsApp para asegurar tus números.</li>
+            </ol>
+            <div class="legend-row">
+                <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);"></div> Disponible</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan);"></div> Seleccionado</div>
+                <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.6);"></div> Vendido</div>
+            </div>
         </div>
     </div>
 
@@ -759,9 +590,10 @@
 
         <!-- SECCIÓN AL AZAR -->
         <div id="azarSection">
+            <button class="back-to-manual-btn" onclick="cambiarModo('manual')">← Volver / Elegir Manualmente</button>
             <div class="lucky-promo-box">
                 <span class="lucky-promo-title">🎁 PREMIOS EN JUEGO</span>
-                <p style="font-size: 13px; color: #ffffff; margin: 0; line-height: 1.4; font-weight: 600;">Smart TV 75" 4K y Nevera Condesa 4 Puertas</p>
+                <p style="font-size: 12px; color: #fff; margin: 0; line-height: 1.4; font-weight: 600;">Smart TV 75" 4K y Nevera Condesa 4 Puertas</p>
             </div>
             <div class="qtys-grid">
                 <div class="qty-box" onclick="seleccionarCantidadRapida(1, this)"><span>1</span><span>Boletos</span></div>
@@ -791,65 +623,57 @@
         <span id="cantSeleccionados">0 seleccionados</span>
         <b id="totalPrecio">Total: 0 Bs</b>
     </div>
-    <button class="apartar-btn" onclick="abrirModalPago()">Comprar Boletos</button>
+    <button class="buy-btn" onclick="abrirModalPago()">Comprar Boletos</button>
 </div>
 
-<!-- PANTALLA COMPLETA DEL PANEL DE CONTROL (ADMIN) -->
+<!-- PANTALLA COMPLETA PANEL ADMIN -->
 <div id="adminPanelScreen">
     <div class="admin-table-container">
         <div class="admin-header">
             <h2 style="margin: 0; color: #38bdf8;">🔐 Panel de Control - Rifas J.A.</h2>
-            <button class="download-img-btn" style="background: #ef4444;" onclick="cerrarAdminPanel()">Cerrar Panel ✖</button>
+            <button class="download-img-btn" style="background: #ef4444;" onclick="cerrarAdminPanel()">Cerrar ✖</button>
         </div>
-        
         <input type="text" id="adminSearchInput" class="search-input" placeholder="🔍 Buscar por nombre de cliente..." onkeyup="filtrarClientesAdmin(this.value)">
-        
         <div id="adminClientsList" style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;"></div>
     </div>
 </div>
 
-<!-- CONTENEDOR OCULTO PARA GENERAR LA IMAGEN DEL TICKET -->
+<!-- TICKET OCULTO PARA DESCARGA -->
 <div id="ticketCanvasContainer">
     <div id="ticketReceiptCard" class="ticket-receipt-card">
         <h2 style="color: #38bdf8; margin: 0 0 5px 0;">RIFAS J.A.</h2>
-        <p style="font-size: 12px; color: #cbd5e1; margin: 0 0 20px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
-        
-        <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
-            <p style="margin: 0 0 5px 0; font-size: 13px; color: #cbd5e1;"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
-            <p style="margin: 0; font-size: 13px; color: #cbd5e1;"><b>Teléfono:</b> <span id="lblTicketTelefono" style="color: #fff;">-</span></p>
+        <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 20px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
+        <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
+            <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
+            <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Teléfono:</b> <span id="lblTicketTelefono" style="color: #fff;">-</span></p>
         </div>
-
-        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; padding: 15px; border-radius: 12px; margin-bottom: 15px;">
-            <p style="margin: 0 0 5px 0; font-size: 12px; color: #34d399; font-weight: bold;">NÚMEROS ASIGNADOS:</p>
-            <h3 id="lblTicketNumeros" style="margin: 0; color: #fff; font-size: 18px; word-break: break-all;">-</h3>
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; padding: 14px; border-radius: 12px; margin-bottom: 15px;">
+            <p style="margin: 0 0 4px 0; font-size: 11px; color: #34d399; font-weight: bold;">NÚMEROS ASIGNADOS:</p>
+            <h3 id="lblTicketNumeros" style="margin: 0; color: #fff; font-size: 16px; word-break: break-all;">-</h3>
         </div>
-
-        <p style="font-size: 11px; color: #cbd5e1; margin: 0;">¡Guarda este comprobante para reclamar tu premio!</p>
+        <p style="font-size: 10px; color: var(--text-muted); margin: 0;">¡Guarda este comprobante para reclamar tu premio!</p>
     </div>
 </div>
 
-<!-- MODALES DE COMPRA -->
+<!-- MODALES DE PAGO -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
         <h3 class="modal-title">Realiza tu Pago Móvil</h3>
         <p class="modal-subtitle">Transfiere el monto exacto y adjunta tu comprobante</p>
-        
         <div class="bank-box">
             <div class="bank-row"><span><b>Banco:</b> B. de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
             <div class="bank-row"><span><b>Cédula:</b> 18483754</span><button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button></div>
             <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
-
         <div class="form-group">
             <label class="form-label">📸 COMPROBANTE DE PAGO (*Obligatorio)</label>
             <label class="file-upload-box" id="fileLabel">
-                <span style="font-size: 24px;">📂</span>
-                <span style="font-weight: 700; color: #ffffff;">Toca aquí para seleccionar tu capture</span>
+                <span style="font-size: 22px;">📂</span>
+                <span style="font-weight: 700; color: #fff;">Toca aquí para seleccionar tu capture</span>
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             </label>
         </div>
-
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
             <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
@@ -859,20 +683,17 @@
 
 <div id="modalDatos" class="modal-overlay">
     <div class="modal-card">
-        <h3 class="modal-title" style="margin-top: 5px;">📝 Tus Datos Personales</h3>
+        <h3 class="modal-title">📝 Tus Datos Personales</h3>
         <p class="modal-subtitle">Para ponernos en contacto contigo si resultas ganador</p>
-        
-        <div class="form-group" style="margin-top: 10px;">
+        <div class="form-group">
             <label class="form-label">Nombre y Apellido</label>
             <input type="text" id="inputNombre" class="form-input" placeholder="Ej. Carlos Pérez">
         </div>
-        
         <div class="form-group">
             <label class="form-label">Número de Teléfono / WhatsApp</label>
             <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
         </div>
-
-        <div class="modal-btn-row" style="margin-top: 10px;">
+        <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalDatos')">Atrás</button>
             <button class="btn-modal-action btn-confirm" onclick="mostrarAdvertenciaWhatsApp()">Continuar</button>
         </div>
@@ -881,12 +702,12 @@
 
 <div id="modalAdvertencia" class="modal-overlay">
     <div class="modal-card" style="text-align: center;">
-        <div style="font-size: 40px; margin-bottom: -5px;">⚠️</div>
+        <div style="font-size: 36px; margin-bottom: -5px;">⚠️</div>
         <h3 class="modal-title">¡ÚLTIMO PASO IMPORTANTE!</h3>
-        <p style="font-size: 14px; color: #cbd5e1; line-height: 1.6; margin: 0; font-weight: 500;">
-            Para validar tu boleto y asegurar tus números con éxito, es <b>obligatorio enviar el comprobante de pago</b> a través del chat de WhatsApp que se abrirá a continuación.
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin: 0; font-weight: 500;">
+            Para validar tu boleto y asegurar tus números con éxito, es <b>obligatorio enviar el comprobante de pago</b> por WhatsApp.
         </p>
-        <div class="modal-btn-row" style="margin-top: 10px;">
+        <div class="modal-btn-row" style="margin-top: 6px;">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalAdvertencia')">Revisar</button>
             <button class="btn-modal-action btn-confirm" onclick="enviarAWhatsApp()">Ir a WhatsApp 🚀</button>
         </div>
@@ -904,6 +725,18 @@
     let vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
     let podioCompradores = JSON.parse(localStorage.getItem('rifas_ja_podio')) || [];
     let registroClientes = JSON.parse(localStorage.getItem('rifas_ja_clientes')) || [];
+
+    function toggleInstrucciones() {
+        let content = document.getElementById('infoContentBox');
+        let arrow = document.getElementById('arrowIcon');
+        if (content.style.display === 'block') {
+            content.style.display = 'none';
+            arrow.innerText = '▼';
+        } else {
+            content.style.display = 'block';
+            arrow.innerText = '▲';
+        }
+    }
 
     function cambiarModo(modo) {
         modoActual = modo;
@@ -928,18 +761,9 @@
     }
 
     function actualizarResumen() {
-        let cantidad = 0;
-        let total = 0;
-
-        if (modoActual === 'azar') {
-            cantidad = cantidadDeseada;
-            total = cantidad * precioBoleto;
-            document.getElementById('cantSeleccionados').innerText = `${cantidad} al azar`;
-        } else {
-            cantidad = seleccionados.length;
-            total = cantidad * precioBoleto;
-            document.getElementById('cantSeleccionados').innerText = `${cantidad} seleccionados`;
-        }
+        let cantidad = (modoActual === 'azar') ? cantidadDeseada : seleccionados.length;
+        let total = cantidad * precioBoleto;
+        document.getElementById('cantSeleccionados').innerText = (modoActual === 'azar') ? `${cantidad} al azar` : `${cantidad} seleccionados`;
         document.getElementById('totalPrecio').innerText = `Total: ${total.toLocaleString()} Bs`;
     }
 
@@ -974,7 +798,7 @@
             </div>
             <div class="podium-item-ref rank-1-wrapper">
                 <div class="podium-avatar-ring"><span class="podium-crown">👑</span>${inicial1}</div>
-                <span class="podium-badge-tag" style="background: rgba(16,185,129,0.2); color: var(--accent-green);">🏆 #1</span>
+                <span class="podium-badge-tag" style="background: rgba(16,185,129,0.2); color: var(--accent-green-bright);">🏆 #1</span>
                 <p class="podium-name-txt" style="font-size: 13px;">${top1.nombre}</p>
                 <p class="podium-tickets-txt">${top1.cantidad} T.</p>
             </div>
@@ -989,7 +813,6 @@
 
     function generarBoletos(inicio, fin) {
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        
         let grid = document.getElementById('gridBoletos');
         let fragment = document.createDocumentFragment();
         for (let i = inicio; i <= fin; i++) {
@@ -998,11 +821,8 @@
             cell.className = 'ticket-cell';
             cell.innerText = numStr;
             
-            if (vendidos.includes(numStr)) {
-                cell.classList.add('sold');
-            } else if (seleccionados.includes(numStr)) {
-                cell.classList.add('selected');
-            }
+            if (vendidos.includes(numStr)) cell.classList.add('sold');
+            else if (seleccionados.includes(numStr)) cell.classList.add('selected');
 
             if (!vendidos.includes(numStr)) {
                 cell.onclick = function() {
@@ -1068,7 +888,6 @@
 
     function abrirModalPago() {
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        
         if (modoActual === 'azar') {
             seleccionados = [];
             let disponibles = [];
@@ -1104,8 +923,8 @@
             document.getElementById('fileLabel').style.borderColor = '#10b981';
             document.getElementById('fileLabel').style.background = 'rgba(16, 185, 129, 0.08)';
             document.getElementById('fileLabel').innerHTML = `
-                <span style="font-size: 24px;">✅</span>
-                <span style="color:#34d399; font-weight:800; font-size:14px;">¡Capture cargado con éxito!</span>
+                <span style="font-size: 22px;">✅</span>
+                <span style="color:#34d399; font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
             `;
         }
     }
@@ -1116,11 +935,11 @@
         if(inputEl) inputEl.value = '';
         let label = document.getElementById('fileLabel');
         if(label) {
-            label.style.borderColor = 'rgba(139, 92, 246, 0.5)';
-            label.style.background = 'rgba(4, 7, 14, 0.6)';
+            label.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+            label.style.background = 'rgba(5, 8, 18, 0.6)';
             label.innerHTML = `
-                <span style="font-size: 24px;">📂</span>
-                <span style="font-weight: 700; color: #ffffff;">Toca aquí para seleccionar tu capture</span>
+                <span style="font-size: 22px;">📂</span>
+                <span style="font-weight: 700; color: #fff;">Toca aquí para seleccionar tu capture</span>
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             `;
         }
@@ -1148,9 +967,7 @@
         let totalPagar = seleccionados.length * precioBoleto;
 
         vendidos = JSON.parse(localStorage.getItem('rifas_ja_vendidos')) || [];
-        seleccionados.forEach(num => { 
-            if (!vendidos.includes(num)) vendidos.push(num); 
-        });
+        seleccionados.forEach(num => { if (!vendidos.includes(num)) vendidos.push(num); });
 
         let comprador = podioCompradores.find(p => p.nombre.toLowerCase() === nombre.toLowerCase());
         if (comprador) comprador.cantidad += seleccionados.length;
@@ -1178,11 +995,8 @@
 
     function pedirPasswordAdmin() {
         let pass = prompt("🔐 Ingresa la contraseña de administrador:");
-        if (pass === "admin123") {
-            abrirAdminPanel();
-        } else if (pass !== null) {
-            alert("❌ Contraseña incorrecta.");
-        }
+        if (pass === "admin123") abrirAdminPanel();
+        else if (pass !== null) alert("❌ Contraseña incorrecta.");
     }
 
     function abrirAdminPanel() {
@@ -1190,17 +1004,14 @@
         renderizarClientesAdmin(registroClientes);
     }
 
-    function cerrarAdminPanel() {
-        document.getElementById('adminPanelScreen').style.display = 'none';
-    }
+    function cerrarAdminPanel() { document.getElementById('adminPanelScreen').style.display = 'none'; }
 
     function renderizarClientesAdmin(lista) {
         let container = document.getElementById('adminClientsList');
         if (lista.length === 0) {
-            container.innerHTML = `<p style="text-align:center; color: #cbd5e1;">No hay compradores registrados todavía.</p>`;
+            container.innerHTML = `<p style="text-align:center; color: var(--text-muted);">No hay compradores registrados todavía.</p>`;
             return;
         }
-
         container.innerHTML = lista.map((cli) => `
             <div class="client-admin-card">
                 <div class="client-info">
@@ -1208,7 +1019,7 @@
                     <span>📞 ${cli.telefono}</span>
                     <span>🎟️ Números: ${cli.numeros}</span>
                 </div>
-                <button class="download-img-btn" onclick="descargarBoletoImagen('${cli.nombre}', '${cli.telefono}', '${cli.numeros}')">Descargar Imagen 📥</button>
+                <button class="download-img-btn" onclick="descargarBoletoImagen('${cli.nombre}', '${cli.telefono}', '${cli.numeros}')">Descargar 📥</button>
             </div>
         `).join('');
     }
