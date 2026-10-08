@@ -8,26 +8,27 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-base: #030712;
-            --card-bg: rgba(13, 20, 38, 0.85);
-            --card-border: rgba(56, 189, 248, 0.25);
+            --bg-base: #050b14;
+            --card-bg: rgba(15, 23, 42, 0.85);
+            --card-border: rgba(16, 185, 129, 0.3);
             --accent-green-bright: #10b981;
             --accent-cyan: #06b6d4;
             --accent-purple: #8b5cf6;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --input-bg: rgba(6, 10, 22, 0.95);
+            --input-bg: rgba(8, 14, 28, 0.95);
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: var(--bg-base);
+            background-color: var--bg-base);
             background-image: 
-                radial-gradient(circle at 10% 15%, rgba(139, 92, 246, 0.22) 0%, transparent 40%),
-                radial-gradient(circle at 90% 85%, rgba(16, 185, 129, 0.18) 0%, transparent 40%),
-                linear-gradient(135deg, #02040a 0%, #080e24 100%);
+                radial-gradient(circle at 10% 10%, rgba(16, 185, 129, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.15) 0%, transparent 45%),
+                linear-gradient(135deg, #020617 0%, #0b132b 100%);
             color: var(--text-main);
             margin: 0;
             padding: 12px;
@@ -43,7 +44,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 110px;
+            padding-bottom: 120px;
             position: relative;
         }
 
@@ -62,7 +63,7 @@
         .brand-mini {
             font-weight: 900;
             font-size: 15px;
-            background: linear-gradient(135deg, #38bdf8, #34d399);
+            background: linear-gradient(135deg, #34d399, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
@@ -82,12 +83,11 @@
             font-size: 15px;
             transition: 0.2s;
         }
-        .icon-btn:hover { background: rgba(139, 92, 246, 0.3); border-color: var(--accent-purple); transform: scale(1.05); }
+        .icon-btn:hover { background: rgba(16, 185, 129, 0.3); border-color: var(--accent-green-bright); transform: scale(1.05); }
 
-        /* HERO HEADER NUEVO */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(13, 20, 38, 0.9), rgba(30, 27, 75, 0.8));
-            border: 1px solid rgba(139, 92, 246, 0.35);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(6, 78, 59, 0.5));
+            border: 1px solid rgba(16, 185, 129, 0.4);
             border-radius: 24px;
             padding: 24px 16px;
             text-align: center;
@@ -96,20 +96,12 @@
             box-shadow: 0 12px 35px rgba(0,0,0,0.6);
         }
 
-        .hero-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(56, 189, 248, 0.08) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
         .badge-pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.5);
             color: #34d399;
             font-size: 11px;
             font-weight: 800;
@@ -124,12 +116,12 @@
             font-size: 38px;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(135deg, #ffffff 15%, #34d399 55%, #38bdf8 100%);
+            background: linear-gradient(135deg, #ffffff 20%, #34d399 60%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 1px;
             text-transform: uppercase;
-            filter: drop-shadow(0 4px 15px rgba(16, 185, 129, 0.35));
+            filter: drop-shadow(0 4px 15px rgba(16, 185, 129, 0.4));
         }
 
         .hero-subtitle {
@@ -139,7 +131,6 @@
             font-weight: 600;
         }
 
-        /* TARJETA DE PREMIOS DESTACADA */
         .prizes-showcase {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -159,12 +150,11 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.3);
             transition: 0.2s;
         }
-        .prize-mini-card:hover { border-color: var(--accent-cyan); transform: translateY(-2px); }
+        .prize-mini-card:hover { border-color: var(--accent-green-bright); transform: translateY(-2px); }
         .prize-icon { font-size: 22px; margin-bottom: 2px; }
         .prize-name { font-size: 12px; font-weight: 800; color: #fff; margin: 0; }
         .prize-desc { font-size: 10px; color: var(--text-muted); margin: 0; font-weight: 600; }
 
-        /* ACORDEÓN DE INSTRUCCIONES */
         .info-dropdown-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -179,7 +169,7 @@
             background: transparent;
             border: none;
             padding: 14px 18px;
-            color: #38bdf8;
+            color: #34d399;
             font-size: 12px;
             font-weight: 800;
             text-align: left;
@@ -211,7 +201,6 @@
         .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #cbd5e1; }
         .legend-dot { width: 10px; height: 10px; border-radius: 4px; }
 
-        /* PROGRESO */
         .progress-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -228,7 +217,6 @@
         .progress-bar-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.06); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.04); }
         .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--accent-green-bright), var(--accent-cyan)); box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); transition: width 0.4s ease; border-radius: 6px; }
 
-        /* PANEL DE SELECCIÓN */
         .selection-panel {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -275,7 +263,7 @@
         .back-to-manual-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #38bdf8;
+            color: #34d399;
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 12px;
@@ -287,7 +275,7 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .back-to-manual-btn:hover { background: rgba(56, 189, 248, 0.15); border-color: #38bdf8; }
+        .back-to-manual-btn:hover { background: rgba(16, 185, 129, 0.15); border-color: #34d399; }
 
         .lucky-promo-box {
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.15));
@@ -334,7 +322,7 @@
             outline: none;
             transition: 0.2s;
         }
-        .search-input:focus { border-color: var(--accent-cyan); box-shadow: 0 0 12px rgba(6, 182, 212, 0.3); }
+        .search-input:focus { border-color: var(--accent-green-bright); box-shadow: 0 0 12px rgba(16, 185, 129, 0.3); }
 
         .ranges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
@@ -352,10 +340,34 @@
         }
 
         .range-tab.active {
-            background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             color: #fff;
-            border-color: #7dd3fc;
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+            border-color: #34d399;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* FILTRAR MIS SELECCIONADOS (NUEVO) */
+        .my-selection-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #34d399;
+        }
+        .view-selected-btn {
+            background: var(--accent-green-bright);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
         }
 
         .tickets-grid {
@@ -386,10 +398,10 @@
         .ticket-cell:hover { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.2); }
 
         .ticket-cell.selected {
-            background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             color: #fff;
-            border-color: #7dd3fc;
-            box-shadow: 0 0 12px rgba(6, 182, 212, 0.5);
+            border-color: #34d399;
+            box-shadow: 0 0 14px rgba(16, 185, 129, 0.6);
         }
 
         .ticket-cell.sold {
@@ -400,7 +412,6 @@
             opacity: 0.75;
         }
 
-        /* BARRA FLOTANTE INFERIOR */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -417,7 +428,7 @@
         }
 
         .selection-summary { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .selection-summary b { display: block; font-size: 15px; color: #38bdf8; }
+        .selection-summary b { display: block; font-size: 15px; color: #34d399; }
 
         .buy-btn {
             background: linear-gradient(135deg, var(--accent-green-bright), #047857);
@@ -434,7 +445,6 @@
         }
         .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-        /* PODIO */
         .podium-card {
             background: var(--card-bg);
             backdrop-filter: blur(16px);
@@ -489,7 +499,6 @@
         .podium-name-txt { font-size: 11px; font-weight: 800; color: #fff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
         .podium-tickets-txt { font-size: 10px; font-weight: 900; color: var(--accent-green-bright); margin: 0; }
 
-        /* PANEL ADMIN */
         #adminPanelScreen {
             display: none;
             position: fixed;
@@ -511,25 +520,24 @@
             padding: 16px;
             display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-        .client-info b { color: #38bdf8; font-size: 14px; display: block; margin-bottom: 4px; }
+        .client-info b { color: #34d399; font-size: 14px; display: block; margin-bottom: 4px; }
         .client-info span { font-size: 12px; color: var(--text-muted); display: block; font-weight: 500; }
 
         .download-img-btn {
-            background: linear-gradient(135deg, var(--accent-cyan), #2563eb);
+            background: linear-gradient(135deg, var(--accent-green-bright), #047857);
             color: white; border: none; padding: 10px 16px; border-radius: 12px;
             font-weight: 800; font-size: 12px; cursor: pointer; white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
         #ticketCanvasContainer { position: absolute; left: -9999px; top: -9999px; }
         .ticket-receipt-card {
             width: 500px;
             background: linear-gradient(135deg, #0b1329, #030712);
-            border: 3px solid #38bdf8; border-radius: 24px; padding: 30px;
+            border: 3px solid #10b981; border-radius: 24px; padding: 30px;
             color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
-        /* MODALES */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(3, 7, 18, 0.88); backdrop-filter: blur(12px);
@@ -537,12 +545,12 @@
         }
         .modal-card {
             width: 100%; max-width: 400px; background: #0b1329;
-            border: 1px solid rgba(139, 92, 246, 0.4); border-radius: 26px; padding: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 26px; padding: 24px;
             display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             max-height: 90vh; overflow-y: auto; position: relative;
         }
         .bank-header-title {
-            background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white;
+            background: linear-gradient(135deg, #047857, #10b981); color: white;
             text-align: center; padding: 14px; border-radius: 14px; font-weight: 900; font-size: 14px;
         }
         .modal-title { font-size: 18px; font-weight: 900; color: #fff; text-align: center; margin: 0; }
@@ -551,7 +559,7 @@
         .bank-box { background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
         .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
         
-        .copy-btn { background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .copy-btn { background: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-label { font-size: 12px; font-weight: 800; color: #fff; }
         .form-input { width: 100%; background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
@@ -571,20 +579,17 @@
 <body>
 
 <div class="main-container">
-    <!-- BARRA SUPERIOR ELEGANTE -->
     <div class="top-navbar">
         <span class="brand-mini">⚡ RIFAS J.A.</span>
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
-    <!-- HERO BANNER LLAMATIVO -->
     <div class="hero-banner">
         <div class="badge-pill">🎁 Gran Sorteo Exclusivo 🎁</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
     </div>
 
-    <!-- TARJETAS DE PREMIOS -->
     <div class="prizes-showcase">
         <div class="prize-mini-card">
             <span class="prize-icon">📺</span>
@@ -598,7 +603,6 @@
         </div>
     </div>
 
-    <!-- ACORDEÓN DE INSTRUCCIONES -->
     <div class="info-dropdown-card">
         <button class="info-dropdown-btn" onclick="toggleInstrucciones()">
             <span>📖 ¿Cómo participar? (Toca aquí)</span>
@@ -612,13 +616,12 @@
             </ol>
             <div class="legend-row">
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);"></div> Libre</div>
-                <div class="legend-item"><div class="legend-dot" style="background: var(--accent-cyan);"></div> Tuyo</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--accent-green-bright);"></div> Tuyo</div>
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.6);"></div> Vendido</div>
             </div>
         </div>
     </div>
 
-    <!-- PROGRESO DEL SORTEO -->
     <div class="progress-card">
         <div class="progress-header">
             <span>🔥 Progreso General (1500 Boletos)</span>
@@ -629,7 +632,6 @@
         </div>
     </div>
 
-    <!-- PANEL DE SELECCIÓN DE BOLETOS -->
     <div class="selection-panel">
         <div class="panel-heading-title">🎯 ELIGE TU SUERTE</div>
         
@@ -645,6 +647,13 @@
                 <div id="range2" class="range-tab" onclick="seleccionarRango(501, 1000)">0501-1000</div>
                 <div id="range3" class="range-tab" onclick="seleccionarRango(1001, 1500)">1001-1500</div>
             </div>
+            
+            <!-- NUEVA OPCIÓN 6: FILTRAR MIS NÚMEROS SELECCIONADOS -->
+            <div class="my-selection-bar">
+                <span>✨ Ver solo tus números marcados</span>
+                <button class="view-selected-btn" onclick="alternarVerMisSeleccionados()">Ver Listos</button>
+            </div>
+
             <div class="tickets-grid" id="gridBoletos"></div>
         </div>
 
@@ -665,7 +674,6 @@
         </div>
     </div>
 
-    <!-- PODIO DE COMPRADORES -->
     <div class="podium-card">
         <div class="podium-icon-top">🏆</div>
         <div class="podium-title-area">
@@ -676,7 +684,6 @@
     </div>
 </div>
 
-<!-- BARRA FLOTANTE INFERIOR -->
 <div class="bottom-floating-bar">
     <div class="selection-summary">
         <span id="cantSeleccionados">0 seleccionados</span>
@@ -685,11 +692,10 @@
     <button class="buy-btn" onclick="abrirModalPago()">Comprar Boletos</button>
 </div>
 
-<!-- PANEL ADMINISTRADOR -->
 <div id="adminPanelScreen">
     <div class="admin-table-container">
         <div class="admin-header">
-            <h2 style="margin: 0; color: #38bdf8;">🔐 Panel de Control - Rifas J.A.</h2>
+            <h2 style="margin: 0; color: #34d399;">🔐 Panel de Control - Rifas J.A.</h2>
             <button class="download-img-btn" style="background: #ef4444;" onclick="cerrarAdminPanel()">Cerrar ✖</button>
         </div>
         <input type="text" id="adminSearchInput" class="search-input" placeholder="🔍 Buscar por nombre de cliente..." onkeyup="filtrarClientesAdmin(this.value)">
@@ -697,10 +703,9 @@
     </div>
 </div>
 
-<!-- COMPROBANTE OCULTO PARA HTML2CANVAS -->
 <div id="ticketCanvasContainer">
     <div id="ticketReceiptCard" class="ticket-receipt-card">
-        <h2 style="color: #38bdf8; margin: 0 0 5px 0;">RIFAS J.A.</h2>
+        <h2 style="color: #34d399; margin: 0 0 5px 0;">RIFAS J.A.</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 20px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
         <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
@@ -714,7 +719,6 @@
     </div>
 </div>
 
-<!-- MODAL PAGO MÓVIL -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
@@ -740,7 +744,6 @@
     </div>
 </div>
 
-<!-- MODAL DATOS PERSONALES -->
 <div id="modalDatos" class="modal-overlay">
     <div class="modal-card">
         <h3 class="modal-title">📝 Tus Datos Personales</h3>
@@ -760,7 +763,6 @@
     </div>
 </div>
 
-<!-- MODAL ADVERTENCIA WHATSAPP -->
 <div id="modalAdvertencia" class="modal-overlay">
     <div class="modal-card" style="text-align: center;">
         <div style="font-size: 36px; margin-bottom: -5px;">⚠️</div>
@@ -799,6 +801,7 @@
     let vendidos = [];
     let podioCompradores = [];
     let registroClientes = [];
+    let soloVerMisSeleccionados = false;
 
     db.ref('vendidos').on('value', (snapshot) => {
         let data = snapshot.val();
@@ -834,6 +837,7 @@
 
     function cambiarModo(modo) {
         modoActual = modo;
+        soloVerMisSeleccionados = false;
         document.getElementById('tabManual').classList.toggle('active', modo === 'manual');
         document.getElementById('tabAzar').classList.toggle('active', modo === 'azar');
         document.getElementById('manualSection').style.display = modo === 'manual' ? 'flex' : 'none';
@@ -901,7 +905,44 @@
         `;
     }
 
+    function alternarVerMisSeleccionados() {
+        soloVerMisSeleccionados = !soloVerMisSeleccionados;
+        let btn = document.querySelector('.view-selected-btn');
+        if (soloVerMisSeleccionados) {
+            btn.innerText = "Ver Todo";
+            btn.style.background = "#06b6d4";
+            renderizarListaFiltrada(seleccionados);
+        } else {
+            btn.innerText = "Ver Listos";
+            btn.style.background = "var(--accent-green-bright)";
+            generarBoletos(inicioRango, finRango);
+        }
+    }
+
+    function renderizarListaFiltrada(listaNumeros) {
+        let grid = document.getElementById('gridBoletos');
+        let fragment = document.createDocumentFragment();
+        if (listaNumeros.length === 0) {
+            grid.innerHTML = `<p style="grid-column: span 4; text-align:center; color: var(--text-muted); font-size:12px; padding:20px 0;">No has seleccionado ningún número todavía.</p>`;
+            return;
+        }
+        listaNumeros.forEach(numStr => {
+            let cell = document.createElement('div');
+            cell.className = 'ticket-cell selected';
+            cell.innerText = numStr;
+            cell.onclick = function() {
+                seleccionados = seleccionados.filter(n => n !== numStr);
+                actualizarResumen();
+                renderizarListaFiltrada(seleccionados);
+            };
+            fragment.appendChild(cell);
+        });
+        grid.innerHTML = '';
+        grid.appendChild(fragment);
+    }
+
     function generarBoletos(inicio, fin) {
+        if (soloVerMisSeleccionados) return;
         let grid = document.getElementById('gridBoletos');
         let fragment = document.createDocumentFragment();
         for (let i = inicio; i <= fin; i++) {
@@ -934,6 +975,9 @@
     function seleccionarRango(inicio, fin) {
         inicioRango = inicio;
         finRango = fin;
+        soloVerMisSeleccionados = false;
+        document.querySelector('.view-selected-btn').innerText = "Ver Listos";
+        document.querySelector('.view-selected-btn').style.background = "var(--accent-green-bright)";
         document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
         if(inicio === 1) document.getElementById('range1').classList.add('active');
         if(inicio === 501) document.getElementById('range2').classList.add('active');
@@ -1052,6 +1096,13 @@
         let numerosFinales = [...seleccionados].sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
+        // NUEVA OPCIÓN 5: LANZAR EFECTO DE CONFETI CELEBRACIÓN
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
         seleccionados.forEach(num => {
             if (!vendidos.includes(num)) vendidos.push(num);
         });
@@ -1070,7 +1121,10 @@
         db.ref('rifas_ja_clientes').set(registroClientes);
 
         let mensaje = `Hola! 👋 Quiero apartar ${seleccionados.length} número(s) de la rifa Rifas J.A.\n\n🎟️ Números elegidos: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi capture de pago a este chat.`;
-        window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        
+        setTimeout(() => {
+            window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
+        }, 800);
         
         cerrarModal('modalAdvertencia');
         seleccionados = [];
