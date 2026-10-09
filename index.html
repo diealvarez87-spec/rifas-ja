@@ -11,25 +11,23 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-base: #07090e;
-            --card-bg: linear-gradient(135deg, rgba(18, 24, 38, 0.9), rgba(10, 14, 23, 0.95));
-            --card-border: rgba(234, 179, 8, 0.35);
-            --gold-primary: #facc15;
-            --gold-light: #fef08a;
-            --green-luxury: #059669;
-            --green-bright: #34d399;
+            --bg-base: #030508;
+            --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ff8c00 50%, #e65100 100%);
+            --gradient-card: linear-gradient(145deg, rgba(20, 25, 40, 0.85), rgba(8, 12, 20, 0.95));
+            --gold-bright: #ffcc00;
+            --gold-light: #ffea79;
             --text-main: #ffffff;
-            --text-muted: #cbd5e1;
-            --input-bg: rgba(5, 8, 15, 0.98);
+            --text-muted: #94a3b8;
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
             background-image: 
-                radial-gradient(circle at 15% 10%, rgba(234, 179, 8, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 90%, rgba(5, 150, 105, 0.15) 0%, transparent 45%),
-                linear-gradient(135deg, #020408 0%, #0d121f 100%);
+                radial-gradient(circle at 20% 20%, rgba(255, 140, 0, 0.18) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #020305 0%, #0a0e17 100%);
             color: var(--text-main);
             margin: 0;
             padding: 12px;
@@ -37,6 +35,23 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* EFECTOS DE FONDO FLOTANTES */
+        .bg-glow-orb {
+            position: fixed;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(255,180,0,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: floatOrb 8s ease-in-out infinite alternate;
+        }
+        @keyframes floatOrb {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.1); }
         }
 
         .main-container {
@@ -45,85 +60,99 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            padding-bottom: 120px;
+            padding-bottom: 130px;
             position: relative;
+            z-index: 1;
         }
 
         .top-navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
+            background: var(--gradient-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
             padding: 12px 18px;
-            border-radius: 18px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
 
         .brand-mini {
             font-weight: 900;
-            font-size: 15px;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            font-size: 16px;
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .icon-btn {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            color: var(--gold-primary);
-            border-radius: 12px;
-            width: 38px;
-            height: 38px;
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            color: var(--gold-bright);
+            border-radius: 14px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
+            font-size: 17px;
+            transition: 0.25s;
         }
-        .icon-btn:hover { background: rgba(234, 179, 8, 0.25); transform: scale(1.05); }
+        .icon-btn:hover { background: rgba(255, 215, 0, 0.25); transform: scale(1.08); }
 
+        /* HERO BANNER NUEVO SIN LÍNEAS PESADAS */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(18, 24, 38, 0.95), rgba(4, 47, 30, 0.8));
-            border: 1px solid rgba(234, 179, 8, 0.45);
-            border-radius: 26px;
-            padding: 26px 16px;
+            background: linear-gradient(145deg, rgba(18, 24, 38, 0.9), rgba(10, 14, 24, 0.95));
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 28px;
+            padding: 28px 18px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+        }
+
+        .floating-gift-bg {
+            position: absolute;
+            font-size: 45px;
+            opacity: 0.12;
+            animation: floatGift 4s ease-in-out infinite alternate;
+        }
+        @keyframes floatGift {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-12px) rotate(10deg); }
         }
 
         .badge-pill {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(5, 150, 105, 0.2));
-            border: 1px solid rgba(234, 179, 8, 0.5);
+            gap: 8px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.4);
             color: var(--gold-light);
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 900;
             text-transform: uppercase;
-            padding: 6px 16px;
-            border-radius: 20px;
-            letter-spacing: 1.2px;
+            padding: 6px 18px;
+            border-radius: 25px;
+            letter-spacing: 1.5px;
             margin-bottom: 12px;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.25);
         }
 
         .main-title {
-            font-size: 38px;
+            font-size: 40px;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(135deg, #ffffff 15%, var(--gold-primary) 60%, var(--green-bright) 100%);
+            background: var(--gradient-gold);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            filter: drop-shadow(0 4px 16px rgba(234, 179, 8, 0.3));
+            filter: drop-shadow(0 4px 20px rgba(255, 140, 0, 0.4));
         }
 
         .hero-subtitle {
@@ -133,6 +162,7 @@
             font-weight: 600;
         }
 
+        /* PREMIOS CON DEGRADADO REAL */
         .prizes-showcase {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -140,37 +170,38 @@
         }
 
         .prize-mini-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 14px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 22px;
+            padding: 16px 12px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-            transition: 0.2s;
+            gap: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: 0.3s;
         }
-        .prize-mini-card:hover { border-color: var(--gold-primary); transform: translateY(-3px); }
-        .prize-icon { font-size: 24px; margin-bottom: 2px; }
-        .prize-name { font-size: 13px; font-weight: 900; color: var(--gold-light); margin: 0; }
-        .prize-desc { font-size: 10px; color: var(--text-muted); margin: 0; font-weight: 600; }
+        .prize-mini-card:hover { border-color: var(--gold-bright); transform: translateY(-3px); }
+        .prize-icon { font-size: 26px; }
+        .prize-name { font-size: 13px; font-weight: 900; color: #fff; margin: 0; }
+        .prize-desc { font-size: 10px; color: var(--gold-light); margin: 0; font-weight: 700; text-transform: uppercase; }
 
+        /* ACORDEÓN LIMPIO */
         .info-dropdown-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .info-dropdown-btn {
             width: 100%;
             background: transparent;
             border: none;
-            padding: 15px 18px;
-            color: var(--gold-primary);
+            padding: 16px 20px;
+            color: var(--gold-bright);
             font-size: 12px;
             font-weight: 900;
             text-align: left;
@@ -178,13 +209,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
         }
 
         .info-content {
             display: none;
-            padding: 0 18px 16px 18px;
+            padding: 0 20px 18px 20px;
             font-size: 12px;
             color: var(--text-muted);
             line-height: 1.6;
@@ -198,34 +229,35 @@
             border-top: 1px solid rgba(255,255,255,0.08);
             padding-top: 12px;
         }
-
         .legend-item { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: #fff; }
         .legend-dot { width: 10px; height: 10px; border-radius: 4px; }
 
+        /* PROGRESO */
         .progress-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 22px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #fff; }
-        .progress-bar-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--gold-primary), var(--green-bright)); box-shadow: 0 0 15px rgba(234, 179, 8, 0.6); transition: width 0.4s ease; border-radius: 6px; }
+        .progress-bar-bg { width: 100%; height: 9px; background: rgba(255, 255, 255, 0.08); border-radius: 6px; overflow: hidden; }
+        .progress-bar-fill { width: 1%; height: 100%; background: var(--gradient-gold); box-shadow: 0 0 15px rgba(255, 140, 0, 0.8); transition: width 0.4s ease; border-radius: 6px; }
 
+        /* PANEL DE SELECCIÓN SIN BORDES CARGADOS */
         .selection-panel {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 24px;
-            padding: 18px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 26px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6);
         }
 
         .panel-heading-title { font-size: 13px; font-weight: 900; text-align: center; color: var(--gold-light); letter-spacing: 1.2px; text-transform: uppercase; }
@@ -233,9 +265,9 @@
         .mode-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: rgba(4, 7, 14, 0.95);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
+            background: rgba(2, 4, 8, 0.9);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
             padding: 4px;
             gap: 4px;
         }
@@ -244,29 +276,29 @@
             text-align: center;
             padding: 12px;
             font-size: 12px;
-            font-weight: 800;
-            border-radius: 10px;
+            font-weight: 900;
+            border-radius: 12px;
             cursor: pointer;
             color: var(--text-muted);
             transition: 0.3s;
         }
 
         .mode-tab.active {
-            background: linear-gradient(135deg, var(--green-luxury), var(--green-bright));
-            color: #fff;
-            box-shadow: 0 0 18px rgba(5, 150, 105, 0.5);
+            background: var(--gradient-gold);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
         }
 
         #manualSection, #azarSection { display: flex; flex-direction: column; gap: 14px; }
 
         .back-to-manual-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             color: var(--gold-light);
             padding: 10px 14px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -274,12 +306,12 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .back-to-manual-btn:hover { background: rgba(234, 179, 8, 0.15); border-color: var(--gold-primary); }
+        .back-to-manual-btn:hover { background: rgba(255, 215, 0, 0.15); }
 
         .lucky-promo-box {
-            background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(5, 150, 105, 0.15));
-            border: 1px solid rgba(234, 179, 8, 0.4);
-            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.12), rgba(255, 215, 0, 0.12));
+            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 18px;
             padding: 16px;
             text-align: center;
         }
@@ -289,8 +321,8 @@
 
         .qty-box {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
             padding: 14px 0;
             text-align: center;
             cursor: pointer;
@@ -303,71 +335,71 @@
         .qty-box span:first-child { font-size: 18px; font-weight: 900; color: #fff; }
         .qty-box span:last-child { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .qty-box.active {
-            background: linear-gradient(135deg, var(--green-luxury), var(--green-bright));
-            border-color: var(--green-bright);
-            box-shadow: 0 0 16px rgba(5, 150, 105, 0.5);
+            background: var(--gradient-gold);
+            border-color: var(--gold-bright);
+            box-shadow: 0 0 18px rgba(255, 140, 0, 0.6);
         }
-        .qty-box.active span { color: #fff; }
+        .qty-box.active span { color: #000; font-weight: 900; }
 
         .search-input {
             width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            padding: 13px 16px;
+            background: rgba(2, 4, 8, 0.95);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 16px;
+            padding: 14px 18px;
             color: white;
             font-size: 13px;
             box-sizing: border-box;
             outline: none;
             transition: 0.2s;
         }
-        .search-input:focus { border-color: var(--gold-primary); box-shadow: 0 0 12px rgba(234, 179, 8, 0.3); }
+        .search-input:focus { border-color: var(--gold-bright); box-shadow: 0 0 15px rgba(255, 140, 0, 0.4); }
 
         .ranges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
         .range-tab {
-            background: var(--input-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
+            background: rgba(2, 4, 8, 0.95);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 14px;
             padding: 10px 6px;
             text-align: center;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--text-muted);
             cursor: pointer;
             transition: 0.2s;
         }
 
         .range-tab.active {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: var(--gradient-gold);
             color: #000;
             border-color: var(--gold-light);
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.5);
         }
 
         .my-selection-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.35);
+            background: rgba(255, 140, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             padding: 10px 14px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-size: 11px;
             font-weight: 800;
             color: var(--gold-light);
         }
         .view-selected-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: var(--gradient-gold);
             color: #000;
             border: none;
             padding: 6px 12px;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 10px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 0 12px rgba(255, 140, 0, 0.5);
         }
 
         .tickets-grid {
@@ -376,18 +408,18 @@
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            background: rgba(2, 4, 8, 0.95);
-            padding: 12px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(2, 3, 6, 0.98);
+            padding: 14px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 215, 0, 0.15);
         }
 
         .ticket-cell {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 11px 0;
             text-align: center;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 13px;
             font-weight: 800;
             cursor: pointer;
@@ -395,74 +427,76 @@
             user-select: none;
             transition: 0.15s;
         }
-        .ticket-cell:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--gold-primary); }
+        .ticket-cell:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--gold-bright); }
 
         .ticket-cell.selected {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: var(--gradient-gold);
             color: #000;
             border-color: var(--gold-light);
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.7);
+            box-shadow: 0 0 16px rgba(255, 140, 0, 0.8);
         }
 
         .ticket-cell.sold {
-            background: rgba(239, 68, 68, 0.2);
+            background: rgba(239, 68, 68, 0.22);
             color: #f87171;
             border-color: rgba(239, 68, 68, 0.4);
             cursor: not-allowed;
             opacity: 0.75;
         }
 
+        /* BARRA INFERIOR FLOTANTE */
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(7, 9, 14, 0.96);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--card-border);
-            padding: 14px 20px;
+            background: rgba(3, 5, 8, 0.98);
+            backdrop-filter: blur(25px);
+            border-top: 1px solid rgba(255, 215, 0, 0.3);
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
             z-index: 50;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.8);
         }
 
         .selection-summary { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .selection-summary b { display: block; font-size: 15px; color: var(--gold-light); }
+        .selection-summary b { display: block; font-size: 16px; color: var(--gold-light); }
 
         .buy-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: var(--gradient-gold);
             color: #000;
             border: none;
-            border-radius: 14px;
-            padding: 13px 26px;
+            border-radius: 16px;
+            padding: 14px 28px;
             font-size: 14px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.45);
-            transition: 0.2s;
+            box-shadow: 0 6px 25px rgba(255, 140, 0, 0.5);
+            transition: 0.25s;
             letter-spacing: 0.5px;
         }
-        .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .buy-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
 
+        /* PODIO */
         .podium-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 22px;
-            padding: 20px 16px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            border-radius: 24px;
+            padding: 22px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             gap: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.5);
         }
 
         .podium-icon-top {
-            width: 38px; height: 38px;
-            background: rgba(234, 179, 8, 0.15);
-            border: 1px solid rgba(234, 179, 8, 0.4);
+            width: 40px; height: 40px;
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.4);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 18px;
@@ -483,11 +517,11 @@
 
         .podium-item-ref.rank-1-wrapper { transform: translateY(-8px); }
         .podium-item-ref.rank-1-wrapper .podium-avatar-ring {
-            width: 62px; height: 62px;
-            border: 3px solid var(--gold-primary);
-            background: rgba(234, 179, 8, 0.15);
+            width: 64px; height: 64px;
+            border: 3px solid var(--gold-bright);
+            background: rgba(255, 215, 0, 0.2);
             color: var(--gold-light);
-            box-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
+            box-shadow: 0 0 22px rgba(255, 140, 0, 0.6);
             font-size: 18px;
         }
 
@@ -503,20 +537,20 @@
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #07090e;
+            background: #030508;
             z-index: 200;
             padding: 20px;
             overflow-y: auto;
             box-sizing: border-box;
         }
 
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,215,0,0.25); padding-bottom: 14px; }
         .admin-table-container { width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 
         .client-admin-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
+            background: var(--gradient-card);
+            border: 1px solid rgba(255,215,0,0.25);
+            border-radius: 18px;
             padding: 16px;
             display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
@@ -524,59 +558,62 @@
         .client-info span { font-size: 12px; color: var(--text-muted); display: block; font-weight: 500; }
 
         .download-img-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: var(--gradient-gold);
             color: #000; border: none; padding: 10px 16px; border-radius: 12px;
             font-weight: 900; font-size: 12px; cursor: pointer; white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 140, 0, 0.4);
         }
 
         #ticketCanvasContainer { position: absolute; left: -9999px; top: -9999px; }
         .ticket-receipt-card {
             width: 500px;
             background: linear-gradient(135deg, #0b1329, #030712);
-            border: 3px solid var(--gold-primary); border-radius: 24px; padding: 30px;
+            border: 3px solid #ffcc00; border-radius: 24px; padding: 30px;
             color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(3, 7, 18, 0.9); backdrop-filter: blur(12px);
+            background: rgba(2, 4, 8, 0.92); backdrop-filter: blur(15px);
             display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px;
         }
         .modal-card {
-            width: 100%; max-width: 400px; background: #0b1329;
-            border: 1px solid rgba(234, 179, 8, 0.4); border-radius: 26px; padding: 24px;
-            display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+            width: 100%; max-width: 400px; background: #0b1120;
+            border: 1px solid rgba(255, 215, 0, 0.4); border-radius: 28px; padding: 24px;
+            display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 60px rgba(0,0,0,0.9);
             max-height: 90vh; overflow-y: auto; position: relative;
         }
         .bank-header-title {
-            background: linear-gradient(135deg, #ca8a04, var(--gold-primary)); color: #000;
+            background: var(--gradient-gold); color: #000;
             text-align: center; padding: 14px; border-radius: 14px; font-weight: 900; font-size: 14px;
         }
         .modal-title { font-size: 18px; font-weight: 900; color: #fff; text-align: center; margin: 0; }
         .modal-subtitle { font-size: 12px; color: var(--text-muted); text-align: center; margin: -10px 0 0 0; font-weight: 500; }
         
-        .bank-box { background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
+        .bank-box { background: rgba(2, 4, 8, 0.95); border: 1px solid rgba(255,215,0,0.25); border-radius: 16px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 12px; font-size: 13px; color: #fff; }
         
-        .copy-btn { background: var(--gold-primary); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
+        .copy-btn { background: var(--gradient-gold); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-label { font-size: 12px; font-weight: 800; color: #fff; }
-        .form-input { width: 100%; background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
+        .form-input { width: 100%; background: rgba(2, 4, 8, 0.95); border: 1px solid rgba(255,215,0,0.25); border-radius: 16px; padding: 14px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
 
         .file-upload-box {
-            border: 2px dashed rgba(234, 179, 8, 0.4); border-radius: 14px; padding: 18px 14px;
-            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(5, 8, 18, 0.6);
+            border: 2px dashed rgba(255, 215, 0, 0.4); border-radius: 16px; padding: 18px 14px;
+            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(2, 4, 8, 0.7);
             display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600;
         }
 
         .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
-        .btn-modal-action { flex: 1; padding: 14px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; border: none; }
+        .btn-modal-action { flex: 1; padding: 14px; border-radius: 16px; font-size: 13px; font-weight: 900; cursor: pointer; border: none; }
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: #fff; }
-        .btn-confirm { background: linear-gradient(135deg, var(--gold-primary), #ca8a04); color: #000; font-weight: 900; box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4); }
+        .btn-confirm { background: var(--gradient-gold); color: #000; font-weight: 900; box-shadow: 0 4px 20px rgba(255, 140, 0, 0.5); }
     </style>
 </head>
 <body>
+
+<div class="bg-glow-orb" style="top: 10%; left: 5%;"></div>
+<div class="bg-glow-orb" style="bottom: 20%; right: 5%; animation-delay: 4s;"></div>
 
 <div class="main-container">
     <div class="top-navbar">
@@ -584,7 +621,11 @@
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
+    <!-- HERO BANNER CON REGALOS FLOTANTES DE FONDO -->
     <div class="hero-banner">
+        <div class="floating-gift-bg" style="top: 10px; left: 15px;">🎁</div>
+        <div class="floating-gift-bg" style="bottom: 10px; right: 20px; animation-delay: 2s;">⭐</div>
+        
         <div class="badge-pill">✨ Gran Sorteo Exclusivo ✨</div>
         <h1 class="main-title">Rifas J.A.</h1>
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
@@ -594,12 +635,12 @@
         <div class="prize-mini-card">
             <span class="prize-icon">📺</span>
             <p class="prize-name">Smart TV 75"</p>
-            <p class="prize-desc">Resolución 4K UHD</p>
+            <p class="prize-desc">4K UHD</p>
         </div>
         <div class="prize-mini-card">
             <span class="prize-icon">❄️</span>
             <p class="prize-name">Nevera Condesa</p>
-            <p class="prize-desc">Modelo 4 Puertas</p>
+            <p class="prize-desc">4 Puertas</p>
         </div>
     </div>
 
@@ -615,9 +656,9 @@
                 <li>Adjunta tu capture, llena tus datos y envíalos por WhatsApp.</li>
             </ol>
             <div class="legend-row">
-                <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);"></div> Libre</div>
-                <div class="legend-item"><div class="legend-dot" style="background: var(--gold-primary);"></div> Tuyo</div>
-                <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.6);"></div> Vendido</div>
+                <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4);"></div> Libre</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--gold-bright);"></div> Tuyo</div>
+                <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.7);"></div> Vendido</div>
             </div>
         </div>
     </div>
@@ -710,7 +751,7 @@
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
             <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Teléfono:</b> <span id="lblTicketTelefono" style="color: #fff;">-</span></p>
         </div>
-        <div style="background: rgba(234, 179, 8, 0.1); border: 1px solid var(--gold-primary); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
+        <div style="background: rgba(255, 215, 0, 0.1); border: 1px solid var(--gold-bright); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
             <p style="margin: 0 0 4px 0; font-size: 11px; color: var(--gold-light); font-weight: bold;">NÚMEROS ASIGNADOS:</p>
             <h3 id="lblTicketNumeros" style="margin: 0; color: #fff; font-size: 16px; word-break: break-all;">-</h3>
         </div>
@@ -891,7 +932,7 @@
             </div>
             <div class="podium-item-ref rank-1-wrapper">
                 <div class="podium-avatar-ring"><span class="podium-crown">👑</span>${inicial1}</div>
-                <span class="podium-badge-tag" style="background: rgba(234,179,8,0.2); color: var(--gold-light);">🏆 #1</span>
+                <span class="podium-badge-tag" style="background: rgba(255,215,0,0.25); color: var(--gold-light);">🏆 #1</span>
                 <p class="podium-name-txt" style="font-size: 12px;">${top1.nombre}</p>
                 <p class="podium-tickets-txt">${top1.cantidad} T.</p>
             </div>
@@ -914,7 +955,7 @@
             renderizarListaFiltrada(seleccionados);
         } else {
             btn.innerText = "Ver Listos";
-            btn.style.background = "var(--gold-primary)";
+            btn.style.background = "var(--gradient-gold)";
             btn.style.color = "#000";
             generarBoletos(inicioRango, finRango);
         }
@@ -979,7 +1020,7 @@
         soloVerMisSeleccionados = false;
         let btn = document.querySelector('.view-selected-btn');
         btn.innerText = "Ver Listos";
-        btn.style.background = "var(--gold-primary)";
+        btn.style.background = "var(--gradient-gold)";
         btn.style.color = "#000";
         document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
         if(inicio === 1) document.getElementById('range1').classList.add('active');
@@ -1053,8 +1094,8 @@
     function verificarCapture(input) {
         if (input.files && input.files[0]) {
             tieneCapture = true;
-            document.getElementById('fileLabel').style.borderColor = 'var(--gold-primary)';
-            document.getElementById('fileLabel').style.background = 'rgba(234, 179, 8, 0.08)';
+            document.getElementById('fileLabel').style.borderColor = 'var(--gold-bright)';
+            document.getElementById('fileLabel').style.background = 'rgba(255, 215, 0, 0.08)';
             document.getElementById('fileLabel').innerHTML = `
                 <span style="font-size: 22px;">✅</span>
                 <span style="color:var(--gold-light); font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
@@ -1068,8 +1109,8 @@
         if(inputEl) inputEl.value = '';
         let label = document.getElementById('fileLabel');
         if(label) {
-            label.style.borderColor = 'rgba(234, 179, 8, 0.4)';
-            label.style.background = 'rgba(5, 8, 18, 0.6)';
+            label.style.borderColor = 'rgba(255, 215, 0, 0.4)';
+            label.style.background = 'rgba(2, 4, 8, 0.7)';
             label.innerHTML = `
                 <span style="font-size: 22px;">📂</span>
                 <span style="font-weight: 700; color: #fff;">Toca aquí para seleccionar tu capture</span>
@@ -1100,10 +1141,10 @@
         let totalPagar = seleccionados.length * precioBoleto;
 
         confetti({
-            particleCount: 120,
-            spread: 80,
+            particleCount: 140,
+            spread: 90,
             origin: { y: 0.6 },
-            colors: ['#facc15', '#059669', '#34d399', '#ffffff']
+            colors: ['#ffd700', '#ff8c00', '#ffcc00', '#ffffff']
         });
 
         seleccionados.forEach(num => {
