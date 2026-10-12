@@ -719,6 +719,7 @@
     </div>
 </div>
 
+<!-- MODAL DE PAGO MÓVIL Y REFERENCIA -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
@@ -729,6 +730,8 @@
             <div class="bank-row"><span><b>Cédula:</b> 18483754</span><button class="copy-btn" onclick="copiarTexto('18483754')">Copiar</button></div>
             <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
+        
+        <!-- OPCCIÓN 1: ADJUNTAR CAPTURE -->
         <div class="form-group">
             <label class="form-label">📸 COMPROBANTE DE PAGO (*Obligatorio)</label>
             <label class="file-upload-box" id="fileLabel">
@@ -737,6 +740,13 @@
                 <input type="file" id="inputCapture" accept="image/*" style="display: none;" onchange="verificarCapture(this)">
             </label>
         </div>
+
+        <!-- OPCIÓN 2: NÚMERO DE REFERENCIA JUSTO DEBAJO DEL CAPTURE -->
+        <div class="form-group">
+            <label class="form-label">💳 Número de Referencia (*Obligatorio)</label>
+            <input type="text" id="inputReferencia" class="form-input" placeholder="Ej. 123456 (últimos dígitos)">
+        </div>
+
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalPago')">Cancelar</button>
             <button class="btn-modal-action btn-confirm" onclick="siguientePasoDatos()">Siguiente</button>
@@ -744,6 +754,7 @@
     </div>
 </div>
 
+<!-- MODAL DE DATOS PERSONALES -->
 <div id="modalDatos" class="modal-overlay">
     <div class="modal-card">
         <h3 class="modal-title">📝 Tus Datos Personales</h3>
@@ -755,10 +766,6 @@
         <div class="form-group">
             <label class="form-label">Número de Teléfono / WhatsApp</label>
             <input type="text" id="inputTelefono" class="form-input" placeholder="Ej. 04141234567">
-        </div>
-        <div class="form-group">
-            <label class="form-label">💳 Número de Referencia (Pago Móvil)</label>
-            <input type="text" id="inputReferencia" class="form-input" placeholder="Ej. 123456">
         </div>
         <div class="modal-btn-row">
             <button class="btn-modal-action btn-cancel" onclick="cerrarModal('modalDatos')">Atrás</button>
@@ -1049,6 +1056,7 @@
         }
 
         resetearCapture();
+        document.getElementById('inputReferencia').value = '';
         document.getElementById('modalPago').style.display = 'flex';
     }
 
@@ -1084,7 +1092,17 @@
     }
 
     function siguientePasoDatos() {
-        if (!tieneCapture) { alert("⚠️ Debes adjuntar el comprobante de pago obligatoriamente."); return; }
+        let referencia = document.getElementById('inputReferencia').value.trim();
+
+        if (!tieneCapture) { 
+            alert("⚠️ Debes adjuntar el comprobante de pago obligatoriamente."); 
+            return; 
+        }
+        if (!referencia) { 
+            alert("⚠️ Debes ingresar el número de referencia de tu pago."); 
+            return; 
+        }
+
         document.getElementById('modalPago').style.display = 'none';
         document.getElementById('modalDatos').style.display = 'flex';
     }
@@ -1092,10 +1110,9 @@
     function mostrarAdvertenciaWhatsApp() {
         let nombre = document.getElementById('inputNombre').value.trim();
         let telefono = document.getElementById('inputTelefono').value.trim();
-        let referencia = document.getElementById('inputReferencia').value.trim();
 
-        if (!nombre || !telefono || !referencia) { 
-            alert("⚠️ Por favor completa tu nombre, teléfono y el número de referencia bancaria."); 
+        if (!nombre || !telefono) { 
+            alert("⚠️ Por favor completa tu nombre y tu teléfono."); 
             return; 
         }
 
@@ -1140,7 +1157,6 @@
         db.ref('rifas_ja_podio').set(podioCompradores);
         db.ref('rifas_ja_clientes').set(registroClientes);
 
-        // MENSAJE ACTUALIZADO: Diciento que compra y paga boletos
         let mensaje = `Hola! 👋 Acabo de comprar ${seleccionados.length} boleto(s) en la rifa Rifas J.A.\n\n🎟️ Números comprados: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n💳 Nro de Referencia: ${referencia}\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi comprobante de pago a este chat.`;
         
         setTimeout(() => {
