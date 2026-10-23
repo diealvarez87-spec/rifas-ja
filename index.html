@@ -49,7 +49,6 @@
             position: relative;
         }
 
-        /* BOTÓN DE ADMIN FLOTANTE DISCRETO ARRIBA A LA DERECHA */
         .admin-floating-top {
             display: flex;
             justify-content: flex-end;
@@ -87,29 +86,28 @@
             align-items: center;
         }
 
+        /* LOGO OFICIAL IDÉNTICO */
         .hero-logo-main {
             width: 100%;
-            max-width: 260px;
+            max-width: 240px;
             height: auto;
             border-radius: 20px;
             object-fit: contain;
             filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.7));
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .hero-main-title {
-            font-size: 21px;
+            font-size: 19px;
             font-weight: 900;
-            margin: 6px 0 8px 0;
+            margin: 4px 0 6px 0;
             background: linear-gradient(135deg, #ffffff 20%, var(--gold-neon) 70%, var(--gold-glow) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
-            text-align: center;
-            line-height: 1.25;
-            width: 100%;
+            white-space: nowrap;
         }
 
         .badge-pill {
@@ -122,7 +120,7 @@
             font-size: 11px;
             font-weight: 900;
             text-transform: uppercase;
-            padding: 6px 18px;
+            padding: 5px 16px;
             border-radius: 20px;
             letter-spacing: 1.2px;
             margin-bottom: 4px;
@@ -648,14 +646,13 @@
 <body>
 
 <div class="main-container">
-    <!-- BOTÓN ADMIN LIMPIO Y FUERA DEL FLUJO -->
     <div class="admin-floating-top">
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
-    <!-- HERO BANNER PRINCIPAL -->
+    <!-- HERO BANNER CON EL NOMBRE EXACTO DE LA IMAGEN OFICIAL -->
     <div class="hero-banner">
-        <img src="logo.jpg" alt="La Ruta de la Suerte 7" class="hero-logo-main" onerror="this.src='120578.jpg'">
+        <img src="120578_2.jpg" alt="La Ruta de la Suerte 7" class="hero-logo-main" onerror="this.src='logo.jpg'">
         <div class="badge-pill">✨ Gran Sorteo Exclusivo ✨</div>
         <h1 class="hero-main-title">La Ruta de la Suerte 7</h1>
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
@@ -805,7 +802,7 @@
     </div>
 </div>
 
-<!-- MODAL DE PAGO CON BANNER DE FELICIDADES -->
+<!-- MODAL DE PAGO -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
         <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
