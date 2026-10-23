@@ -80,34 +80,21 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(0, 240, 255, 0.15);
+            box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* LOGO OFICIAL IDÉNTICO */
+        /* LOGO MÁS GRANDE Y LIMPIO IDÉNTICO AL QUE QUIERE TU PAPÁ */
         .hero-logo-main {
             width: 100%;
-            max-width: 240px;
+            max-width: 300px;
             height: auto;
-            border-radius: 20px;
+            border-radius: 22px;
             object-fit: contain;
-            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.7));
-            margin-bottom: 14px;
-        }
-
-        .hero-main-title {
-            font-size: 19px;
-            font-weight: 900;
-            margin: 4px 0 6px 0;
-            background: linear-gradient(135deg, #ffffff 20%, var(--gold-neon) 70%, var(--gold-glow) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.6));
-            white-space: nowrap;
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.8));
+            margin-bottom: 10px;
         }
 
         .badge-pill {
@@ -120,9 +107,10 @@
             font-size: 11px;
             font-weight: 900;
             text-transform: uppercase;
-            padding: 5px 16px;
+            padding: 6px 18px;
             border-radius: 20px;
             letter-spacing: 1.2px;
+            margin-top: 4px;
             margin-bottom: 4px;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
@@ -130,7 +118,7 @@
         .hero-subtitle {
             font-size: 12px;
             color: #ffffff;
-            margin-top: 2px;
+            margin-top: 4px;
             font-weight: 700;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
@@ -650,11 +638,10 @@
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
-    <!-- HERO BANNER CON EL NOMBRE EXACTO DE LA IMAGEN OFICIAL -->
+    <!-- BANNER CON EL LOGO OFICIAL DE TU PAPÁ INTEGRADO DIRECTAMENTE -->
     <div class="hero-banner">
-        <img src="120578_2.jpg" alt="La Ruta de la Suerte 7" class="hero-logo-main" onerror="this.src='logo.jpg'">
+        <img src="https://i.ibb.co/6R7z8h8/120578-2.jpg" alt="La Ruta de la Suerte 7" class="hero-logo-main" onerror="this.src='120578_2.jpg'">
         <div class="badge-pill">✨ Gran Sorteo Exclusivo ✨</div>
-        <h1 class="hero-main-title">La Ruta de la Suerte 7</h1>
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
     </div>
 
