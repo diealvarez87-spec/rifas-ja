@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rifas J.A. - Gran Sorteo Exclusivo</title>
+    <title>La Ruta de la Suerte 7 - Rifas y Sorteos</title>
     <!-- Firebase SDK Compat -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -11,25 +11,26 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-base: #07090e;
-            --card-bg: linear-gradient(135deg, rgba(18, 24, 38, 0.9), rgba(10, 14, 23, 0.95));
-            --card-border: rgba(234, 179, 8, 0.35);
-            --gold-primary: #facc15;
-            --gold-light: #fef08a;
+            --bg-base: #070d1a;
+            --card-bg: linear-gradient(135deg, rgba(14, 27, 54, 0.9), rgba(8, 15, 31, 0.95));
+            --card-border: rgba(56, 189, 248, 0.35);
+            --blue-primary: #38bdf8;
+            --blue-light: #bae6fd;
+            --blue-glow: #0284c7;
             --green-luxury: #059669;
             --green-bright: #34d399;
             --text-main: #ffffff;
             --text-muted: #cbd5e1;
-            --input-bg: rgba(5, 8, 15, 0.98);
+            --input-bg: rgba(5, 12, 26, 0.98);
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
             background-image: 
-                radial-gradient(circle at 15% 10%, rgba(234, 179, 8, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 85% 90%, rgba(5, 150, 105, 0.15) 0%, transparent 45%),
-                linear-gradient(135deg, #020408 0%, #0d121f 100%);
+                radial-gradient(circle at 15% 10%, rgba(56, 189, 248, 0.15) 0%, transparent 45%),
+                radial-gradient(circle at 85% 90%, rgba(2, 132, 199, 0.18) 0%, transparent 45%),
+                linear-gradient(135deg, #030712 0%, #0b172a 100%);
             color: var(--text-main);
             margin: 0;
             padding: 12px;
@@ -56,24 +57,39 @@
             background: var(--card-bg);
             backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
-            padding: 12px 18px;
+            padding: 10px 16px;
             border-radius: 18px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.6);
         }
 
+        .brand-header-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--blue-primary);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
         .brand-mini {
             font-weight: 900;
-            font-size: 15px;
-            background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+            font-size: 14px;
+            background: linear-gradient(135deg, #ffffff, var(--blue-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 0.8px;
+            letter-spacing: 0.6px;
         }
 
         .icon-btn {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-            color: var(--gold-primary);
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--blue-primary);
             border-radius: 12px;
             width: 38px;
             height: 38px;
@@ -84,78 +100,92 @@
             font-size: 16px;
             transition: 0.2s;
         }
-        .icon-btn:hover { background: rgba(234, 179, 8, 0.25); transform: scale(1.05); }
+        .icon-btn:hover { background: rgba(56, 189, 248, 0.25); transform: scale(1.05); }
 
         .hero-banner {
-            background: linear-gradient(135deg, rgba(18, 24, 38, 0.95), rgba(4, 47, 30, 0.8));
-            border: 1px solid rgba(234, 179, 8, 0.45);
+            background: linear-gradient(135deg, rgba(14, 27, 54, 0.95), rgba(2, 132, 199, 0.35));
+            border: 1px solid rgba(56, 189, 248, 0.45);
             border-radius: 26px;
-            padding: 26px 16px;
+            padding: 24px 16px;
             text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: 0 15px 40px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-logo-main {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--blue-primary);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            margin-bottom: 12px;
         }
 
         .badge-pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(5, 150, 105, 0.2));
-            border: 1px solid rgba(234, 179, 8, 0.5);
-            color: var(--gold-light);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            color: var(--blue-light);
             font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
             padding: 6px 16px;
             border-radius: 20px;
             letter-spacing: 1.2px;
-            margin-bottom: 12px;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+            margin-bottom: 10px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
         .main-title {
-            font-size: 38px;
+            font-size: 26px;
             font-weight: 900;
             margin: 0;
-            background: linear-gradient(135deg, #ffffff 15%, var(--gold-primary) 60%, var(--green-bright) 100%);
+            background: linear-gradient(135deg, #ffffff 20%, var(--blue-primary) 70%, var(--blue-light) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.2px;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            filter: drop-shadow(0 4px 16px rgba(234, 179, 8, 0.3));
+            filter: drop-shadow(0 4px 16px rgba(56, 189, 248, 0.3));
         }
 
         .hero-subtitle {
             font-size: 13px;
             color: var(--text-muted);
-            margin-top: 8px;
+            margin-top: 6px;
             font-weight: 600;
         }
 
+        /* GRILLA DE 6 PREMIOS */
         .prizes-showcase {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 10px;
         }
 
         .prize-mini-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 14px;
+            border-radius: 18px;
+            padding: 12px 10px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.4);
             transition: 0.2s;
         }
-        .prize-mini-card:hover { border-color: var(--gold-primary); transform: translateY(-3px); }
-        .prize-icon { font-size: 24px; margin-bottom: 2px; }
-        .prize-name { font-size: 13px; font-weight: 900; color: var(--gold-light); margin: 0; }
-        .prize-desc { font-size: 10px; color: var(--text-muted); margin: 0; font-weight: 600; }
+        .prize-mini-card:hover { border-color: var(--blue-primary); transform: translateY(-3px); }
+        .prize-tag { font-size: 10px; font-weight: 800; color: var(--blue-primary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .prize-icon { font-size: 22px; margin: 2px 0; }
+        .prize-name { font-size: 12px; font-weight: 900; color: var(--blue-light); margin: 0; }
 
         .info-dropdown-card {
             background: var(--card-bg);
@@ -170,7 +200,7 @@
             background: transparent;
             border: none;
             padding: 15px 18px;
-            color: var(--gold-primary);
+            color: var(--blue-primary);
             font-size: 12px;
             font-weight: 900;
             text-align: left;
@@ -215,7 +245,7 @@
 
         .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #fff; }
         .progress-bar-bg { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.08); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--gold-primary), var(--green-bright)); box-shadow: 0 0 15px rgba(234, 179, 8, 0.6); transition: width 0.4s ease; border-radius: 6px; }
+        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--blue-primary), var(--green-bright)); box-shadow: 0 0 15px rgba(56, 189, 248, 0.6); transition: width 0.4s ease; border-radius: 6px; }
 
         .selection-panel {
             background: var(--card-bg);
@@ -228,7 +258,7 @@
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
 
-        .panel-heading-title { font-size: 13px; font-weight: 900; text-align: center; color: var(--gold-light); letter-spacing: 1.2px; text-transform: uppercase; }
+        .panel-heading-title { font-size: 13px; font-weight: 900; text-align: center; color: var(--blue-light); letter-spacing: 1.2px; text-transform: uppercase; }
 
         .mode-tabs {
             display: grid;
@@ -252,9 +282,9 @@
         }
 
         .mode-tab.active {
-            background: linear-gradient(135deg, var(--green-luxury), var(--green-bright));
+            background: linear-gradient(135deg, var(--blue-glow), var(--blue-primary));
             color: #fff;
-            box-shadow: 0 0 18px rgba(5, 150, 105, 0.5);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.5);
         }
 
         #manualSection, #azarSection { display: flex; flex-direction: column; gap: 14px; }
@@ -262,7 +292,7 @@
         .back-to-manual-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--gold-light);
+            color: var(--blue-light);
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 12px;
@@ -274,16 +304,16 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .back-to-manual-btn:hover { background: rgba(234, 179, 8, 0.15); border-color: var(--gold-primary); }
+        .back-to-manual-btn:hover { background: rgba(56, 189, 248, 0.15); border-color: var(--blue-primary); }
 
         .lucky-promo-box {
-            background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(5, 150, 105, 0.15));
-            border: 1px solid rgba(234, 179, 8, 0.4);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.12), rgba(5, 150, 105, 0.15));
+            border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 16px;
             padding: 16px;
             text-align: center;
         }
-        .lucky-promo-title { font-size: 13px; font-weight: 900; color: var(--gold-light); letter-spacing: 0.8px; }
+        .lucky-promo-title { font-size: 13px; font-weight: 900; color: var(--blue-light); letter-spacing: 0.8px; }
 
         .qtys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
@@ -303,9 +333,9 @@
         .qty-box span:first-child { font-size: 18px; font-weight: 900; color: #fff; }
         .qty-box span:last-child { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .qty-box.active {
-            background: linear-gradient(135deg, var(--green-luxury), var(--green-bright));
-            border-color: var(--green-bright);
-            box-shadow: 0 0 16px rgba(5, 150, 105, 0.5);
+            background: linear-gradient(135deg, var(--blue-glow), var(--blue-primary));
+            border-color: var(--blue-primary);
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.5);
         }
         .qty-box.active span { color: #fff; }
 
@@ -321,7 +351,7 @@
             outline: none;
             transition: 0.2s;
         }
-        .search-input:focus { border-color: var(--gold-primary); box-shadow: 0 0 12px rgba(234, 179, 8, 0.3); }
+        .search-input:focus { border-color: var(--blue-primary); box-shadow: 0 0 12px rgba(56, 189, 248, 0.3); }
 
         .ranges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
@@ -339,35 +369,35 @@
         }
 
         .range-tab.active {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
-            color: #000;
-            border-color: var(--gold-light);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow));
+            color: #fff;
+            border-color: var(--blue-light);
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
         }
 
         .my-selection-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.35);
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.35);
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 800;
-            color: var(--gold-light);
+            color: var(--blue-light);
         }
         .view-selected-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
-            color: #000;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow));
+            color: #fff;
             border: none;
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 10px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
         }
 
         .tickets-grid {
@@ -395,14 +425,14 @@
             user-select: none;
             transition: 0.15s;
         }
-        .ticket-cell:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--gold-primary); }
+        .ticket-cell:hover { background: rgba(255, 255, 255, 0.1); border-color: var(--blue-primary); }
 
         .ticket-cell.selected {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
-            color: #000;
-            border-color: var(--gold-light);
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow));
+            color: #fff;
+            border-color: var(--blue-light);
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(234, 179, 8, 0.7);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.7);
         }
 
         .ticket-cell.sold {
@@ -416,7 +446,7 @@
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(7, 9, 14, 0.96);
+            background: rgba(7, 13, 26, 0.96);
             backdrop-filter: blur(20px);
             border-top: 1px solid var(--card-border);
             padding: 14px 20px;
@@ -429,18 +459,18 @@
         }
 
         .selection-summary { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .selection-summary b { display: block; font-size: 15px; color: var(--gold-light); }
+        .selection-summary b { display: block; font-size: 15px; color: var(--blue-light); }
 
         .buy-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
-            color: #000;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow));
+            color: #fff;
             border: none;
             border-radius: 14px;
             padding: 13px 26px;
             font-size: 14px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(234, 179, 8, 0.45);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.45);
             transition: 0.2s;
             letter-spacing: 0.5px;
         }
@@ -461,8 +491,8 @@
 
         .podium-icon-top {
             width: 38px; height: 38px;
-            background: rgba(234, 179, 8, 0.15);
-            border: 1px solid rgba(234, 179, 8, 0.4);
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 18px;
@@ -484,10 +514,10 @@
         .podium-item-ref.rank-1-wrapper { transform: translateY(-8px); }
         .podium-item-ref.rank-1-wrapper .podium-avatar-ring {
             width: 62px; height: 62px;
-            border: 3px solid var(--gold-primary);
-            background: rgba(234, 179, 8, 0.15);
-            color: var(--gold-light);
-            box-shadow: 0 0 20px rgba(234, 179, 8, 0.5);
+            border: 3px solid var(--blue-primary);
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--blue-light);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
             font-size: 18px;
         }
 
@@ -497,13 +527,13 @@
         .podium-crown { position: absolute; top: -16px; font-size: 15px; }
         .podium-badge-tag { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.08); color: #fff; }
         .podium-name-txt { font-size: 11px; font-weight: 800; color: #fff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
-        .podium-tickets-txt { font-size: 10px; font-weight: 900; color: var(--gold-light); margin: 0; }
+        .podium-tickets-txt { font-size: 10px; font-weight: 900; color: var(--blue-light); margin: 0; }
 
         #adminPanelScreen {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #07090e;
+            background: #070d1a;
             z-index: 200;
             padding: 20px;
             overflow-y: auto;
@@ -520,21 +550,21 @@
             padding: 16px;
             display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-        .client-info b { color: var(--gold-light); font-size: 14px; display: block; margin-bottom: 4px; }
+        .client-info b { color: var(--blue-light); font-size: 14px; display: block; margin-bottom: 4px; }
         .client-info span { font-size: 12px; color: var(--text-muted); display: block; font-weight: 500; }
 
         .download-img-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
-            color: #000; border: none; padding: 10px 16px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow));
+            color: #fff; border: none; padding: 10px 16px; border-radius: 12px;
             font-weight: 900; font-size: 12px; cursor: pointer; white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
         }
 
         #ticketCanvasContainer { position: absolute; left: -9999px; top: -9999px; }
         .ticket-receipt-card {
             width: 500px;
-            background: linear-gradient(135deg, #0b1329, #030712);
-            border: 3px solid var(--gold-primary); border-radius: 24px; padding: 30px;
+            background: linear-gradient(135deg, #0b172a, #030712);
+            border: 3px solid var(--blue-primary); border-radius: 24px; padding: 30px;
             color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
@@ -544,62 +574,87 @@
             display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px;
         }
         .modal-card {
-            width: 100%; max-width: 400px; background: #0b1329;
-            border: 1px solid rgba(234, 179, 8, 0.4); border-radius: 26px; padding: 24px;
+            width: 100%; max-width: 400px; background: #0b172a;
+            border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 26px; padding: 24px;
             display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.8);
             max-height: 90vh; overflow-y: auto; position: relative;
         }
         .bank-header-title {
-            background: linear-gradient(135deg, #ca8a04, var(--gold-primary)); color: #000;
+            background: linear-gradient(135deg, var(--blue-glow), var(--blue-primary)); color: #fff;
             text-align: center; padding: 14px; border-radius: 14px; font-weight: 900; font-size: 14px;
         }
         .modal-title { font-size: 18px; font-weight: 900; color: #fff; text-align: center; margin: 0; }
         .modal-subtitle { font-size: 12px; color: var(--text-muted); text-align: center; margin: -10px 0 0 0; font-weight: 500; }
         
-        .bank-box { background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .bank-box { background: rgba(5, 12, 26, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
         .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
         
-        .copy-btn { background: var(--gold-primary); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
+        .copy-btn { background: var(--blue-primary); color: #fff; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-label { font-size: 12px; font-weight: 800; color: #fff; }
-        .form-input { width: 100%; background: rgba(5, 8, 18, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
+        .form-input { width: 100%; background: rgba(5, 12, 26, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
 
         .file-upload-box {
-            border: 2px dashed rgba(234, 179, 8, 0.4); border-radius: 14px; padding: 18px 14px;
-            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(5, 8, 18, 0.6);
+            border: 2px dashed rgba(56, 189, 248, 0.4); border-radius: 14px; padding: 18px 14px;
+            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(5, 12, 26, 0.6);
             display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600;
         }
 
         .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
         .btn-modal-action { flex: 1; padding: 14px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; border: none; }
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: #fff; }
-        .btn-confirm { background: linear-gradient(135deg, var(--gold-primary), #ca8a04); color: #000; font-weight: 900; box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4); }
+        .btn-confirm { background: linear-gradient(135deg, var(--blue-primary), var(--blue-glow)); color: #fff; font-weight: 900; box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4); }
     </style>
 </head>
 <body>
 
 <div class="main-container">
     <div class="top-navbar">
-        <span class="brand-mini">👑 RIFAS J.A.</span>
+        <div class="brand-header-group">
+            <img src="logo.jpg" alt="Logo" class="brand-logo-img" onerror="this.style.display='none'">
+            <span class="brand-mini">LA RUTA DE LA SUERTE 7</span>
+        </div>
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
     <div class="hero-banner">
-        <div class="badge-pill">✨ Gran Sorteo Exclusivo ✨</div>
-        <h1 class="main-title">Rifas J.A.</h1>
+        <img src="logo.jpg" alt="La Ruta de la Suerte 7" class="hero-logo-main" onerror="this.style.display='none'">
+        <div class="badge-pill">🍀 Gran Sorteo Exclusivo 🍀</div>
+        <h1 class="main-title">La Ruta de la Suerte 7</h1>
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
     </div>
 
+    <!-- MOSTRAR LOS 6 PREMIOS OFICIALES DE TU LISTA -->
     <div class="prizes-showcase">
         <div class="prize-mini-card">
-            <span class="prize-icon">📺</span>
-            <p class="prize-name">Smart TV 75"</p>
-            <p class="prize-desc">Resolución 4K UHD</p>
+            <span class="prize-tag">1er Premio</span>
+            <span class="prize-icon">🛵</span>
+            <p class="prize-name">Moto de Dama</p>
         </div>
         <div class="prize-mini-card">
+            <span class="prize-tag">2do Premio</span>
+            <span class="prize-icon">🏍️</span>
+            <p class="prize-name">Moto 0KM</p>
+        </div>
+        <div class="prize-mini-card">
+            <span class="prize-tag">3er Premio</span>
             <span class="prize-icon">❄️</span>
-            <p class="prize-name">Nevera Condesa</p>
-            <p class="prize-desc">Modelo 4 Puertas</p>
+            <p class="prize-name">Nevera</p>
+        </div>
+        <div class="prize-mini-card">
+            <span class="prize-tag">4to Premio</span>
+            <span class="prize-icon">📺</span>
+            <p class="prize-name">TV de 43"</p>
+        </div>
+        <div class="prize-mini-card">
+            <span class="prize-tag">5to Premio</span>
+            <span class="prize-icon">🧺</span>
+            <p class="prize-name">Lavadora</p>
+        </div>
+        <div class="prize-mini-card">
+            <span class="prize-tag">6to Premio</span>
+            <span class="prize-icon">🧊</span>
+            <p class="prize-name">Frizzer</p>
         </div>
     </div>
 
@@ -616,7 +671,7 @@
             </ol>
             <div class="legend-row">
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3);"></div> Libre</div>
-                <div class="legend-item"><div class="legend-dot" style="background: var(--gold-primary);"></div> Tuyo</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--blue-primary);"></div> Tuyo</div>
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.6);"></div> Vendido</div>
             </div>
         </div>
@@ -694,7 +749,7 @@
 <div id="adminPanelScreen">
     <div class="admin-table-container">
         <div class="admin-header">
-            <h2 style="margin: 0; color: var(--gold-light);">🔐 Panel de Control - Rifas J.A.</h2>
+            <h2 style="margin: 0; color: var(--blue-light);">🔐 Panel de Control - La Ruta de la Suerte 7</h2>
             <button class="download-img-btn" style="background: #ef4444; color:#fff;" onclick="cerrarAdminPanel()">Cerrar ✖</button>
         </div>
         <input type="text" id="adminSearchInput" class="search-input" placeholder="🔍 Buscar por cliente o referencia..." onkeyup="filtrarClientesAdmin(this.value)">
@@ -702,17 +757,19 @@
     </div>
 </div>
 
+<!-- TICKET OFICIAL EN IMAGEN CON LA FECHA DE COMPRA INTEGRADA -->
 <div id="ticketCanvasContainer">
     <div id="ticketReceiptCard" class="ticket-receipt-card">
-        <h2 style="color: var(--gold-light); margin: 0 0 5px 0;">RIFAS J.A.</h2>
-        <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 20px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
+        <h2 style="color: var(--blue-light); margin: 0 0 5px 0;">LA RUTA DE LA SUERTE 7</h2>
+        <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 15px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
         <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Teléfono:</b> <span id="lblTicketTelefono" style="color: #fff;">-</span></p>
-            <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Referencia:</b> <span id="lblTicketRef" style="color: #facc15;">-</span></p>
+            <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Referencia:</b> <span id="lblTicketRef" style="color: #38bdf8;">-</span></p>
+            <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Fecha de Compra:</b> <span id="lblTicketFecha" style="color: #34d399;">-</span></p>
         </div>
-        <div style="background: rgba(234, 179, 8, 0.1); border: 1px solid var(--gold-primary); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
-            <p style="margin: 0 0 4px 0; font-size: 11px; color: var(--gold-light); font-weight: bold;">NÚMEROS ASIGNADOS:</p>
+        <div style="background: rgba(56, 189, 248, 0.1); border: 1px solid var(--blue-primary); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
+            <p style="margin: 0 0 4px 0; font-size: 11px; color: var(--blue-light); font-weight: bold;">NÚMEROS ASIGNADOS:</p>
             <h3 id="lblTicketNumeros" style="margin: 0; color: #fff; font-size: 16px; word-break: break-all;">-</h3>
         </div>
         <p style="font-size: 10px; color: var(--text-muted); margin: 0;">¡Guarda este comprobante para reclamar tu premio!</p>
@@ -731,7 +788,6 @@
             <div class="bank-row"><span><b>Teléfono:</b> 04246737022</span><button class="copy-btn" onclick="copiarTexto('04246737022')">Copiar</button></div>
         </div>
         
-        <!-- OPCCIÓN 1: ADJUNTAR CAPTURE -->
         <div class="form-group">
             <label class="form-label">📸 COMPROBANTE DE PAGO (*Obligatorio)</label>
             <label class="file-upload-box" id="fileLabel">
@@ -741,7 +797,6 @@
             </label>
         </div>
 
-        <!-- OPCIÓN 2: NÚMERO DE REFERENCIA JUSTO DEBAJO DEL CAPTURE -->
         <div class="form-group">
             <label class="form-label">💳 Número de Referencia (*Obligatorio)</label>
             <input type="text" id="inputReferencia" class="form-input" placeholder="Ej. 123456 (últimos dígitos)">
@@ -903,7 +958,7 @@
             </div>
             <div class="podium-item-ref rank-1-wrapper">
                 <div class="podium-avatar-ring"><span class="podium-crown">👑</span>${inicial1}</div>
-                <span class="podium-badge-tag" style="background: rgba(234,179,8,0.2); color: var(--gold-light);">🏆 #1</span>
+                <span class="podium-badge-tag" style="background: rgba(56,189,248,0.2); color: var(--blue-light);">🏆 #1</span>
                 <p class="podium-name-txt" style="font-size: 12px;">${top1.nombre}</p>
                 <p class="podium-tickets-txt">${top1.cantidad} T.</p>
             </div>
@@ -926,8 +981,8 @@
             renderizarListaFiltrada(seleccionados);
         } else {
             btn.innerText = "Ver Listos";
-            btn.style.background = "var(--gold-primary)";
-            btn.style.color = "#000";
+            btn.style.background = "var(--blue-primary)";
+            btn.style.color = "#fff";
             generarBoletos(inicioRango, finRango);
         }
     }
@@ -991,8 +1046,8 @@
         soloVerMisSeleccionados = false;
         let btn = document.querySelector('.view-selected-btn');
         btn.innerText = "Ver Listos";
-        btn.style.background = "var(--gold-primary)";
-        btn.style.color = "#000";
+        btn.style.background = "var(--blue-primary)";
+        btn.style.color = "#fff";
         document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
         if(inicio === 1) document.getElementById('range1').classList.add('active');
         if(inicio === 501) document.getElementById('range2').classList.add('active');
@@ -1066,11 +1121,11 @@
     function verificarCapture(input) {
         if (input.files && input.files[0]) {
             tieneCapture = true;
-            document.getElementById('fileLabel').style.borderColor = 'var(--gold-primary)';
-            document.getElementById('fileLabel').style.background = 'rgba(234, 179, 8, 0.08)';
+            document.getElementById('fileLabel').style.borderColor = 'var(--blue-primary)';
+            document.getElementById('fileLabel').style.background = 'rgba(56, 189, 248, 0.08)';
             document.getElementById('fileLabel').innerHTML = `
                 <span style="font-size: 22px;">✅</span>
-                <span style="color:var(--gold-light); font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
+                <span style="color:var(--blue-light); font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
             `;
         }
     }
@@ -1081,8 +1136,8 @@
         if(inputEl) inputEl.value = '';
         let label = document.getElementById('fileLabel');
         if(label) {
-            label.style.borderColor = 'rgba(234, 179, 8, 0.4)';
-            label.style.background = 'rgba(5, 8, 18, 0.6)';
+            label.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+            label.style.background = 'rgba(5, 12, 26, 0.6)';
             label.innerHTML = `
                 <span style="font-size: 22px;">📂</span>
                 <span style="font-weight: 700; color: #fff;">Toca aquí para seleccionar tu capture</span>
@@ -1128,11 +1183,15 @@
         let numerosFinales = [...seleccionados].sort().join(', ');
         let totalPagar = seleccionados.length * precioBoleto;
 
+        // OBTENER FECHA Y HORA ACTUAL DE LA COMPRA
+        let ahora = new Date();
+        let fechaFormateada = ahora.toLocaleDateString('es-VE') + ', ' + ahora.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', hour12: true });
+
         confetti({
             particleCount: 120,
             spread: 80,
             origin: { y: 0.6 },
-            colors: ['#facc15', '#059669', '#34d399', '#ffffff']
+            colors: ['#38bdf8', '#0284c7', '#34d399', '#ffffff']
         });
 
         seleccionados.forEach(num => {
@@ -1150,14 +1209,15 @@
             nombre: nombre, 
             telefono: telefono, 
             referencia: referencia, 
-            numeros: numerosFinales 
+            numeros: numerosFinales,
+            fecha: fechaFormateada
         });
 
         db.ref('vendidos').set(vendidos);
         db.ref('rifas_ja_podio').set(podioCompradores);
         db.ref('rifas_ja_clientes').set(registroClientes);
 
-        let mensaje = `Hola! 👋 Acabo de comprar ${seleccionados.length} boleto(s) en la rifa Rifas J.A.\n\n🎟️ Números comprados: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n💳 Nro de Referencia: ${referencia}\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi comprobante de pago a este chat.`;
+        let mensaje = `Hola! 👋 Acabo de comprar ${seleccionados.length} boleto(s) en La Ruta de la Suerte 7 🍀\n\n🎟️ Números comprados: ${numerosFinales}\n💰 Total pagado: ${totalPagar.toLocaleString()} Bs.\n💳 Nro de Referencia: ${referencia}\n📅 Fecha: ${fechaFormateada}\n\n👤 Nombre: ${nombre}\n📱 Teléfono: ${telefono}\n\n📸 Nota: Adjunto mi comprobante de pago a este chat.`;
         
         setTimeout(() => {
             window.open(`https://wa.me/${telefonoPapa}?text=${encodeURIComponent(mensaje)}`, '_blank');
@@ -1197,10 +1257,11 @@
                 <div class="client-info">
                     <b>${cli.nombre}</b>
                     <span>📞 ${cli.telefono}</span>
-                    <span>💳 Ref: <b style="color:#facc15; display:inline;">${cli.referencia || 'Sin Ref'}</b></span>
+                    <span>💳 Ref: <b style="color:#38bdf8; display:inline;">${cli.referencia || 'Sin Ref'}</b></span>
+                    <span>📅 Fecha: ${cli.fecha || 'N/A'}</span>
                     <span>🎟️ Números: ${cli.numeros}</span>
                 </div>
-                <button class="download-img-btn" onclick="descargarBoletoImagen('${cli.nombre}', '${cli.telefono}', '${cli.referencia || 'N/A'}', '${cli.numeros}')">Descargar 📥</button>
+                <button class="download-img-btn" onclick="descargarBoletoImagen('${cli.nombre}', '${cli.telefono}', '${cli.referencia || 'N/A'}', '${cli.fecha || 'N/A'}', '${cli.numeros}')">Descargar 📥</button>
             </div>
         `).join('');
     }
@@ -1214,16 +1275,17 @@
         renderizarClientesAdmin(filtrados);
     }
 
-    function descargarBoletoImagen(nombre, telefono, referencia, numeros) {
+    function descargarBoletoImagen(nombre, telefono, referencia, fecha, numeros) {
         document.getElementById('lblTicketNombre').innerText = nombre;
         document.getElementById('lblTicketTelefono').innerText = telefono;
         document.getElementById('lblTicketRef').innerText = referencia;
+        document.getElementById('lblTicketFecha').innerText = fecha;
         document.getElementById('lblTicketNumeros').innerText = numeros;
 
         let card = document.getElementById('ticketReceiptCard');
         html2canvas(card, { scale: 2 }).then(canvas => {
             let link = document.createElement('a');
-            link.download = `Boleto_RifasJA_${nombre.replace(/\s+/g, '_')}.png`;
+            link.download = `Boleto_LaRutaDeLaSuerte7_${nombre.replace(/\s+/g, '_')}.png`;
             link.href = canvas.toDataURL('image/png');
             link.click();
         });
