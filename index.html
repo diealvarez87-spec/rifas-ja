@@ -11,27 +11,25 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --bg-base: #030712;
-            --card-bg: linear-gradient(145deg, #0f172a, #1e293b);
-            --card-border: rgba(56, 189, 248, 0.4);
-            --gold-primary: #facc15;
-            --gold-light: #fef08a;
-            --cyan-bright: #06b6d4;
-            --blue-glow: #38bdf8;
-            --green-bright: #10b981;
+            --bg-base: #020611;
+            --card-bg: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(8, 14, 28, 0.98));
+            --gold-neon: #ffd700;
+            --gold-glow: #ffae00;
+            --cyan-neon: #00f0ff;
+            --green-neon: #00ff88;
             --text-main: #ffffff;
             --text-muted: #94a3b8;
-            --input-bg: rgba(15, 23, 42, 0.98);
+            --input-bg: rgba(6, 11, 25, 0.98);
         }
 
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--bg-base);
             background-image: 
-                radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 10% 40%, rgba(250, 204, 21, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
-                linear-gradient(180deg, #020617 0%, #0b1329 100%);
+                radial-gradient(circle at 50% 0%, rgba(0, 240, 255, 0.22) 0%, transparent 45%),
+                radial-gradient(circle at 10% 35%, rgba(255, 215, 0, 0.18) 0%, transparent 35%),
+                radial-gradient(circle at 90% 75%, rgba(0, 255, 136, 0.18) 0%, transparent 35%),
+                linear-gradient(180deg, #02040a 0%, #080e1e 100%);
             color: var(--text-main);
             margin: 0;
             padding: 12px;
@@ -55,12 +53,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.9);
+            background: rgba(10, 16, 32, 0.9);
             backdrop-filter: blur(16px);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--gold-neon);
             padding: 10px 16px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7), 0 0 15px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
         }
 
         .brand-header-group {
@@ -72,17 +70,18 @@
         .brand-mini {
             font-weight: 900;
             font-size: 15px;
-            background: linear-gradient(135deg, var(--gold-light), var(--blue-glow));
+            background: linear-gradient(135deg, #ffffff, var(--gold-neon));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 0.8px;
             text-transform: uppercase;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
         }
 
         .icon-btn {
-            background: rgba(250, 204, 21, 0.15);
-            border: 1px solid rgba(250, 204, 21, 0.4);
-            color: var(--gold-primary);
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid var(--gold-neon);
+            color: var(--gold-neon);
             border-radius: 12px;
             width: 40px;
             height: 40px;
@@ -92,19 +91,19 @@
             cursor: pointer;
             font-size: 18px;
             transition: 0.2s;
-            box-shadow: 0 0 12px rgba(250, 204, 21, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
         }
-        .icon-btn:hover { background: rgba(250, 204, 21, 0.3); transform: scale(1.05); }
+        .icon-btn:hover { background: rgba(255, 215, 0, 0.3); transform: scale(1.08); }
 
         .hero-banner {
-            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.9));
-            border: 2px solid var(--card-border);
+            background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(6, 11, 25, 0.98));
+            border: 2px solid var(--cyan-neon);
             border-radius: 28px;
             padding: 22px 16px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.8), 0 0 25px rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.35), inset 0 0 20px rgba(0, 240, 255, 0.15);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -112,11 +111,11 @@
 
         .hero-logo-main {
             width: 100%;
-            max-width: 280px;
+            max-width: 290px;
             height: auto;
             border-radius: 20px;
             object-fit: contain;
-            filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.5));
+            filter: drop-shadow(0 0 25px rgba(0, 240, 255, 0.7));
             margin-bottom: 14px;
         }
 
@@ -124,9 +123,9 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-light);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(0, 240, 255, 0.25));
+            border: 1px solid var(--gold-neon);
+            color: #ffffff;
             font-size: 11px;
             font-weight: 900;
             text-transform: uppercase;
@@ -134,18 +133,24 @@
             border-radius: 20px;
             letter-spacing: 1.2px;
             margin-bottom: 8px;
-            box-shadow: 0 0 15px rgba(250, 204, 21, 0.3);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 12px rgba(255, 215, 0, 0.4); }
+            100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); }
         }
 
         .hero-subtitle {
             font-size: 13px;
-            color: var(--text-main);
+            color: #ffffff;
             margin-top: 4px;
             font-weight: 700;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
         }
 
-        /* TARJETAS DE PREMIOS SIN EMOJIS - DISEÑO LUMINOSO */
+        /* TARJETAS DE PREMIOS REINVENTADAS CON LUZ NEÓN */
         .prizes-showcase {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -153,8 +158,8 @@
         }
 
         .prize-mini-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
-            border: 1px solid rgba(56, 189, 248, 0.5);
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(8, 14, 28, 0.95));
+            border: 1px solid var(--gold-neon);
             border-radius: 18px;
             padding: 14px 10px;
             text-align: center;
@@ -163,27 +168,27 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
             transition: 0.25s ease;
             position: relative;
             overflow: hidden;
         }
         .prize-mini-card:hover { 
-            border-color: var(--gold-primary); 
+            border-color: var(--cyan-neon); 
             transform: translateY(-3px); 
-            box-shadow: 0 12px 30px rgba(250, 204, 21, 0.3);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
         }
 
         .prize-number-badge {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow));
             color: #000;
             font-size: 11px;
             font-weight: 900;
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 12px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
-            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
             margin-bottom: 2px;
         }
 
@@ -193,16 +198,16 @@
             color: #ffffff; 
             margin: 2px 0 0 0; 
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            letter-spacing: 0.6px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
         }
 
         .info-dropdown-card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--cyan-neon);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
         }
 
         .info-dropdown-btn {
@@ -210,7 +215,7 @@
             background: transparent;
             border: none;
             padding: 15px 18px;
-            color: var(--gold-light);
+            color: var(--cyan-neon);
             font-size: 12px;
             font-weight: 900;
             text-align: left;
@@ -220,6 +225,7 @@
             align-items: center;
             letter-spacing: 0.5px;
             text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
         }
 
         .info-content {
@@ -235,7 +241,7 @@
             display: flex;
             justify-content: space-around;
             margin-top: 14px;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding-top: 12px;
         }
 
@@ -244,37 +250,37 @@
 
         .progress-card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--gold-neon);
             border-radius: 20px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
         }
 
         .progress-header { display: flex; justify-content: space-between; font-size: 12px; font-weight: 800; color: #fff; }
-        .progress-bar-bg { width: 100%; height: 10px; background: rgba(0, 0, 0, 0.5); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1); }
-        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--cyan-bright), var(--green-bright), var(--gold-primary)); box-shadow: 0 0 15px rgba(56, 189, 248, 0.8); transition: width 0.4s ease; border-radius: 6px; }
+        .progress-bar-bg { width: 100%; height: 10px; background: rgba(0, 0, 0, 0.6); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.15); }
+        .progress-bar-fill { width: 1%; height: 100%; background: linear-gradient(90deg, var(--cyan-neon), var(--green-neon), var(--gold-neon)); box-shadow: 0 0 20px rgba(0, 255, 136, 0.9); transition: width 0.4s ease; border-radius: 6px; }
 
         .selection-panel {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--cyan-neon);
             border-radius: 24px;
             padding: 18px;
             display: flex;
             flex-direction: column;
             gap: 16px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
         }
 
-        .panel-heading-title { font-size: 13px; font-weight: 900; text-align: center; color: var(--gold-light); letter-spacing: 1.2px; text-transform: uppercase; }
+        .panel-heading-title { font-size: 13px; font-weight: 900; text-align: center; color: var(--gold-neon); letter-spacing: 1.2px; text-transform: uppercase; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
 
         .mode-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            background: rgba(2, 6, 23, 0.8);
-            border: 1px solid var(--card-border);
+            background: rgba(2, 6, 23, 0.9);
+            border: 1px solid var(--cyan-neon);
             border-radius: 14px;
             padding: 4px;
             gap: 4px;
@@ -292,18 +298,18 @@
         }
 
         .mode-tab.active {
-            background: linear-gradient(135deg, var(--cyan-bright), #0284c7);
-            color: #fff;
+            background: linear-gradient(135deg, var(--cyan-neon), #00a8ff);
+            color: #000;
             font-weight: 900;
-            box-shadow: 0 0 18px rgba(6, 182, 212, 0.6);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
         }
 
         #manualSection, #azarSection { display: flex; flex-direction: column; gap: 14px; }
 
         .back-to-manual-btn {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--gold-light);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--cyan-neon);
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 12px;
@@ -315,22 +321,23 @@
             gap: 6px;
             transition: 0.2s;
         }
-        .back-to-manual-btn:hover { background: rgba(250, 204, 21, 0.15); border-color: var(--gold-primary); }
+        .back-to-manual-btn:hover { background: rgba(0, 240, 255, 0.15); border-color: var(--cyan-neon); }
 
         .lucky-promo-box {
-            background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(6, 182, 212, 0.15));
-            border: 1px solid var(--gold-primary);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(0, 240, 255, 0.2));
+            border: 1px solid var(--gold-neon);
             border-radius: 16px;
             padding: 16px;
             text-align: center;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
-        .lucky-promo-title { font-size: 13px; font-weight: 900; color: var(--gold-light); letter-spacing: 0.8px; }
+        .lucky-promo-title { font-size: 13px; font-weight: 900; color: var(--gold-neon); letter-spacing: 0.8px; }
 
         .qtys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
         .qty-box {
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--cyan-neon);
             border-radius: 14px;
             padding: 14px 0;
             text-align: center;
@@ -344,16 +351,17 @@
         .qty-box span:first-child { font-size: 18px; font-weight: 900; color: #fff; }
         .qty-box span:last-child { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
         .qty-box.active {
-            background: linear-gradient(135deg, var(--green-bright), #059669);
-            border-color: var(--green-bright);
-            box-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
+            background: linear-gradient(135deg, var(--green-neon), #00b359);
+            color: #000;
+            border-color: var(--green-neon);
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
         }
-        .qty-box.active span { color: #fff; }
+        .qty-box.active span { color: #000; }
 
         .search-input {
             width: 100%;
             background: var(--input-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--cyan-neon);
             border-radius: 14px;
             padding: 13px 16px;
             color: white;
@@ -362,13 +370,13 @@
             outline: none;
             transition: 0.2s;
         }
-        .search-input:focus { border-color: var(--gold-primary); box-shadow: 0 0 12px rgba(250, 204, 21, 0.4); }
+        .search-input:focus { border-color: var(--gold-neon); box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
 
         .ranges-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
         .range-tab {
             background: var(--input-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--cyan-neon);
             border-radius: 12px;
             padding: 10px 6px;
             text-align: center;
@@ -380,27 +388,27 @@
         }
 
         .range-tab.active {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow));
             color: #000;
-            border-color: var(--gold-light);
+            border-color: var(--gold-neon);
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(250, 204, 21, 0.5);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
         }
 
         .my-selection-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(250, 204, 21, 0.1);
-            border: 1px solid rgba(250, 204, 21, 0.35);
+            background: rgba(255, 215, 0, 0.12);
+            border: 1px solid var(--gold-neon);
             padding: 10px 14px;
             border-radius: 12px;
             font-size: 11px;
             font-weight: 800;
-            color: var(--gold-light);
+            color: var(--gold-neon);
         }
         .view-selected-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow));
             color: #000;
             border: none;
             padding: 6px 12px;
@@ -408,7 +416,7 @@
             font-size: 10px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
+            box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
         }
 
         .tickets-grid {
@@ -420,12 +428,12 @@
             background: rgba(2, 6, 23, 0.95);
             padding: 12px;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .ticket-cell {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 11px 0;
             text-align: center;
             border-radius: 10px;
@@ -436,14 +444,14 @@
             user-select: none;
             transition: 0.15s;
         }
-        .ticket-cell:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--cyan-bright); }
+        .ticket-cell:hover { background: rgba(0, 240, 255, 0.15); border-color: var(--cyan-neon); }
 
         .ticket-cell.selected {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow));
             color: #000;
-            border-color: var(--gold-light);
+            border-color: #ffffff;
             font-weight: 900;
-            box-shadow: 0 0 15px rgba(250, 204, 21, 0.8);
+            box-shadow: 0 0 18px rgba(255, 215, 0, 0.9);
         }
 
         .ticket-cell.sold {
@@ -457,40 +465,40 @@
         .bottom-floating-bar {
             position: fixed;
             bottom: 0; left: 0; right: 0;
-            background: rgba(15, 23, 42, 0.96);
+            background: rgba(10, 16, 32, 0.96);
             backdrop-filter: blur(20px);
-            border-top: 1px solid var(--card-border);
+            border-top: 1px solid var(--gold-neon);
             padding: 14px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
             z-index: 50;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.9);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.9);
         }
 
         .selection-summary { font-size: 12px; color: var(--text-muted); font-weight: 600; }
-        .selection-summary b { display: block; font-size: 16px; color: var(--gold-light); }
+        .selection-summary b { display: block; font-size: 16px; color: var(--gold-neon); text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
 
         .buy-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: #fff;
+            background: linear-gradient(135deg, var(--green-neon), #00b359);
+            color: #000;
             border: none;
             border-radius: 14px;
             padding: 14px 28px;
             font-size: 14px;
             font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.7);
             transition: 0.2s;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
-        .buy-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+        .buy-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
 
         .podium-card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--gold-neon);
             border-radius: 22px;
             padding: 20px 16px;
             display: flex;
@@ -498,16 +506,17 @@
             align-items: center;
             text-align: center;
             gap: 14px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
         }
 
         .podium-icon-top {
             width: 40px; height: 40px;
-            background: rgba(250, 204, 21, 0.15);
-            border: 1px solid rgba(250, 204, 21, 0.4);
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid var(--gold-neon);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 20px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
 
         .podium-title-area h3 { font-size: 16px; font-weight: 900; color: #fff; margin: 0 0 2px 0; }
@@ -526,10 +535,10 @@
         .podium-item-ref.rank-1-wrapper { transform: translateY(-8px); }
         .podium-item-ref.rank-1-wrapper .podium-avatar-ring {
             width: 62px; height: 62px;
-            border: 3px solid var(--gold-primary);
-            background: rgba(250, 204, 21, 0.2);
-            color: var(--gold-light);
-            box-shadow: 0 0 20px rgba(250, 204, 21, 0.6);
+            border: 3px solid var(--gold-neon);
+            background: rgba(255, 215, 0, 0.25);
+            color: var(--gold-neon);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
             font-size: 18px;
         }
 
@@ -537,85 +546,86 @@
         .podium-item-ref.rank-3-wrapper .podium-avatar-ring { border: 2px solid #d97706; background: rgba(217, 119, 6, 0.1); color: #d97706; }
 
         .podium-crown { position: absolute; top: -16px; font-size: 15px; }
-        .podium-badge-tag { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.08); color: #fff; }
+        .podium-badge-tag { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: rgba(255,255,255,0.1); color: #fff; }
         .podium-name-txt { font-size: 11px; font-weight: 800; color: #fff; max-width: 80px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: 0; }
-        .podium-tickets-txt { font-size: 10px; font-weight: 900; color: var(--gold-light); margin: 0; }
+        .podium-tickets-txt { font-size: 10px; font-weight: 900; color: var(--gold-neon); margin: 0; }
 
         #adminPanelScreen {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: #030712;
+            background: #02040a;
             z-index: 200;
             padding: 20px;
             overflow-y: auto;
             box-sizing: border-box;
         }
 
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 14px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--gold-neon); padding-bottom: 14px; }
         .admin-table-container { width: 100%; max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 
         .client-admin-card {
             background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--gold-neon);
             border-radius: 16px;
             padding: 16px;
             display: flex; justify-content: space-between; align-items: center; gap: 10px;
         }
-        .client-info b { color: var(--gold-light); font-size: 14px; display: block; margin-bottom: 4px; }
+        .client-info b { color: var(--gold-neon); font-size: 14px; display: block; margin-bottom: 4px; }
         .client-info span { font-size: 12px; color: var(--text-muted); display: block; font-weight: 500; }
 
         .download-img-btn {
-            background: linear-gradient(135deg, var(--gold-primary), #ca8a04);
+            background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow));
             color: #000; border: none; padding: 10px 16px; border-radius: 12px;
             font-weight: 900; font-size: 12px; cursor: pointer; white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(250, 204, 21, 0.4);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
 
         #ticketCanvasContainer { position: absolute; left: -9999px; top: -9999px; }
         .ticket-receipt-card {
             width: 500px;
-            background: linear-gradient(135deg, #0f172a, #020617);
-            border: 3px solid var(--gold-primary); border-radius: 24px; padding: 30px;
+            background: linear-gradient(135deg, #0f172a, #02040a);
+            border: 3px solid var(--gold-neon); border-radius: 24px; padding: 30px;
             color: white; font-family: sans-serif; box-sizing: border-box; text-align: center;
         }
 
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(2, 6, 23, 0.92); backdrop-filter: blur(12px);
+            background: rgba(2, 4, 10, 0.94); backdrop-filter: blur(12px);
             display: none; justify-content: center; align-items: center; z-index: 100; padding: 16px;
         }
         .modal-card {
             width: 100%; max-width: 400px; background: #0f172a;
-            border: 1px solid var(--gold-primary); border-radius: 26px; padding: 24px;
-            display: flex; flex-direction: column; gap: 16px; box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+            border: 2px solid var(--gold-neon); border-radius: 26px; padding: 24px;
+            display: flex; flex-direction: column; gap: 16px; box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
             max-height: 90vh; overflow-y: auto; position: relative;
         }
         .bank-header-title {
-            background: linear-gradient(135deg, #ca8a04, var(--gold-primary)); color: #000;
+            background: linear-gradient(135deg, var(--gold-glow), var(--gold-neon)); color: #000;
             text-align: center; padding: 14px; border-radius: 14px; font-weight: 900; font-size: 14px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
         }
         .modal-title { font-size: 18px; font-weight: 900; color: #fff; text-align: center; margin: 0; }
         .modal-subtitle { font-size: 12px; color: var(--text-muted); text-align: center; margin: -10px 0 0 0; font-weight: 500; }
         
-        .bank-box { background: rgba(2, 6, 23, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
-        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.04); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
+        .bank-box { background: rgba(2, 6, 23, 0.95); border: 1px solid var(--cyan-neon); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .bank-row { display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.05); padding: 10px 12px; border-radius: 10px; font-size: 13px; color: #fff; }
         
-        .copy-btn { background: var(--gold-primary); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
+        .copy-btn { background: var(--gold-neon); color: #000; border: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; cursor: pointer; }
         .form-group { display: flex; flex-direction: column; gap: 6px; }
         .form-label { font-size: 12px; font-weight: 800; color: #fff; }
-        .form-input { width: 100%; background: rgba(2, 6, 23, 0.95); border: 1px solid var(--card-border); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
+        .form-input { width: 100%; background: rgba(2, 6, 23, 0.95); border: 1px solid var(--cyan-neon); border-radius: 14px; padding: 13px 16px; color: white; font-size: 13px; box-sizing: border-box; outline: none; }
 
         .file-upload-box {
-            border: 2px dashed var(--gold-primary); border-radius: 14px; padding: 18px 14px;
-            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(250, 204, 21, 0.05);
+            border: 2px dashed var(--gold-neon); border-radius: 14px; padding: 18px 14px;
+            text-align: center; font-size: 12px; color: #fff; cursor: pointer; background: rgba(255, 215, 0, 0.08);
             display: flex; flex-direction: column; align-items: center; gap: 6px; font-weight: 600;
         }
 
         .modal-btn-row { display: flex; gap: 10px; margin-top: 4px; }
         .btn-modal-action { flex: 1; padding: 14px; border-radius: 14px; font-size: 13px; font-weight: 800; cursor: pointer; border: none; }
         .btn-cancel { background: rgba(255, 255, 255, 0.08); color: #fff; }
-        .btn-confirm { background: linear-gradient(135deg, var(--gold-primary), #ca8a04); color: #000; font-weight: 900; box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4); }
+        .btn-confirm { background: linear-gradient(135deg, var(--gold-neon), var(--gold-glow)); color: #000; font-weight: 900; box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
     </style>
 </head>
 <body>
@@ -635,7 +645,7 @@
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
     </div>
 
-    <!-- PREMIOS OFICIALES REORGANIZADOS EN TARJETAS LIMPIAS SIN EMOJIS -->
+    <!-- PREMIOS OFICIALES REORGANIZADOS EN TARJETAS LIMPIAS CON DESTELLO DORA-NEÓN -->
     <div class="prizes-showcase">
         <div class="prize-mini-card">
             <span class="prize-number-badge">1er Premio</span>
@@ -676,7 +686,7 @@
             </ol>
             <div class="legend-row">
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(255,255,255,0.2);"></div> Libre</div>
-                <div class="legend-item"><div class="legend-dot" style="background: var(--gold-primary);"></div> Tuyo</div>
+                <div class="legend-item"><div class="legend-dot" style="background: var(--gold-neon);"></div> Tuyo</div>
                 <div class="legend-item"><div class="legend-dot" style="background: rgba(239, 68, 68, 0.7);"></div> Vendido</div>
             </div>
         </div>
@@ -754,7 +764,7 @@
 <div id="adminPanelScreen">
     <div class="admin-table-container">
         <div class="admin-header">
-            <h2 style="margin: 0; color: var(--gold-light);">🔐 Panel de Control - La Ruta de la Suerte 7</h2>
+            <h2 style="margin: 0; color: var(--gold-neon);">🔐 Panel de Control - La Ruta de la Suerte 7</h2>
             <button class="download-img-btn" style="background: #ef4444; color:#fff;" onclick="cerrarAdminPanel()">Cerrar ✖</button>
         </div>
         <input type="text" id="adminSearchInput" class="search-input" placeholder="🔍 Buscar por cliente o referencia..." onkeyup="filtrarClientesAdmin(this.value)">
@@ -764,16 +774,16 @@
 
 <div id="ticketCanvasContainer">
     <div id="ticketReceiptCard" class="ticket-receipt-card">
-        <h2 style="color: var(--gold-light); margin: 0 0 5px 0;">LA RUTA DE LA SUERTE 7</h2>
+        <h2 style="color: var(--gold-neon); margin: 0 0 5px 0;">LA RUTA DE LA SUERTE 7</h2>
         <p style="font-size: 11px; color: var(--text-muted); margin: 0 0 15px 0;">COMPROBANTE OFICIAL DE PARTICIPACIÓN</p>
         <div style="background: rgba(255,255,255,0.05); padding: 14px; border-radius: 12px; margin-bottom: 15px; text-align: left;">
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Participante:</b> <span id="lblTicketNombre" style="color: #fff;">-</span></p>
             <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Teléfono:</b> <span id="lblTicketTelefono" style="color: #fff;">-</span></p>
-            <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Referencia:</b> <span id="lblTicketRef" style="color: #facc15;">-</span></p>
-            <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Fecha de Compra:</b> <span id="lblTicketFecha" style="color: #34d399;">-</span></p>
+            <p style="margin: 0 0 4px 0; font-size: 12px; color: var(--text-muted);"><b>Referencia:</b> <span id="lblTicketRef" style="color: #ffd700;">-</span></p>
+            <p style="margin: 0; font-size: 12px; color: var(--text-muted);"><b>Fecha de Compra:</b> <span id="lblTicketFecha" style="color: #00ff88;">-</span></p>
         </div>
-        <div style="background: rgba(250, 204, 21, 0.1); border: 1px solid var(--gold-primary); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
-            <p style="margin: 0 0 4px 0; font-size: 11px; color: var(--gold-light); font-weight: bold;">NÚMEROS ASIGNADOS:</p>
+        <div style="background: rgba(255, 215, 0, 0.15); border: 1px solid var(--gold-neon); padding: 14px; border-radius: 12px; margin-bottom: 15px;">
+            <p style="margin: 0 0 4px 0; font-size: 11px; color: var(--gold-neon); font-weight: bold;">NÚMEROS ASIGNADOS:</p>
             <h3 id="lblTicketNumeros" style="margin: 0; color: #fff; font-size: 16px; word-break: break-all;">-</h3>
         </div>
         <p style="font-size: 10px; color: var(--text-muted); margin: 0;">¡Guarda este comprobante para reclamar tu premio!</p>
@@ -960,7 +970,7 @@
             </div>
             <div class="podium-item-ref rank-1-wrapper">
                 <div class="podium-avatar-ring"><span class="podium-crown">👑</span>${inicial1}</div>
-                <span class="podium-badge-tag" style="background: rgba(250,204,21,0.2); color: var(--gold-light);">🏆 #1</span>
+                <span class="podium-badge-tag" style="background: rgba(255,215,0,0.3); color: var(--gold-neon);">🏆 #1</span>
                 <p class="podium-name-txt" style="font-size: 12px;">${top1.nombre}</p>
                 <p class="podium-tickets-txt">${top1.cantidad} T.</p>
             </div>
@@ -978,12 +988,12 @@
         let btn = document.querySelector('.view-selected-btn');
         if (soloVerMisSeleccionados) {
             btn.innerText = "Ver Todo";
-            btn.style.background = "#06b6d4";
-            btn.style.color = "#fff";
+            btn.style.background = "#00f0ff";
+            btn.style.color = "#000";
             renderizarListaFiltrada(seleccionados);
         } else {
             btn.innerText = "Ver Listos";
-            btn.style.background = "var(--gold-primary)";
+            btn.style.background = "var(--gold-neon)";
             btn.style.color = "#000";
             generarBoletos(inicioRango, finRango);
         }
@@ -1048,7 +1058,7 @@
         soloVerMisSeleccionados = false;
         let btn = document.querySelector('.view-selected-btn');
         btn.innerText = "Ver Listos";
-        btn.style.background = "var(--gold-primary)";
+        btn.style.background = "var(--gold-neon)";
         btn.style.color = "#000";
         document.querySelectorAll('.range-tab').forEach(t => t.classList.remove('active'));
         if(inicio === 1) document.getElementById('range1').classList.add('active');
@@ -1123,11 +1133,11 @@
     function verificarCapture(input) {
         if (input.files && input.files[0]) {
             tieneCapture = true;
-            document.getElementById('fileLabel').style.borderColor = 'var(--gold-primary)';
-            document.getElementById('fileLabel').style.background = 'rgba(250, 204, 21, 0.12)';
+            document.getElementById('fileLabel').style.borderColor = 'var(--gold-neon)';
+            document.getElementById('fileLabel').style.background = 'rgba(255, 215, 0, 0.18)';
             document.getElementById('fileLabel').innerHTML = `
                 <span style="font-size: 22px;">✅</span>
-                <span style="color:var(--gold-light); font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
+                <span style="color:var(--gold-neon); font-weight:800; font-size:13px;">¡Capture cargado con éxito!</span>
             `;
         }
     }
@@ -1138,8 +1148,8 @@
         if(inputEl) inputEl.value = '';
         let label = document.getElementById('fileLabel');
         if(label) {
-            label.style.borderColor = 'var(--gold-primary)';
-            label.style.background = 'rgba(250, 204, 21, 0.05)';
+            label.style.borderColor = 'var(--gold-neon)';
+            label.style.background = 'rgba(255, 215, 0, 0.08)';
             label.innerHTML = `
                 <span style="font-size: 22px;">📂</span>
                 <span style="font-weight: 700; color: #fff;">Toca aquí para seleccionar tu capture</span>
@@ -1189,10 +1199,10 @@
         let fechaFormateada = ahora.toLocaleDateString('es-VE') + ', ' + ahora.toLocaleTimeString('es-VE', { hour: '2-digit', minute: '2-digit', hour12: true });
 
         confetti({
-            particleCount: 140,
-            spread: 90,
+            particleCount: 150,
+            spread: 100,
             origin: { y: 0.6 },
-            colors: ['#facc15', '#38bdf8', '#10b981', '#ffffff']
+            colors: ['#ffd700', '#00f0ff', '#00ff88', '#ffffff']
         });
 
         seleccionados.forEach(num => {
@@ -1258,7 +1268,7 @@
                 <div class="client-info">
                     <b>${cli.nombre}</b>
                     <span>📞 ${cli.telefono}</span>
-                    <span>💳 Ref: <b style="color:#facc15; display:inline;">${cli.referencia || 'Sin Ref'}</b></span>
+                    <span>💳 Ref: <b style="color:#ffd700; display:inline;">${cli.referencia || 'Sin Ref'}</b></span>
                     <span>📅 Fecha: ${cli.fecha || 'N/A'}</span>
                     <span>🎟️ Números: ${cli.numeros}</span>
                 </div>
