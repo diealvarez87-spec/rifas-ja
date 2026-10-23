@@ -86,10 +86,9 @@
             align-items: center;
         }
 
-        /* LOGO OFICIAL */
         .hero-logo-main {
             width: 100%;
-            max-width: 290px;
+            max-width: 280px;
             height: auto;
             border-radius: 22px;
             object-fit: contain;
@@ -639,7 +638,7 @@
         <div class="icon-btn" onclick="pedirPasswordAdmin()" title="Panel de Administrador">🔐</div>
     </div>
 
-    <!-- HERO BANNER CON LOGO INTEGRADO EN BASE64 (NUNCA FALLA NI SE DAÑA) -->
+    <!-- LOGO OFICIAL EN CÓDIGO (100% SEGURO, NUNCA DA ERROR) -->
     <div class="hero-banner">
         <svg class="hero-logo-main" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -661,33 +660,20 @@
                     <stop offset="100%" stop-color="#0284c7"/>
                 </linearGradient>
             </defs>
-            <!-- Circulo Externo Plateado -->
             <circle cx="250" cy="250" r="240" fill="url(#silverRing)"/>
             <circle cx="250" cy="250" r="222" fill="#03132e"/>
             <circle cx="250" cy="250" r="214" fill="url(#silverRing)"/>
             <circle cx="250" cy="250" r="198" fill="url(#bgGrad)"/>
-            
-            <!-- Camino de la suerte -->
             <path d="M 220 380 Q 280 320 220 270 Q 180 230 250 180 Q 280 210 260 260 Q 320 310 260 380 Z" fill="url(#roadGrad)"/>
-            
-            <!-- Trébol 4 Hojas -->
             <g transform="translate(210, 160)">
                 <path d="M0,0 C-15,-20 -35,-5 -15,10 C-35,25 -15,40 0,20 C15,40 35,25 15,10 C35,-5 15,-20 0,0" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
             </g>
-
-            <!-- Estrella luminosa -->
             <path d="M 280 140 L 285 155 L 300 160 L 285 165 L 280 180 L 275 165 L 260 160 L 275 155 Z" fill="#ffffff"/>
-            
-            <!-- Texto Curvo Superior -->
             <path id="textArcTop" d="M 75 250 A 175 175 0 0 1 425 250" fill="none"/>
             <text font-family="system-ui, sans-serif" font-weight="900" font-size="32" fill="#ffffff" text-anchor="middle">
                 <textPath href="#textArcTop" startOffset="50%">LA RUTA DE LA SUERTE</textPath>
             </text>
-
-            <!-- Numero 7 -->
             <text x="250" y="340" font-family="system-ui, sans-serif" font-weight="900" font-size="80" fill="#ffffff" stroke="#0284c7" stroke-width="4" text-anchor="middle">7</text>
-
-            <!-- Cinta Inferior Rifas y Sorteos -->
             <path d="M 100 370 Q 250 420 400 370 L 380 430 Q 250 470 120 430 Z" fill="#0284c7" stroke="url(#silverRing)" stroke-width="4"/>
             <text x="250" y="420" font-family="system-ui, sans-serif" font-weight="900" font-size="24" fill="#ffffff" text-anchor="middle">RIFAS Y SORTEOS</text>
         </svg>
@@ -696,6 +682,7 @@
         <div class="hero-subtitle">¡Asegura tus números y participa por premios de lujo!</div>
     </div>
 
+    <!-- PREMIOS REALES DE TU PAPÁ -->
     <div class="prizes-showcase">
         <div class="prize-mini-card">
             <span class="prize-number-badge">1er Premio</span>
@@ -752,8 +739,9 @@
         </div>
     </div>
 
+    <!-- SELECTOR DE BOLETOS CON DISEÑO MODERNIZADO ESTILO LÁTIN -->
     <div class="selection-panel">
-        <div class="panel-heading-title">🎯 ELIGE TU SUERTE</div>
+        <div class="panel-heading-title">🎯 SELECCIONA TUS BOLETOS</div>
         
         <div class="mode-tabs">
             <div id="tabManual" class="mode-tab active" onclick="cambiarModo('manual')">✋ MANUAL</div>
@@ -840,13 +828,13 @@
     </div>
 </div>
 
-<!-- MODAL DE PAGO (SOLO DATOS BANCARIOS Y COMPROBANTE) -->
+<!-- MODAL DE PAGO MÓVIL PROFESIONAL -->
 <div id="modalPago" class="modal-overlay">
     <div class="modal-card">
-        <div class="bank-header-title">🏛️ BANCO DE VENEZUELA</div>
+        <div class="bank-header-title">🏛️ BANCO DE VENEZUELA - PAGO MÓVIL</div>
 
-        <h3 class="modal-title" style="margin-top: 6px;">Realiza tu Pago Móvil</h3>
-        <p class="modal-subtitle">Transfiere el monto exacto y adjunta tu comprobante</p>
+        <h3 class="modal-title" style="margin-top: 6px;">Datos para Transferir</h3>
+        <p class="modal-subtitle">Realiza el pago exacto y completa los datos abajo</p>
 
         <div class="bank-box">
             <div class="bank-row"><span><b>Banco:</b> B. de Venezuela</span><button class="copy-btn" onclick="copiarTexto('Banco de Venezuela')">Copiar</button></div>
@@ -895,7 +883,7 @@
     </div>
 </div>
 
-<!-- MODAL FINAL (AQUÍ APARECE "FELICIDADES POR TU COMPRA") -->
+<!-- MODAL FINAL CON EL BANNER DE FELICIDADES -->
 <div id="modalAdvertencia" class="modal-overlay">
     <div class="modal-card" style="text-align: center;">
         
